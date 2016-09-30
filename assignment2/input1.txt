@@ -1,0 +1,804 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//
+//  This is Blob class
+//
+//////////////////////////////////////////////////////////////////////////////////////////
+
+#include<stdio.h>
+#include "CBlob.h"
+#include<cv.h>
+#include<highgui.h>
+//#include"Form1.h"
+
+ 
+// constructor
+CBlob::CBlob()
+{
+}
+CBlob::CBlob(char *videoName)
+{
+
+	//Prepare data structure to read the image files from the video
+	captureVid= cvCaptureFromFile(videoName);
+	if ( !captureVid ) {
+   		fprintf( stderr, "ERROR: capture is NULL \n" );
+   		getchar();
+		return;
+	}
+
+	//Other initializations
+	bgr_frame_no = 1;
+	startFrameForBkGrTrg= 1;
+	framesUsedForBkGrTrg= 5;
+	
+   	//Good for video 1 and 3
+
+	threshold.matchrange =MATCHRANGE;
+
+
+	currSubsampledImg = NULL;
+	currImg = NULL;
+	bkgrImg = NULL;
+	diffImg = NULL;
+	bkgrPixelStat = NULL;
+
+	storage = cvCreateMemStorage(0);
+	//Initially no blobs are available for the trackers
+	for(int i=0; i<MAX_NUM_BLOBS; i++)
+		blob_available[i]=false;
+
+	//Initialize the background
+	InitBackground();
+
+	
+	//Othe options are set here
+	 Direct_Subtraction = false;
+	 Gaussian_Subtraction = true;
+	 m_update=true;
+	
+}
+
+
+
+// destructor
+CBlob::~CBlob()
+{
+	
+	// Release images
+	//if(currImg!=NULL)
+	//{
+	//	cvReleaseImage(&currImg);
+	//}
+	if(bkgrImg!=NULL)
+	{
+		cvReleaseImage(&bkgrImg);
+	}
+	if (diffImg != NULL)
+	{
+		cvReleaseImage(&diffImg);
+	}
+	if (diffImg != NULL)
+	{
+		cvReleaseImage(&currImg);
+	}
+	if (diffImg != NULL)
+	{
+		cvReleaseImage(&currSubsampledImg);
+	}
+}
+
+int CBlob::max(int X, int Y)
+{
+
+
+	if(X>Y)
+		return X;
+	else
+		return Y;
+
+}
+
+IplImage * CBlob::ProcessNextFrame()
+{
+
+	//=========================================
+	//currImg= cvQueryFrame(captureVid);
+	frame= cvQueryFrame(captureVid);
+       	if ( !frame) {
+       		fprintf( stderr, "ERROR: frame is null...\n" );
+       		getchar();
+       		return NULL;
+     	}
+	     //use cvResize to resize images to standard size
+	     cvResize(frame, currSubsampledImg);
+	     //Conver to BW
+	     cvCvtColor(currSubsampledImg,currImg,CV_BGR2GRAY);
+
+       	//use cvResize to resize images to standard size
+        ///cvResize(frame, currImg);
+     //======================================
+	
+
+	 BackgroundSubtractionGaussian (currImg, diffImg, bkgrPixelStat, camera_no, threshold);
+	
+
+
+
+	//MaxAreaContour(currImg, diffImg,Rect, &MergeFlag);
+	int num_of_blobs = MaxAreaContour(currImg, diffImg, Rect);
+
+	//cvReleaseImage(&tempimg);
+
+	//return tempimg;
+	return currImg;
+}
+
+// 
+void CBlob::InitBackground()
+{
+
+	IplImage		*bkgrimage;
+	int			i,j,l, widstep;
+
+    //=========================
+    if (currSubsampledImg==NULL)
+    	   currSubsampledImg = cvCreateImage(cvSize(STD_WIDTH,STD_HEIGHT), IPL_DEPTH_8U,3);
+    //=========================
+	bkgrimage = cvCreateImage(cvSize(STD_WIDTH,STD_HEIGHT), IPL_DEPTH_8U,1);
+	//====Initialize the height and Width of the Image here
+	frame= cvQueryFrame(captureVid);
+       	if ( !frame) {
+       		fprintf( stderr, "ERROR: frame is null...\n" );
+       		getchar();
+       		return;
+     	}
+
+
+     //use cvResize to resize images to standard size
+     cvResize(frame, currSubsampledImg);
+     //Convert to BW
+     cvCvtColor(currSubsampledImg,bkgrimage,CV_BGR2GRAY);
+   //======================================================
+
+	frameHeight = bkgrimage->height;
+	frameWidth =  bkgrimage->width;
+	
+
+   //=================Initialize the Data Structures Needed for blob Detection=================
+   if (bkgrPixelStat==NULL)
+		bkgrPixelStat = new BkGrPixelStat[frameHeight*frameWidth];
+   
+   if (diffImg==NULL)
+		diffImg = cvCreateImage(cvSize(frameWidth,frameHeight), IPL_DEPTH_8U,1);
+
+   if (bkgrImg==NULL)
+		bkgrImg = cvCreateImage(cvSize(frameWidth,frameHeight), IPL_DEPTH_8U,1);
+
+   if (currImg==NULL)
+	   currImg = cvCreateImage(cvSize(frameWidth,frameHeight), IPL_DEPTH_8U,1);
+
+
+	
+   //======================Calculate initial mean and variance========
+
+   //Allocate data structure
+	float        **tempmean;
+	tempmean = (float**)malloc(frameHeight*sizeof(float*));
+		for (i = 0; i < frameHeight; i++)
+			{
+				tempmean[i] = (float*)malloc(frameWidth*sizeof(float));
+
+				}
+		
+
+	for (i = 0; i < frameHeight; i++)
+		{
+			for (j = 0; j < frameWidth; j++)
+			{
+
+							tempmean[i][j]=0;
+			}
+		}
+
+	
+	///starting to initialize//
+	for(bgr_frame_no = startFrameForBkGrTrg; bgr_frame_no <startFrameForBkGrTrg + framesUsedForBkGrTrg; bgr_frame_no++)
+	{
+		//=========================
+
+		frame= cvQueryFrame(captureVid);
+	       	if ( !frame) {
+	       		fprintf( stderr, "ERROR: frame is null...\n" );
+	       		getchar();
+	       		return;
+	     	}
+	     //use cvResize to resize images to standard size
+	     cvResize(frame, currSubsampledImg);
+	     //Conver to BW
+	     cvCvtColor(currSubsampledImg,bkgrimage,CV_BGR2GRAY);
+	   //======================================================
+
+		/////initializing the variance to zero and weights to 1/NUM_GAUSSIANS/////
+
+		widstep = frameWidth;
+
+		if(bgr_frame_no == startFrameForBkGrTrg)
+		{
+		
+			for (i = 0; i < frameHeight; i++)
+			{
+				for (j = 0; j < frameWidth; j++)
+				{	
+					for (l = 0; l < NUM_GAUSSIANS; l++)
+					{	
+					//	bkgrPixelStat[i*frameWidth+j].mean[l]	  = 0;
+						bkgrPixelStat[i*frameWidth+j].variance[l] = 0;
+						if(l==0)
+							bkgrPixelStat[i*frameWidth+j].weight[l] = 1.0;
+						else
+							bkgrPixelStat[i*frameWidth+j].weight[l] = 0;
+
+						bkgrPixelStat[i*frameWidth+j].label[l] = 'B';
+					}						
+					bkgrPixelStat[i*frameWidth+j].bkCount = framesUsedForBkGrTrg;
+				}	
+			}
+		
+		}
+		
+
+	   ////storing the values/////
+		for (i = 0; i < frameHeight; i++)
+		{
+			for (j = 0; j < frameWidth; j++)
+			{
+				tempmean[i][j]	+= (float)((BYTE)bkgrimage->imageData[i*widstep+j]);
+			}
+		}
+
+	}
+
+
+	/////Finally calculating the mean ////
+	for (i = 0; i < frameHeight; i++)
+	{
+		for (j = 0; j < frameWidth; j++)
+		{
+			for (l = 0; l < NUM_GAUSSIANS; l++)
+			{
+				
+				if(l==0)
+					bkgrPixelStat[i*frameWidth+j].mean[l] = (tempmean[i][j]/framesUsedForBkGrTrg);
+				else
+					bkgrPixelStat[i*frameWidth+j].mean[l] =0;
+
+			}
+			tempmean[i][j] = tempmean[i][j]/framesUsedForBkGrTrg;
+		}
+	}
+
+
+	for( bgr_frame_no = startFrameForBkGrTrg; bgr_frame_no <= startFrameForBkGrTrg + framesUsedForBkGrTrg; bgr_frame_no++)
+	{
+
+
+		frame= cvQueryFrame(captureVid);
+	       	if ( !frame) {
+	       		fprintf( stderr, "ERROR: frame is null...\n" );
+	       		getchar();
+	       		return;
+	     	}
+		     //use cvResize to resize images to standard size
+		     cvResize(frame, currSubsampledImg);
+		     //Conver to BW
+		     cvCvtColor(currSubsampledImg,bkgrimage,CV_BGR2GRAY);
+		   //======================================================
+		/////initializing the mean and variance matrix/////
+
+		widstep = (frameWidth);
+
+		////storing the values/////
+
+		for (i = 0; i < frameHeight; i++)
+		{
+			for (j = 0; j < frameWidth; j++)
+			{
+				
+				for (l = 0; l < NUM_GAUSSIANS; l++)
+				{	
+						bkgrPixelStat[i*frameWidth+j].variance[l]	+= pow( ((BYTE)bkgrimage->imageData[i*widstep+j]-tempmean[i][j]), 2);
+					//bkgrPixelStat[i*frameWidth+j].variance[l]	+= abs((BYTE)bkgrimage->imageData[i*widstep+j]-tempmean[i][j]);
+								
+								//pow( ((BYTE)bkgrimage->imageData[i*widstep+j*3+l] 
+								//- 	  bkgrPixelStat[i*frameWidth+j].mean[l]), 2);
+						//pow( ((BYTE)bkgrimage->imageData[i*widstep+j]
+						//	- 	  tempmean[i][j]), 2);
+				}	
+			}
+		}
+
+	}
+		
+	
+	for (i = 0; i < frameHeight; i++)
+						 free(tempmean[i]);
+
+
+		  
+	for (i = 0; i < frameHeight; i++)
+	{
+		for (j = 0; j < frameWidth; j++)
+		{	
+			for (l = 0; l < NUM_GAUSSIANS; l++)
+			{
+				bkgrPixelStat[i*frameWidth+j].variance[l] /= framesUsedForBkGrTrg;
+				//bkgrPixelStat[i*frameWidth+j].variance[l] += VARIANCE_SHIFT;
+				bkgrPixelStat[i*frameWidth+j].variance[l] += LARGE_VARIANCE;//just to avoid divide by zero
+			}
+		}	   
+	}
+
+	if (bkgrimage != NULL)
+	{
+		cvReleaseImage(&bkgrimage);
+	}
+
+
+}
+
+//////////////////////////////////////////////////
+/////////Function to extract foreground/////////// 
+//////////////////////////////////////////////////
+
+
+void CBlob::FormBackground(IplImage *bkgrImg, BkGrPixelStat *bkgrPixelStat, int camera_no)
+{
+	int	i, j, l, widstep;
+	//IplImage *tempimg = cvCreateImage(cvSize(frameWidth,frameHeight), IPL_DEPTH_8U,3);
+
+	widstep = frameWidth;
+
+	for (i = 0; i < frameHeight; i++)
+	{
+		for (j = 0; j < frameWidth; j++)
+		{
+			for (l = 0; l < NUM_GAUSSIANS; l++)
+			{
+			    //l=0;
+				bkgrImg->imageData[i*widstep+j]=(BYTE)bkgrPixelStat[i*frameWidth+j].mean[l];
+			}
+		}
+	}
+
+
+	return;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// Function: on line EM updating
+////////////////////////////////////////////////////////////////////////////////////////////
+
+void CBlob::update_EM(IplImage *currImg, BkGrPixelStat *bkgrPixelStat, int i,int j)
+{
+	
+	int widstep = frameWidth;
+	int l;
+	for ( l = 0; l <NUM_GAUSSIANS; l++)
+	{
+		bkgrPixelStat[i*frameWidth+j].mean[l]
+						=  bkgrPixelStat[i*frameWidth+j].mean[l]
+							+ (BYTE)(((BYTE)currImg->imageData[i*widstep+j]
+								- (BYTE)bkgrPixelStat[i*frameWidth+j].mean[l])
+								/ bkgrPixelStat[i*frameWidth+j].bkCount);
+	}
+
+	for ( l = 0; l <NUM_GAUSSIANS; l++)
+	{
+		bkgrPixelStat[i*frameWidth+j].variance[l]
+						=  bkgrPixelStat[i*frameWidth+j].variance[l]
+							+ (float)((pow((float)((BYTE)currImg->imageData[i*widstep+j]
+								-  bkgrPixelStat[i*frameWidth+j].mean[l]),2) - bkgrPixelStat[i*frameWidth+j].variance[l])
+								/ bkgrPixelStat[i*frameWidth+j].bkCount);
+	}
+
+
+
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////Finds the Maximum Area Contour ////
+/////////////////////////////////////////////////////////////////////////////////////
+int CBlob::MaxAreaContour(IplImage *currImg, IplImage *BinImage, CvRect *Rect)
+{
+	//int max_num_contours = 15;
+	CvRect LocalRect[MAX_CONTOURS];
+	int center_x0;
+	int center_x1;
+
+	//mergeFlag[0] = 0;
+
+	bool white[MAX_CONTOURS];//used in merging phase
+	//My variables
+	//int mk_AreaArray[MAX_NUM_BLOBS];//For temporarily soring the arrays. 
+	int i,j,num_of_contours;
+
+	//IplImage *BinImage =cvCreateImage(cvSize(frameWidth,frameHeight), IPL_DEPTH_8U,1);
+	//ConvertToBinaryImage(diffImg, BinImage);
+	//IplImage *BinImage =diffImg;//For gray Images, difference image is binary image
+
+	//CvMemStorage* storage = cvCreateMemStorage(0);
+
+
+	CvSeq* contour=0;
+	//CvSeq* tempcontour[2];
+		
+	//tempcontour[0] =0; tempcontour[1] = 0;
+	if (contour != NULL)
+	{
+		contour->h_next = 0;
+	}
+
+	
+	//Find the all the contours in the binary image. 
+	cvFindContours( BinImage, storage, &contour, sizeof(CvContour), CV_RETR_LIST,CV_CHAIN_APPROX_SIMPLE );
+    //====================================================// 
+    //////////////Read the Blobs in one array////////////
+	num_of_contours=-1;
+	for( ; contour != NULL; contour = contour->h_next)
+	{
+       if (fabs(cvContourArea( contour, CV_WHOLE_SEQ ))> int(MIN_CONTOUR_AREA*frameWidth))//Only consider big enough contours
+	   {
+		   if (num_of_contours == (MAX_CONTOURS-1))//We only read MAX_NUM_BLOBS contours 
+				break;
+			else
+				num_of_contours++;	
+		   
+
+			//rect = cvBoundingRect(contour, 0 );	
+		   LocalRect[num_of_contours] = cvBoundingRect(contour, 0 );
+		   white[num_of_contours] = true;
+	   }
+	}
+
+    num_of_contours++;//The number of contours is 0,1,...num_of_countours-1, it also shows number of blobs
+	//======================================================//
+	/////////Sort the blobs///////////////////////////////
+	CvRect temp_rect;
+	for (i=0; i< num_of_contours ; i++)
+		for (j=i+1; j<num_of_contours;j++)
+		{
+			if((LocalRect[j].width*LocalRect[j].height)>(LocalRect[i].width*LocalRect[i].height))//See if there is any bigger blob
+			{
+				temp_rect.x		= LocalRect[i].x;
+				temp_rect.y		= LocalRect[i].y;
+				temp_rect.width	= LocalRect[i].width;
+				temp_rect.height = LocalRect[i].height;
+				
+				LocalRect[i].x		= LocalRect[j].x;
+				LocalRect[i].y		= LocalRect[j].y;
+				LocalRect[i].width	= LocalRect[j].width;
+				LocalRect[i].height = LocalRect[j].height;
+
+				LocalRect[j].x		= temp_rect.x;
+				LocalRect[j].y		= temp_rect.y;
+				LocalRect[j].width	= temp_rect.width;
+				LocalRect[j].height = temp_rect.height;
+
+			}
+		}
+		//=====================================================//
+    //////Run the merge algorithm////////////////////////////
+
+	
+
+	for (i=0; i <num_of_contours-1;i++)//till second last blob
+	{
+		if(white[i])//Only consider the blobs which have not been merged so far
+			for (j=i+1; j<num_of_contours;j++)//till last blob, only blobs which are available
+			{ 
+				if(white[j])
+				{
+					
+					
+					center_x0 = (int) (LocalRect[i].x + (float)(LocalRect[i].width/2.0));
+					center_x1 = (int) (LocalRect[j].x + (float)(LocalRect[j].width/2.0));
+					///checking if the smaller rectangle (LocalRect[j]) is not inside larger rectangel (LocalRect[i])
+					if((LocalRect[i].x <= LocalRect[j].x) && (LocalRect[i].y <= LocalRect[j].y) && 
+						(LocalRect[i].x+LocalRect[i].width >= LocalRect[j].x+LocalRect[j].width) &&
+						(LocalRect[i].y+LocalRect[i].height >= LocalRect[j].y+LocalRect[j].height))
+					{
+
+ 							white[j] = false;//The blob is merged with blob i
+							 
+					}
+					else if ( abs(center_x0 - center_x1) < int(MIN_MERGE_DISTANCE*frameWidth))
+					{	
+						white[j] = false;//The blob is merged to the bigger blob
+						
+						if (LocalRect[i].y < LocalRect[j].y)	// LocalRect[j] is below than LocalRect[i]
+						{
+							
+							//Merge and update LocalRect[i]
+							//LocalRect[i].x		= LocalRect[i].x;
+							//LocalRect[i].y		= LocalRect[i].y;
+							//LocalRect[i].width	= LocalRect[i].width;
+							//LocalRect[i].height = LocalRect[j].y - LocalRect[i].y + LocalRect[j].height;
+							if(LocalRect[j].x<LocalRect[i].x) // j is left to i
+							{								
+								LocalRect[i].width = max(LocalRect[i].x - LocalRect[j].x + LocalRect[i].width,LocalRect[j].width);
+								LocalRect[i].x = LocalRect[j].x;
+							}
+							else
+							{
+								LocalRect[i].width = max(LocalRect[j].x - LocalRect[i].x + LocalRect[j].width,LocalRect[i].width);
+							}
+							
+
+							LocalRect[i].height = max(LocalRect[j].y - LocalRect[i].y + LocalRect[j].height,LocalRect[i].height);
+
+						}
+						else					// LocalRect[i] is below than LocalRect[j]
+						{
+
+							//LocalRect[i].x		= LocalRect[i].x;
+							//LocalRect[i].y		= LocalRect[j].y;
+							//LocalRect[i].width	= LocalRect[i].width;
+							//LocalRect[i].height = LocalRect[i].y - LocalRect[j].y + LocalRect[i].height;
+							
+							if(LocalRect[j].x<LocalRect[i].x) // j is left to i
+							{
+								
+								LocalRect[i].width = max(LocalRect[i].x - LocalRect[j].x + LocalRect[i].width,LocalRect[j].width);
+								LocalRect[i].x = LocalRect[j].x;
+							}
+							else
+							{
+								LocalRect[i].width = max(LocalRect[j].x - LocalRect[i].x + LocalRect[j].width,LocalRect[i].width);
+							}
+							
+							LocalRect[i].height = max(LocalRect[i].y - LocalRect[j].y + LocalRect[i].height,LocalRect[j].height);
+							LocalRect[i].y		= LocalRect[j].y;
+						}
+					}
+
+				}
+			}
+
+	
+	}
+    
+	//====================================================//
+	////////////Re-collect the resulting blobs//////////////
+	i=0; //First blob (i=0) can never be merged, so start from second blob
+	for (j=0; j< num_of_contours;j++)
+		if(white[j])//The blob has not been merged with other blobs
+		{
+			if(j < MAX_NUM_BLOBS)
+			if((LocalRect[j].width*LocalRect[j].height)>int(MIN_BLOB_AREA*frameWidth))//check if the blob is of sufficient size
+			{
+				Rect[i].x		= LocalRect[j].x;
+				Rect[i].y		= LocalRect[j].y;
+				Rect[i].width	= LocalRect[j].width;
+				Rect[i].height = LocalRect[j].height;
+				blob_available[i]=true;
+				i=i+1;
+			}
+		}
+		
+	int num_of_blobs = i;	
+	//===================================================//
+
+	    //Draw the blobs in the output file=////////////////////
+		int scale = 1;
+		//for(i=0;i<num_of_blobs;i++)
+		for(i=0;i<num_of_blobs;i++)
+		{
+			cvRectangle( currImg, cvPoint(Rect[i].x*scale,Rect[i].y*scale),
+			  cvPoint((Rect[i].x+Rect[i].width)*scale,
+					 (Rect[i].y+Rect[i].height)*scale),
+			  CV_RGB(255,0,0), 2 );
+		      //if(num_of_blobs==2)
+				//       num_of_blobs = 2;
+		}
+         
+     
+		//====================================================//
+
+
+		
+	//cvReleaseImage(&BinImage);
+
+	//cvClearMemStorage(contour->storage);
+	//cvReleaseMemStorage(&contour->storage);
+	cvClearMemStorage(storage);
+	//cvReleaseMemStorage(&storage);
+    blob_count = num_of_blobs;
+	return num_of_blobs;
+}
+
+
+
+void CBlob:: ConvertToBinaryImage(IplImage *NonBinaryImage, IplImage *BinaryImage)
+{
+
+        for(int i=0; i< NonBinaryImage->height; i++)
+        {
+                for(int j=0; j < NonBinaryImage->width; j++)
+                {
+                        BinaryImage->imageData[i*(NonBinaryImage->width)+j] = (BYTE) NonBinaryImage->imageData[i*(NonBinaryImage->width)+j];
+
+                }
+
+        }
+        return;
+}
+
+void CBlob:: CreateLabel(BkGrPixelStat *bkgrPixelStat, int i,int j)
+{
+
+		float tempBG_TH=0;
+		for (int x=0; x< NUM_GAUSSIANS; x++)
+		{
+			for(int y=x+1; y< NUM_GAUSSIANS; y++)
+			{
+				if((bkgrPixelStat[i*frameWidth+j].weight[y]/bkgrPixelStat[i*frameWidth+j].variance[y])> (bkgrPixelStat[i*frameWidth+j].weight[x]/bkgrPixelStat[i*frameWidth+j].variance[x]))
+				{
+					float tempV,tempW,tempM;
+					tempW = bkgrPixelStat[i*frameWidth+j].weight[x];
+					tempV = bkgrPixelStat[i*frameWidth+j].variance[x];
+					tempM = bkgrPixelStat[i*frameWidth+j].mean[x];
+
+					bkgrPixelStat[i*frameWidth+j].weight[x] = bkgrPixelStat[i*frameWidth+j].weight[y];
+					bkgrPixelStat[i*frameWidth+j].variance[x]= bkgrPixelStat[i*frameWidth+j].variance[y];
+					bkgrPixelStat[i*frameWidth+j].mean[x]= bkgrPixelStat[i*frameWidth+j].mean[y];
+					bkgrPixelStat[i*frameWidth+j].weight[y]=tempW;
+					bkgrPixelStat[i*frameWidth+j].variance[y] = tempV;
+					bkgrPixelStat[i*frameWidth+j].mean[y] = tempM;
+
+				}
+
+			}
+
+			if (tempBG_TH < BG_TH)
+				bkgrPixelStat[i*frameWidth+j].label[x]= 'B';
+			else
+			{
+				bkgrPixelStat[i*frameWidth+j].label[x]= 'F';
+				//printf("\n\tG =%d w = %f L=%c bg_th = %f",x, bkgrPixelStat[i*frameWidth+j].weight[x],bkgrPixelStat[i*frameWidth+j].label[x],tempBG_TH);
+			}
+			tempBG_TH+=bkgrPixelStat[i*frameWidth+j].weight[x];
+
+			if(i==170 && j==53 && x==0)
+			printf("\n\tG =%d w = %f Var=%f mean = %f",x, bkgrPixelStat[i*frameWidth+j].weight[x],bkgrPixelStat[i*frameWidth+j].variance[x],bkgrPixelStat[i*frameWidth+j].mean[x]);
+
+		}
+
+}
+
+
+
+void CBlob::BackgroundSubtractionGaussian(IplImage *currImg,IplImage *diffImg, BkGrPixelStat *bkgrPixelStat, int camera_no, Threshold threshold)
+{
+	int i,j, k;
+	
+
+	//FormBackground(bkgrImg, bkgrPixelStat, camera_no);
+
+
+	//IplConvKernel *StructuringElement = cvCreateStructuringElementEx(11, 11,6, 6, CV_SHAPE_ELLIPSE, NULL);
+	//IplConvKernel *StructuringElement = cvCreateStructuringElementEx(11, 11,6, 6, CV_SHAPE_ELLIPSE, NULL);
+	IplConvKernel *StructuringElement1 = cvCreateStructuringElementEx(3, 3,2, 2, CV_SHAPE_ELLIPSE, NULL);
+	IplConvKernel *StructuringElement2 = cvCreateStructuringElementEx(15, 15,8, 8, CV_SHAPE_ELLIPSE, NULL);
+
+
+	int widstep = (frameWidth);
+	
+
+	for ( i =0;i<frameHeight;i++)
+	{
+		for ( j =0;j<frameWidth;j++)
+		{
+
+
+			//Create labels for currentGaussians
+			CreateLabel(bkgrPixelStat,i,j);
+
+			int matchCount=-1;
+			//Find the matching Gaussian
+			for(int x=0; x < NUM_GAUSSIANS; x++)
+			{
+
+
+
+				if(abs ((float)(BYTE)currImg->imageData[i*widstep+j] - bkgrPixelStat[i*frameWidth+j].mean[x]) < threshold.matchrange*(sqrt(bkgrPixelStat[i*frameWidth+j].variance[x])))
+				{
+
+                                      //EC++
+					$A*(B+C)/D*(6*(4+(10/2)))$
+					matchCount =x;
+					if(bkgrPixelStat[i*frameWidth+j].label[x]=='F')
+					{
+						diffImg->imageData[i*widstep+j] = (BYTE)255;
+					}
+					else
+						diffImg->imageData[i*widstep+j] = 0;
+
+					break;
+				}
+
+
+			}
+			if(matchCount==-1)
+			{
+
+				matchCount = NUM_GAUSSIANS-1;
+				//matching Gaissian not found, so create new and label the pixel while
+				//diffImg->imageData[i*widstep+j] = (BYTE)255;
+				//Replace the last Gaussian
+				bkgrPixelStat[i*frameWidth+j].mean[matchCount]= (float)(BYTE)currImg->imageData[i*widstep+j];
+
+				bkgrPixelStat[i*frameWidth+j].weight[matchCount]= LOW_WEIGHT;
+
+				bkgrPixelStat[i*frameWidth+j].variance[matchCount] = LARGE_VARIANCE;
+
+			}
+			if(m_update == TRUE)
+			//if(0)
+			{
+				//Update the weights
+
+
+				//Normalize weights
+				float tempW = 0;
+				for(int y=0; y < NUM_GAUSSIANS; y++)
+				{
+					if (y==matchCount)
+						bkgrPixelStat[i*frameWidth+j].weight[y] = (1-ALPHA)*bkgrPixelStat[i*frameWidth+j].weight[y]+ALPHA;
+					else
+						bkgrPixelStat[i*frameWidth+j].weight[y] = (1-ALPHA)*bkgrPixelStat[i*frameWidth+j].weight[y];
+					//accumulate the weights for normalization as done in next step
+					tempW+=bkgrPixelStat[i*frameWidth+j].weight[y];
+				}
+				for(int y=0; y < NUM_GAUSSIANS; y++)
+				{
+					bkgrPixelStat[i*frameWidth+j].weight[y] = bkgrPixelStat[i*frameWidth+j].weight[y]/tempW;
+
+				}
+
+				//Gaussian probability of current value
+				float rho = ALPHA*1/sqrt(2*M_PI*bkgrPixelStat[i*frameWidth+j].variance[matchCount]);
+				rho = rho*exp(-(pow(((float)(BYTE)currImg->imageData[i*widstep+j]
+				     												-  bkgrPixelStat[i*frameWidth+j].mean[matchCount]),2))/(2*bkgrPixelStat[i*frameWidth+j].variance[matchCount]));
+				//EC++
+				$4+(B*C)/(D*(6*(4+(10/2))))$
+
+
+				//Update Gaussian mean
+				bkgrPixelStat[i*frameWidth+j].mean[matchCount] =  (1-rho)*bkgrPixelStat[i*frameWidth+j].mean[matchCount] + rho*(float)((BYTE)currImg->imageData[i*widstep+j]);
+
+				//printf("\nBefore %f rho %f",bkgrPixelStat[i*frameWidth+j].variance[x], rho);
+				//update Gaussian Variance
+				bkgrPixelStat[i*frameWidth+j].variance[matchCount] =  (1-rho)*bkgrPixelStat[i*frameWidth+j].variance[matchCount] + rho*(float)(pow((float)((BYTE)currImg->imageData[i*widstep+j]
+												-  bkgrPixelStat[i*frameWidth+j].mean[matchCount]),2));
+				//if(bkgrPixelStat[i*frameWidth+j].variance[x]>100)
+			}
+
+
+		}
+	}
+
+	for (int k = 0; k <0; k++)
+    {
+		cvErode ( diffImg, diffImg, StructuringElement1, 2);
+		cvDilate( diffImg,diffImg, StructuringElement2, 2);
+
+	}
+	cvReleaseStructuringElement(&StructuringElement1);
+	cvReleaseStructuringElement(&StructuringElement2);
+
+	return;
+}
+
+
