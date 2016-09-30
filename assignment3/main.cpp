@@ -36,10 +36,10 @@ int hash_entry::getend_index() const{
 	return end_index;
 }
 
-int code_integer_casting (const char* s);
-int code_component_sum (const char* s);
-int code_polynomial_sum (const char* s);
-int code_cyclic_sum (const char* s);
+int code_integer_casting(const char* s);
+int code_component_sum(const char* s);
+int code_polynomial_sum(const char* s);
+int code_cyclic_sum(const char* s);
 
 int value_division(int code, int m);
 int value_mad(int code, int a, int b, int m);
@@ -66,7 +66,7 @@ int main(){
 	return 0;
 }
 
-int code_integer_casting (const char* s){
+int code_integer_casting(const char* s){
 	int code = 0;
 	int n;
 	for(n=0;s+n != NULL && *(s+n) != '\0';n++) {}
@@ -75,7 +75,7 @@ int code_integer_casting (const char* s){
 	}
 	return code;
 }
-int code_component_sum (const char* s){
+int code_component_sum(const char* s){
 	int code = 0;
 	int n;
 	for(n=0;s+n != NULL && *(s+n) != '\0';n++) {}
@@ -84,7 +84,7 @@ int code_component_sum (const char* s){
 	}
 	return code;
 }
-int code_polynomial_sum (const char* s){
+int code_polynomial_sum(const char* s){
 	int code = 0;
 	int a = 33;
 	int n;
@@ -94,7 +94,7 @@ int code_polynomial_sum (const char* s){
 	}
 	return code;
 }
-int code_cyclic_sum (const char* s){
+int code_cyclic_sum(const char* s){
 	int code = 0;
 	int h = 5;
 	int n;
