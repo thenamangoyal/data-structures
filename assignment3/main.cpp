@@ -1,7 +1,10 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cmath>
 #include <string>
+#include <vector>
+
 #include <algorithm>
 #include <bitset>
 using namespace std;
@@ -32,8 +35,7 @@ public:
 	void rehash();
 	int getsize() const;
 	void insert(const char* v_key, int v_start_index, int v_end_index);
-	hash_entry* search(const char* v_key);
-	void search_all(const char* v_key);
+	void search_all(const char* v_key, int& no_comp, int& no_false_pos);
 };
 
 int hash_code(const char* s, int code_no);
@@ -135,35 +137,10 @@ void hash_table::rehash(){
 	size = new_size;
 }
 
-hash_entry* hash_table::search(const char* v_key){
 
-	int code = hash_code(v_key, code_no);
-	int value = hash_value(code, capacity, value_no);
-	int index;
-	for(int i=0; i<capacity; i++){
-		index = linear_probe_index(value, i, capacity);
-		if (table[index]){			
-			char *p = table[index]->getkey();
-			bool isEqual = str_equal(p,v_key);
-			if (isEqual){
-				return table[index];
-			}
-			else {
-				//False Positive
-			}
-		}
-		else {
-			// Found an empty cell
-			return NULL;
-		}
-	}
-
-	// Checked all cells no value found
-	return NULL;
-
-}
-
-void hash_table::search_all(const char* v_key){
+void hash_table::search_all(const char* v_key, int& no_comp, int& no_false_pos){
+	no_comp = 0;
+	no_false_pos = 0;
 	int code = hash_code(v_key, code_no);
 	int value = hash_value(code, capacity, value_no);
 	int index;
@@ -179,7 +156,9 @@ void hash_table::search_all(const char* v_key){
 			}
 			else {
 				// False positive
+				no_false_pos++;
 			}
+			no_comp++;
 		}
 		else {
 			// Found an empty cell
@@ -235,21 +214,34 @@ int hash_entry::getend_index() const{
 int main(){
 
 	hash_table table;
+
 	ifstream input;
-	input.open("input.txt");
-	char c_temp;
-	string input_str = "";
-	while (input.get(c_temp)){
-		input_str += c_temp;
-	}
-	string search_str = "ego";
-	for (int i = 0; i < input_str.size()-search_str.size()+1 ;i++){
-		table.insert(input_str.c_str(), i, i+search_str.size());
+	ifstream pattern;
+	input.open("T.txt",ios::in);
+	pattern.open("P.txt",ios::in);
+	
+	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
+	
+	int m = 6;
+	int n = input_str.size();
+
+	for (int i = 0; i < n-m+1 ;i++){
+		table.insert(input_str.c_str(), i, i+m);
 	}
 
-	table.search_all(search_str.c_str());
-
+	string line_pattern;
+	
+	int no_comp;
+	int no_false_pos;
+	while(pattern>>line_pattern){
+		cout<<"Pattern: "<<line_pattern<<endl;
+		table.search_all(line_pattern.c_str(), no_comp, no_false_pos);
+		cout<<"Comparisons: "<<no_comp<<" False positives: "<<no_false_pos<<endl;
+		cout<<"-------------------"<<endl;
+	}
 	input.close();
+	pattern.close();
+	
 	return 0;
 }
 
