@@ -25,8 +25,10 @@ private:
 	hash_entry** table;
 	int capacity;
 	int size;
+	int code_no;
+	int value_no;
 public:
-	hash_table(int v_capacity=0);
+	hash_table(int v_code_no = 2, int v_value_no = 2, int v_capacity=0);
 	void rehash();
 	int getsize() const;
 	void insert(const char* v_key, int v_start_index, int v_end_index);
@@ -34,18 +36,25 @@ public:
 	void search_all(const char* v_key);
 };
 
+int hash_code(const char* s, int code_no);
 int code_integer_casting(const char* s);
 int code_component_sum(const char* s);
 int code_polynomial_sum(const char* s);
 int code_cyclic_sum(const char* s);
 
+int hash_value(int hash_code, int m, int value_no);
 int value_division(int code, int m);
-int value_mad(int code, int m, int a, int b);
+int value_mad(int code, int m);
 int value_multiplication(int code, int m);
 
+int linear_probe_index(int value, int i, int m);
+
+int str_len(const char* a);
 bool str_equal(const char* a, const char* b);
 
-hash_table::hash_table(int v_capacity){
+hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
+	code_no = v_code_no;
+	value_no = v_value_no;
 	size = 0;
 	capacity = v_capacity;
 	if (capacity>0){
@@ -64,33 +73,29 @@ int hash_table::getsize() const{
 	return size;
 }
 void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
-	cout<<"Current size: "<<size<<" capacity: "<<capacity<<endl; 
+	
 	if (size>=capacity) {
 		rehash();
 	}
 
 	hash_entry* h = new hash_entry(v_key, v_start_index, v_end_index);
-	int code = code_polynomial_sum(h->getkey());
-	cout<<"code: "<<code<<" key: "<<h->getkey();
-	int value = value_multiplication(code, capacity);
-	cout<<" value: "<<value<<endl;
+	int code = hash_code(h->getkey(), code_no);
+	int value = hash_value(code, capacity, value_no);
+	int index;
 	int i;
 	for(i=0; i<capacity; i++){
-		if (table[(value+i)%capacity]){
-			cout<<"Key present at "<<(value+i)%capacity<<endl;
-		}
-		else {
+		index = linear_probe_index(value, i, capacity);
+		if (table[index] == NULL){
+			// Found an empty cell
+			size++;
+			table[index] = h;
 			break;
 		}
 	}
-	size++;
-	table[(value+i)%capacity] = h;
-	cout<<"Inserting key at: "<<(value+i)%capacity<<endl<<endl;	
-
+	
 }
 
-void hash_table::rehash(){
-	cout<<"Rehashing"<<endl;
+void hash_table::rehash(){	
 	int new_capacity = (2*capacity > 1)? (2*capacity): 1;
 	int new_size = 0;
 	hash_entry** new_table = new hash_entry*[new_capacity];
@@ -98,29 +103,32 @@ void hash_table::rehash(){
 		new_table[i] = NULL;
 	}
 
-	for (int i =0 ; i< capacity; i++){
-		int new_code = code_polynomial_sum(table[i]->getkey());
-		int new_value = value_multiplication(new_code, new_capacity);
-		int j;
-		for(j=0; j<new_capacity; j++){
-			if (new_table[(new_value+j)%new_capacity]){
-			}
-			else {
+	int new_code;
+	int new_value;
+	int index;
+
+	for (int i=0 ; i< capacity; i++){
+		new_code = hash_code(table[i]->getkey(), code_no);
+		new_value = hash_value(new_code, new_capacity, value_no);
+		index;
+		for(int j=0; j<new_capacity; j++){
+			index = linear_probe_index(new_value, j, new_capacity);
+			if (new_table[index] == NULL){
+				// Found an empty cell
+				new_size++;
+				new_table[index] = new hash_entry(*table[i]);
 				break;
 			}
 		}
-		
-		new_size++;
-		new_table[(new_value+j)%new_capacity] = new hash_entry(*table[i]);
-		
 
 	}
 	if (table != NULL) {
+		// Deleting old table
 		for (int i =0 ; i< capacity; i++){
 			delete table[i];
 		}
 		delete [] table;
-		cout<<"Deleted old table of size: "<<capacity<<endl; 
+		
 	}
 	table = new_table;
 	capacity = new_capacity;
@@ -129,56 +137,63 @@ void hash_table::rehash(){
 
 hash_entry* hash_table::search(const char* v_key){
 
-	int code = code_polynomial_sum(v_key);
-	cout<<"code: "<<code<<" key: "<<v_key;
-	int value = value_multiplication(code, capacity);
-	cout<<" value: "<<value<<endl;
+	int code = hash_code(v_key, code_no);
+	int value = hash_value(code, capacity, value_no);
+	int index;
 	for(int i=0; i<capacity; i++){
-		if (table[(value+i)%capacity]){
-			cout<<"trying string: "<<table[(value+i)%capacity]->getkey()<<" : ";
-			char *p = table[(value+i)%capacity]->getkey();
+		index = linear_probe_index(value, i, capacity);
+		if (table[index]){			
+			char *p = table[index]->getkey();
 			bool isEqual = str_equal(p,v_key);
 			if (isEqual){
-				cout<<"Yes"<<endl;
-				return table[(value+i)%capacity];
+				return table[index];
 			}
-			cout<<"No"<<endl;
+			else {
+				//False Positive
+			}
 		}
 		else {
-			cout<<"found empty cell"<<endl;
+			// Found an empty cell
 			return NULL;
 		}
 	}
 
-	cout<<"All cells checked not found"<<endl;
+	// Checked all cells no value found
 	return NULL;
 
 }
 
 void hash_table::search_all(const char* v_key){
-	int code = code_polynomial_sum(v_key);
-	cout<<"code: "<<code<<" key: "<<v_key;
-	int value = value_multiplication(code, capacity);
-	cout<<" value: "<<value<<endl;
+	int code = hash_code(v_key, code_no);
+	int value = hash_value(code, capacity, value_no);
+	int index;
+	bool found = false;
 	for(int i=0; i<capacity; i++){
-		if (table[(value+i)%capacity]){
-			cout<<"trying string: "<<table[(value+i)%capacity]->getkey()<<" : ";
-			char *p = table[(value+i)%capacity]->getkey();
+		index = linear_probe_index(value, i, capacity);
+		if (table[index]){
+			char *p = table[index]->getkey();
 			bool isEqual = str_equal(p,v_key);
 			if (isEqual){
-				cout<<"Yes"<<endl;
+				found = true;
+				cout<<"Pattern found at index "<<table[index]->getstart_index()<<endl;
 			}
 			else {
-				cout<<"No"<<endl;
+				// False positive
 			}
 		}
 		else {
-			cout<<"found empty cell"<<endl;
-			return;			
+			// Found an empty cell
+			if (!found){
+				cout<<"Couldn't find the Pattern"<<endl;
+			}
+			return;
 		}
 	}
 
-	cout<<"All cells checked not found"<<endl;
+	if (!found) {
+		// Checked all cells but result not found
+		cout<<"Couldn't find the Pattern"<<endl;
+	}	
 
 }
 
@@ -204,7 +219,6 @@ hash_entry::hash_entry(const hash_entry& h){
 }
 
 hash_entry::~hash_entry(){
-	cout<<"Deleting key: "<<key<<endl;
 	delete [] key;
 }
 char* hash_entry::getkey() const{
@@ -219,7 +233,8 @@ int hash_entry::getend_index() const{
 
 
 int main(){
-	hash_table table(64);
+
+	hash_table table;
 	ifstream input;
 	input.open("input.txt");
 	char c_temp;
@@ -228,7 +243,6 @@ int main(){
 		input_str += c_temp;
 	}
 	string search_str = "ego";
-
 	for (int i = 0; i < input_str.size()-search_str.size()+1 ;i++){
 		table.insert(input_str.c_str(), i, i+search_str.size());
 	}
@@ -239,54 +253,86 @@ int main(){
 	return 0;
 }
 
+int hash_code(const char* s, int code_no){
+	int code = 0;
+	switch(code_no){
+		case 0:
+			code = code_integer_casting(s);
+			break;
+		case 1:
+			code = code_component_sum(s);
+			break;
+		case 2:
+			code = code_polynomial_sum(s);
+			break;
+		case 3:
+			code = code_cyclic_sum(s);
+			break;
+	}
+	return code;
+}
+
 int code_integer_casting(const char* s){
 	int code = 0;
-	int n;
-	for(n=0;s+n && *(s+n) != '\0';n++) {}
+	int n = str_len(s);
 	for(int i=0; i<4 && i<n; i++){
-		code += (*(s+n-i-1))<<(8*i);
+		code += s[n-i-1]<<(8*i);
 	}
 	return code;
 }
 int code_component_sum(const char* s){
 	int code = 0;
-	int n;
-	for(n=0;s+n && *(s+n) != '\0';n++) {}
+	int n = str_len(s);
 	for(int i=0; i<n; i++){
-		code += *(s+i);
+		code += s[i];
 	}
 	return code;
 }
 int code_polynomial_sum(const char* s){
 	int code = 0;
-	int a = 33;
-	int n;
-	for(n=0;s+n && *(s+n) != '\0';n++) {}
+	int a = 33;	
+	int n = str_len(s);
 	for(int i=0; i<n; i++){
-		code = a*code + *(s+i);
+		code = a*code + s[i];
 	}
 	return code;
 }
 int code_cyclic_sum(const char* s){
 	int code = 0;
 	int h = 5;
-	int n;
-	for(n=0;s+n && *(s+n) != '\0';n++) {}
+	int n = str_len(s);
 	for(int i=0; i<n; i++){
 		code = (code<<h)+ (code>>(32-h));
-		code += *(s+i);
+		code += s[i];
 	}
 	return code;
+}
+
+
+int hash_value(int hash_code, int m, int value_no){
+	int value = 0;
+	switch(value_no){
+		case 0:
+			value = value_division(hash_code, m);
+			break;
+		case 1:
+			value = value_mad(hash_code, m);
+			break;
+		case 2:
+			value = value_multiplication(hash_code, m);
+			break;
+	}
+	return value;
 }
 
 int value_division(int code, int m){
 	code = (code >= 0)? code : (-1)*code;
 	return (code%m);
 }
-int value_mad(int code, int m, int a, int b){
+int value_mad(int code, int m){
 	code = (code >= 0)? code : (-1)*code;
-	a = a%m;
-	b = b%m;
+	int a = (int)(floor(sqrt((double)m)));	
+	int b = m/2;
 	return ((a*(code%m)%m)+b)%m;
 }
 int value_multiplication(int code, int m){
@@ -300,13 +346,23 @@ int value_multiplication(int code, int m){
 	return (int)ans;
 }
 
+int linear_probe_index(int value, int i, int m){
+	return (value+i)%m;
+}
+
 bool str_equal(const char* a, const char* b){
-	int j=0;
-	while(*(a+j) == *(b+j)){
-		if (*(a+j) == '\0'){
+	int i=0;
+	while( a[i] == b[i]){
+		if (a[i] == '\0'){
 			return true;
 		}
-		j++;
+		i++;
 	}
 	return false;
+}
+
+int str_len(const char* a){
+	int i;
+	for(i=0; a[i] != '\0'; i++){}
+	return i;
 }
