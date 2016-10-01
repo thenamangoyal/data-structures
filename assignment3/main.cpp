@@ -139,6 +139,7 @@ void hash_table::rehash(){
 
 
 void hash_table::search_all(const char* v_key, int& no_comp, int& no_false_pos){
+	//cout<<"Capacity: "<<capacity<<" Size: "<<size<<endl;
 	no_comp = 0;
 	no_false_pos = 0;
 	int code = hash_code(v_key, code_no);
