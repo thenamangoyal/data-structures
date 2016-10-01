@@ -43,9 +43,9 @@ public:
 	vector<int> search_all(const char* v_key, int& no_comp, int& no_false_pos);
 };
 
-void print_index(vector< vector< vector<int> > > search_start_index);
-void print_comp(vector< vector<int> > search_no_comp);
-void print_false_pos(vector< vector<int> > search_no_false_pos);
+void print_index(ofstream& output, vector< vector< vector<int> > > search_start_index);
+void print_comp(ofstream& output, vector< vector<int> > search_no_comp);
+void print_false_pos(ofstream& output, vector< vector<int> > search_no_false_pos);
 
 int hash_code(const char* s, int code_no);
 int code_integer_casting(const char* s);
@@ -244,15 +244,17 @@ int hash_entry::getend_index() const{
 }
 
 
+
 int main(){
 
 
-	
+	ofstream output;
+	output.open("2015CSB1021Output1.txt", ios::out | ios::trunc);
 	ifstream input;
 	ifstream pattern;
 	input.open("T.txt",ios::in);
-	pattern.open("P.txt",ios::in);
-	
+	pattern.open("P.txt",ios::in);	
+
 	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
 	
 	string line_pattern;
@@ -283,6 +285,7 @@ int main(){
 			}
 		}
 		cout<<"Pattern: "<<line_pattern<<endl;
+		output<<"Pattern: "<<line_pattern<<endl;
 		vector< vector< vector<int> > > search_start_index(4, vector< vector<int> >(3));
 		vector< vector<int> > search_no_comp(4, vector<int>(3));
 		vector< vector<int> > search_no_false_pos(4, vector<int>(3));
@@ -294,20 +297,21 @@ int main(){
 				search_no_false_pos[i][j] = no_false_pos;				
 			}
 		}
-		print_index(search_start_index);
-		print_comp(search_no_comp);
-		print_false_pos(search_no_false_pos);
+		print_index(output, search_start_index);
+		print_comp(output, search_no_comp);
+		print_false_pos(output, search_no_false_pos);
 		cout<<"--------------------"<<endl;
+		output<<"--------------------"<<endl;
 		counter++;
 	}
 
 	input.close();
 	pattern.close();
-
+	output.close();
 	return 0;
 }
 
-void print_index(vector< vector< vector<int> > > search_start_index){
+void print_index(ofstream& output, vector< vector< vector<int> > > search_start_index){
 	bool match = true;
 	for (int i =0 ; i<11; i++){
 		if (search_start_index[i/3][i%3] != search_start_index[(i+1)/3][(i+1)%3]){
@@ -317,29 +321,39 @@ void print_index(vector< vector< vector<int> > > search_start_index){
 	}
 	if (match && !(search_start_index[0][0].empty())){
 		cout<<endl;
+		output<<endl;
 		for (int i=0; i< search_start_index[0][0].size(); i++){
 			cout<<"Pattern found at index "<<search_start_index[0][0][i]<<endl;
+			output<<"Pattern found at index "<<search_start_index[0][0][i]<<endl;
 		}
 	}
 }
-void print_comp(vector< vector<int> > search_no_comp){
+void print_comp(ofstream& output, vector< vector<int> > search_no_comp){
 	cout<<endl;
 	cout<<"Comparisons"<<endl;
+	output<<endl;
+	output<<"Comparisons"<<endl;
 	for (int i=0; i<4;i++){
 		for(int j=0; j<3; j++){
 			cout<<search_no_comp[i][j]<<" ";
+			output<<search_no_comp[i][j]<<" ";
 		}
 		cout<<endl;
+		output<<endl;
 	}
 }
-void print_false_pos(vector< vector<int> > search_no_false_pos){
+void print_false_pos(ofstream& output, vector< vector<int> > search_no_false_pos){
 	cout<<endl;
 	cout<<"False positives"<<endl;
+	output<<endl;
+	output<<"False positives"<<endl;
 	for (int i=0; i<4;i++){
 		for(int j=0; j<3; j++){
 			cout<<search_no_false_pos[i][j]<<" ";
+			output<<search_no_false_pos[i][j]<<" ";
 		}
 		cout<<endl;
+		output<<endl;
 	}
 }
 
