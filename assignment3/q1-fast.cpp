@@ -4,6 +4,7 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <list>
 #include <algorithm>
 
 #include <bitset>
@@ -25,15 +26,14 @@ public:
 
 class hash_table {
 private:
-	hash_entry** table;
+	vector< list<hash_entry> > table;
 	int capacity;
 	int size;
 	int code_no;
 	int value_no;
 public:
-	hash_table(int v_code_no = 2, int v_value_no = 2, int v_capacity=0);
+	hash_table(int v_code_no = 2, int v_value_no = 2, int v_capacity=1);
 	~hash_table();
-	void rehash();
 	int getsize() const;
 	int getcode_no() const;
 	int getvalue_no() const;
@@ -58,8 +58,6 @@ int value_division(int code, int m);
 int value_mad(int code, int m);
 int value_multiplication(int code, int m);
 
-int linear_probe_index(int value, int i, int m);
-
 int str_len(const char* a);
 bool str_equal(const char* a, const char* b);
 
@@ -68,27 +66,12 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 	value_no = v_value_no;
 	size = 0;
 	capacity = v_capacity;
-	if (capacity>0){
-		table = new hash_entry*[capacity];
-		for (int i=0; i< capacity; i++){
-			table[i] = NULL;
-		}
-	}
-	else {
-		table = NULL;
-	}
+	list<hash_entry> l_temp;
+	table = vector< list<hash_entry> >(v_capacity);
 
 }
 
 hash_table::~hash_table(){
-	if (table != NULL) {
-		// Deleting old table
-		for (int i =0 ; i< capacity; i++){
-			delete table[i];
-		}
-		delete [] table;
-		
-	}
 }
 
 
@@ -110,67 +93,12 @@ void hash_table::setvalue_no(int v_value_no){
 	value_no = v_value_no;
 }
 
-void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
-	
-	if (size>=capacity) {
-		rehash();
-	}
-
-	hash_entry* h = new hash_entry(v_key, v_start_index, v_end_index);
-	int code = hash_code(h->getkey(), code_no);
+void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){	
+	hash_entry h = hash_entry(v_key, v_start_index, v_end_index);
+	int code = hash_code(h.getkey(), code_no);
 	int value = hash_value(code, capacity, value_no);
-	int index;
-	int i;
-	for(i=0; i<capacity; i++){
-		index = linear_probe_index(value, i, capacity);
-		if (table[index] == NULL){
-			// Found an empty cell
-			size++;
-			table[index] = h;
-			break;
-		}
-	}
-	
-}
-
-void hash_table::rehash(){	
-	int new_capacity = (2*capacity > 1)? (2*capacity): 1;
-	int new_size = 0;
-	hash_entry** new_table = new hash_entry*[new_capacity];
-	for (int i=0; i< new_capacity; i++){
-		new_table[i] = NULL;
-	}
-
-	int new_code;
-	int new_value;
-	int index;
-
-	for (int i=0 ; i< capacity; i++){
-		new_code = hash_code(table[i]->getkey(), code_no);
-		new_value = hash_value(new_code, new_capacity, value_no);
-		index;
-		for(int j=0; j<new_capacity; j++){
-			index = linear_probe_index(new_value, j, new_capacity);
-			if (new_table[index] == NULL){
-				// Found an empty cell
-				new_size++;
-				new_table[index] = new hash_entry(*table[i]);
-				break;
-			}
-		}
-
-	}
-	if (table != NULL) {
-		// Deleting old table
-		for (int i =0 ; i< capacity; i++){
-			delete table[i];
-		}
-		delete [] table;
-		
-	}
-	table = new_table;
-	capacity = new_capacity;
-	size = new_size;
+	table[value].push_front(h);
+	size++;
 }
 
 
@@ -183,26 +111,19 @@ vector<hash_entry> hash_table::search_all(const char* v_key, int& no_comp, int& 
 	//cout<<code<<endl;
 	int value = hash_value(code, capacity, value_no);
 	//cout<<value<<endl;	
-	int index;
-	for(int i=0; i<capacity; i++){
-		index = linear_probe_index(value, i, capacity);
-		if (table[index]){
-			char *p = table[index]->getkey();
+	
+	for(list<hash_entry>::iterator i = table[value].begin(); i != table[value].end(); i++){
+			char *p = i->getkey();
 			bool isEqual = str_equal(p,v_key);
 			if (isEqual){
 				// Pattern found
-				ans.push_back(*table[index]);
+				ans.push_back(*i);
 			}
 			else {
 				// False positive
 				no_false_pos++;
 			}
-			no_comp++;
-		}
-		else {
-			// Found an empty cell			
-			return ans;
-		}
+			no_comp++;		
 	}	
 	// Checked all cells
 	return ans;
@@ -249,7 +170,7 @@ int main(){
 
 
 	ofstream output;
-	output.open("2015CSB1021Output1.txt", ios::out | ios::trunc);
+	output.open("2015CSB1021Output1-fast.txt", ios::out | ios::trunc);
 	ifstream input;
 	ifstream pattern;
 	input.open("T.txt",ios::in);
@@ -266,18 +187,18 @@ int main(){
 	int n = input_str.size();
 
 	vector< vector<hash_table> > tab (4, vector<hash_table>(3));
-	for (int i=0; i<4; i++){
-		for (int j=0; j<3; j++){
-			tab[i][j].setcode_no(i);
-			tab[i][j].setvalue_no(j);
-		}
-	}
+	
 
 	while(pattern>>line_pattern){
 		if (counter == 0) {
 			m = line_pattern.size();
+			for (int i=0; i<4; i++){
+				for (int j=0; j<3; j++){
+					tab[i][j] = hash_table(i,j,n-m+1);
+				}
+			}	
 			for (int i=0; i<n-m+1; i++){
-				for (int j=0; j<4; j++){
+				for (int j=0; j<4; j++){					
 					for (int k=0; k<3; k++){
 						tab[j][k].insert(input_str.c_str(), i, i+m);
 					}
@@ -452,10 +373,6 @@ int value_multiplication(int code, int m){
 	double ans = ((double)m)*fracpart;
 	ans = floor(ans);
 	return (int)ans;
-}
-
-int linear_probe_index(int value, int i, int m){
-	return (value+i)%m;
 }
 
 bool str_equal(const char* a, const char* b){
