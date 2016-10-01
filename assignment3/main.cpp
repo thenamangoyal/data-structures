@@ -4,8 +4,8 @@
 #include <cmath>
 #include <string>
 #include <vector>
-
 #include <algorithm>
+
 #include <bitset>
 using namespace std;
 
@@ -32,11 +32,20 @@ private:
 	int value_no;
 public:
 	hash_table(int v_code_no = 2, int v_value_no = 2, int v_capacity=0);
+	~hash_table();
 	void rehash();
 	int getsize() const;
+	int getcode_no() const;
+	int getvalue_no() const;
+	void setcode_no(int v_code_no);
+	void setvalue_no(int v_value_no);
 	void insert(const char* v_key, int v_start_index, int v_end_index);
-	void search_all(const char* v_key, int& no_comp, int& no_false_pos);
+	vector<int> search_all(const char* v_key, int& no_comp, int& no_false_pos);
 };
+
+void print_index(vector< vector< vector<int> > > search_start_index);
+void print_comp(vector< vector<int> > search_no_comp);
+void print_false_pos(vector< vector<int> > search_no_false_pos);
 
 int hash_code(const char* s, int code_no);
 int code_integer_casting(const char* s);
@@ -71,9 +80,36 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 
 }
 
+hash_table::~hash_table(){
+	if (table != NULL) {
+		// Deleting old table
+		for (int i =0 ; i< capacity; i++){
+			delete table[i];
+		}
+		delete [] table;
+		
+	}
+}
+
+
 int hash_table::getsize() const{
 	return size;
 }
+
+int hash_table::getcode_no() const{
+	return code_no;
+}
+int hash_table::getvalue_no() const{
+	return value_no;
+}
+
+void hash_table::setcode_no(int v_code_no){
+	code_no = v_code_no;
+}
+void hash_table::setvalue_no(int v_value_no){
+	value_no = v_value_no;
+}
+
 void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
 	
 	if (size>=capacity) {
@@ -138,22 +174,24 @@ void hash_table::rehash(){
 }
 
 
-void hash_table::search_all(const char* v_key, int& no_comp, int& no_false_pos){
+vector<int> hash_table::search_all(const char* v_key, int& no_comp, int& no_false_pos){
 	//cout<<"Capacity: "<<capacity<<" Size: "<<size<<endl;
+	vector<int> ans;
 	no_comp = 0;
 	no_false_pos = 0;
 	int code = hash_code(v_key, code_no);
+	//cout<<code<<endl;
 	int value = hash_value(code, capacity, value_no);
+	//cout<<value<<endl;	
 	int index;
-	bool found = false;
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index]){
 			char *p = table[index]->getkey();
 			bool isEqual = str_equal(p,v_key);
 			if (isEqual){
-				found = true;
-				cout<<"Pattern found at index "<<table[index]->getstart_index()<<endl;
+				// Pattern found
+				ans.push_back(table[index]->getstart_index());
 			}
 			else {
 				// False positive
@@ -162,18 +200,12 @@ void hash_table::search_all(const char* v_key, int& no_comp, int& no_false_pos){
 			no_comp++;
 		}
 		else {
-			// Found an empty cell
-			if (!found){
-				cout<<"Couldn't find the Pattern"<<endl;
-			}
-			return;
+			// Found an empty cell			
+			return ans;
 		}
-	}
-
-	if (!found) {
-		// Checked all cells but result not found
-		cout<<"Couldn't find the Pattern"<<endl;
 	}	
+	// Checked all cells
+	return ans;
 
 }
 
@@ -214,8 +246,8 @@ int hash_entry::getend_index() const{
 
 int main(){
 
-	hash_table table;
 
+	
 	ifstream input;
 	ifstream pattern;
 	input.open("T.txt",ios::in);
@@ -223,27 +255,92 @@ int main(){
 	
 	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
 	
-	int m = 6;
-	int n = input_str.size();
-
-	for (int i = 0; i < n-m+1 ;i++){
-		table.insert(input_str.c_str(), i, i+m);
-	}
-
 	string line_pattern;
 	
 	int no_comp;
 	int no_false_pos;
-	while(pattern>>line_pattern){
-		cout<<"Pattern: "<<line_pattern<<endl;
-		table.search_all(line_pattern.c_str(), no_comp, no_false_pos);
-		cout<<"Comparisons: "<<no_comp<<" False positives: "<<no_false_pos<<endl;
-		cout<<"-------------------"<<endl;
+	int counter = 0;
+	int m;
+	int n = input_str.size();
+
+	vector< vector<hash_table> > tab (4, vector<hash_table>(3));
+	for (int i=0; i<4; i++){
+		for (int j=0; j<3; j++){
+			tab[i][j].setcode_no(i);
+			tab[i][j].setvalue_no(j);
+		}
 	}
+
+	while(pattern>>line_pattern){
+		if (counter == 0) {
+			m = line_pattern.size();
+			for (int i=0; i<n-m+1; i++){
+				for (int j=0; j<4; j++){
+					for (int k=0; k<3; k++){
+						tab[j][k].insert(input_str.c_str(), i, i+m);
+					}
+				}
+			}
+		}
+		cout<<"Pattern: "<<line_pattern<<endl;
+		vector< vector< vector<int> > > search_start_index(4, vector< vector<int> >(3));
+		vector< vector<int> > search_no_comp(4, vector<int>(3));
+		vector< vector<int> > search_no_false_pos(4, vector<int>(3));
+		for (int i=0; i<4; i++){
+			for (int j=0; j<3; j++){
+				search_start_index[i][j] = (tab[i][j].search_all(line_pattern.c_str(), no_comp, no_false_pos));
+				sort(search_start_index[i][j].begin(), search_start_index[i][j].end());
+				search_no_comp[i][j] = no_comp;
+				search_no_false_pos[i][j] = no_false_pos;				
+			}
+		}
+		print_index(search_start_index);
+		print_comp(search_no_comp);
+		print_false_pos(search_no_false_pos);
+		cout<<"--------------------"<<endl;
+		counter++;
+	}
+
 	input.close();
 	pattern.close();
-	
+
 	return 0;
+}
+
+void print_index(vector< vector< vector<int> > > search_start_index){
+	bool match = true;
+	for (int i =0 ; i<11; i++){
+		if (search_start_index[i/3][i%3] != search_start_index[(i+1)/3][(i+1)%3]){
+			match = false;
+			break;
+		}
+	}
+	if (match && !(search_start_index[0][0].empty())){
+		cout<<endl;
+		for (int i=0; i< search_start_index[0][0].size(); i++){
+			cout<<"Pattern found at index "<<search_start_index[0][0][i]<<endl;
+		}
+	}
+}
+void print_comp(vector< vector<int> > search_no_comp){
+	cout<<endl;
+	cout<<"Comparisons"<<endl;
+	for (int i=0; i<4;i++){
+		for(int j=0; j<3; j++){
+			cout<<search_no_comp[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+}
+void print_false_pos(vector< vector<int> > search_no_false_pos){
+	cout<<endl;
+	cout<<"False positives"<<endl;
+	for (int i=0; i<4;i++){
+		for(int j=0; j<3; j++){
+			cout<<search_no_false_pos[i][j]<<" ";
+		}
+		cout<<endl;
+	}
 }
 
 int hash_code(const char* s, int code_no){
