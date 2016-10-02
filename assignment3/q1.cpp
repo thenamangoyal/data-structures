@@ -85,7 +85,9 @@ hash_table::~hash_table(){
 	if (table != NULL) {
 		// Deleting old table
 		for (int i =0 ; i< capacity; i++){
-			delete table[i];
+			if (table[i]){
+				delete table[i];
+			}
 		}
 		delete [] table;
 		
