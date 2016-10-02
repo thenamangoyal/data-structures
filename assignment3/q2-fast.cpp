@@ -306,7 +306,7 @@ int code_polynomial_sum(const char* s, const char* search_key){
 	if (n1 == n2){
 		for(int i=0; i<n1; i++){
 			if (search_key[i] != '?'){
-				code += a*code + s[i];
+				code = a*code + s[i];
 			}
 		}
 	}
