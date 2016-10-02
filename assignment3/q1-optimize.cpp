@@ -144,6 +144,7 @@ void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
 			break;
 		}
 	}
+	delete [] insert_key;
 	
 }
 
