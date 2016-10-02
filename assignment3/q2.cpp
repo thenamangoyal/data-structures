@@ -6,7 +6,6 @@
 #include <vector>
 #include <algorithm>
 
-#include <bitset>
 #define load_factor 0.5
 using namespace std;
 
@@ -243,37 +242,66 @@ int hash_entry::getend_index() const{
 	return end_index;
 }
 
-int main(){
+int main(int argc, char const *argv[]){
 
+	if (argc < 2){
+		cout<<"Please provide search string as an argument."<<endl;
+		return 0;
+	}
 	ofstream output;
 	output.open("2015CSB1021Output2.txt", ios::out | ios::trunc);
 	ifstream input;
 	input.open("T2.txt",ios::in);
 
 	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
-	cout<<"Enter the pattern to search"<<endl;
-	string line_pattern;
-	cin>>line_pattern;
+	
+	const char* line_pattern = argv[1];
 	
 	int no_comp;
 	int no_false_pos;
-	int m = line_pattern.size();
+	int m = str_len(line_pattern);
 	int n = input_str.size();
 
-	hash_table tab(2,2);
+	int tab_size = 0;
+	int default_code_no = 2;
+	int default_value_no = 2;
+	
+	if (argc>=3){
+		if (argv[2][0] >= '0' && argv[2][0] <= '3'){
+			default_code_no = argv[2][0] - '0';
+		}
+	}
+	if (argc>=4){
+		if (argv[3][0] >= '0' && argv[3][0] <= '2'){
+			default_value_no = argv[3][0] - '0';
+		}
+	}
+	hash_table tab(default_code_no,default_value_no, tab_size);
 	
 	for (int i=0; i<n-m+1; i++){
-		tab.insert(input_str.c_str(), line_pattern.c_str(), i, i+m);
+		tab.insert(input_str.c_str(), line_pattern, i, i+m);
 	}
 	cout<<"Pattern: "<<line_pattern<<endl;
 	output<<"Pattern: "<<line_pattern<<endl;
 	
 	vector<hash_entry> search_entry;
-	search_entry = tab.search_all(line_pattern.c_str(), no_comp, no_false_pos);
+	search_entry = tab.search_all(line_pattern, no_comp, no_false_pos);
 
 	if (!(search_entry.empty())){
-		cout<<endl;
-		output<<endl;
+		if (search_entry.size() == 1) {
+			cout<<search_entry.size()<<" match found"<<endl;
+			cout<<endl;
+			output<<search_entry.size()<<" match found"<<endl;
+			output<<endl;
+		}
+		else {
+			cout<<search_entry.size()<<" matches found"<<endl;
+			cout<<endl;
+			output<<search_entry.size()<<" matches found"<<endl;
+			output<<endl;
+		}
+		
+		
 		for (int i=0; i< search_entry.size(); i++){
 			cout<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
 			output<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
@@ -284,18 +312,14 @@ int main(){
 		output<<"Pattern not found"<<endl;
 	}
 	cout<<endl;
-	cout<<"Comparisons"<<endl;
+	cout<<"Comparisons: "<<no_comp<<endl;
 	output<<endl;
-	output<<"Comparisons"<<endl;
-	cout<<no_comp<<endl;
-	output<<no_comp<<endl;
+	output<<"Comparisons: "<<no_comp<<endl;
 	
 	cout<<endl;
-	cout<<"False positives"<<endl;
+	cout<<"False positives: "<<no_false_pos<<endl;
 	output<<endl;
-	output<<"False positives"<<endl;
-	cout<<no_false_pos<<endl;
-	output<<no_false_pos<<endl;
+	output<<"False positives: "<<no_false_pos<<endl;
 
 	input.close();
 	output.close();

@@ -7,7 +7,6 @@
 #include <list>
 #include <algorithm>
 
-#include <bitset>
 #define load_factor 0.9
 using namespace std;
 
@@ -187,9 +186,11 @@ int main(int argc, char const *argv[]){
 	int m = str_len(line_pattern);
 	int n = input_str.size();
 	
-	int tab_size = (int)(ceil((double)(n-m+1)/load_factor));
+	int tab_size = 1;
 	int default_code_no = 2;
 	int default_value_no = 2;
+
+	tab_size = (int)(ceil((double)(n-m+1)/load_factor));
 
 	if (argc>=3){
 		if (argv[2][0] >= '0' && argv[2][0] <= '3'){
@@ -204,13 +205,11 @@ int main(int argc, char const *argv[]){
 	hash_table tab(default_code_no,default_value_no, tab_size);
 	
 	for (int i=0; i<n-m+1; i++){
-		tab.insert(input_str.c_str(), line_pattern, i, i+m);		
+		tab.insert(input_str.c_str(), line_pattern, i, i+m);
 	}
 	
-	cout<<"Pattern: "<<line_pattern<<endl;
-	output<<"Pattern: "<<line_pattern<<endl;
-	cout<<endl;
-	output<<endl;
+	cout<<"Pattern: "<<line_pattern<<endl<<endl;
+	output<<"Pattern: "<<line_pattern<<endl<<endl;
 
 	vector<hash_entry> search_entry;			
 	search_entry = tab.search_all(line_pattern, no_comp, no_false_pos);
