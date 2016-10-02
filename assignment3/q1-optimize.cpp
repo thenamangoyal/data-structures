@@ -294,7 +294,8 @@ int main(){
 	vector< vector<hash_table> > tab (4, vector<hash_table>(3));
 	for (int i=0; i<4; i++){
 		for (int j=0; j<3; j++){
-			tab[i][j] = hash_table(i,j);
+			tab[i][j].setcode_no(i);
+			tab[i][j].setvalue_no(j);
 		}
 	}
 
