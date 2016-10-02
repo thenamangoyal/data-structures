@@ -44,10 +44,6 @@ public:
 	vector<hash_entry> search_all(const char* v_key, int& no_comp, int& no_false_pos);
 };
 
-void print_match(ofstream& output, vector< vector< vector<hash_entry> > > search_entry);
-void print_comp(ofstream& output, vector< vector<int> > search_no_comp);
-void print_false_pos(ofstream& output, vector< vector<int> > search_no_false_pos);
-
 int hash_code(const char* s, const char* search_key, int code_no);
 int code_integer_casting(const char* s, const char* search_key);
 int code_component_sum(const char* s, const char* search_key);
@@ -247,13 +243,6 @@ int hash_entry::getend_index() const{
 	return end_index;
 }
 
-class comp{
-public:
-	bool operator()(const hash_entry& h1,const hash_entry& h2){
-		return (h1.getstart_index() <= h2.getstart_index());
-	}
-} obj;
-
 int main(){
 
 	ofstream output;
@@ -263,98 +252,59 @@ int main(){
 
 	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
 	
-	string line_pattern = "?ukesh";
+	string line_pattern;
+	cin>>line_pattern;
 	
 	int no_comp;
 	int no_false_pos;
 	int m;
 	int n = input_str.size();
 
-	vector< vector<hash_table> > tab (4, vector<hash_table>(3));
-	for (int i=0; i<4; i++){
-		for (int j=0; j<3; j++){
-			tab[i][j].setcode_no(i);
-			tab[i][j].setvalue_no(j);
-		}
-	}
-
-	if(!line_pattern.empty()){
+	hash_table tab(2,2);
 		
-		m = line_pattern.size();
-		for (int i=0; i<n-m+1; i++){
-			for (int j=0; j<4; j++){
-				for (int k=0; k<3; k++){
-					tab[j][k].insert(input_str.c_str(), line_pattern.c_str(), i, i+m);
-				}
-			}
-		}
-		cout<<"Pattern: "<<line_pattern<<endl;
-		output<<"Pattern: "<<line_pattern<<endl;
-		vector< vector< vector<hash_entry> > > search_entry(4, vector< vector<hash_entry> >(3));
-		vector< vector<int> > search_no_comp(4, vector<int>(3));
-		vector< vector<int> > search_no_false_pos(4, vector<int>(3));
-		for (int i=0; i<4; i++){
-			for (int j=0; j<3; j++){
-				
-				search_entry[i][j] = (tab[i][j].search_all(line_pattern.c_str(), no_comp, no_false_pos));
-				search_no_comp[i][j] = no_comp;
-				search_no_false_pos[i][j] = no_false_pos;
-			}
-		}
-		print_match(output, search_entry);
-		print_comp(output, search_no_comp);
-		print_false_pos(output, search_no_false_pos);
-		cout<<"--------------------"<<endl;
-		output<<"--------------------"<<endl;
+	m = line_pattern.size();
+	for (int i=0; i<n-m+1; i++){		
+		tab.insert(input_str.c_str(), line_pattern.c_str(), i, i+m);		
 	}
+	cout<<"Pattern: "<<line_pattern<<endl;
+	output<<"Pattern: "<<line_pattern<<endl;
+	vector<hash_entry> search_entry;	
+			
+	search_entry = tab.search_all(line_pattern.c_str(), no_comp, no_false_pos);
+	if (!(search_entry.empty())){
+		cout<<endl;
+		output<<endl;
+		for (int i=0; i< search_entry.size(); i++){
+			cout<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
+			output<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
+		}
+	}
+	else {
+		cout<<"Pattern not found"<<endl;
+		output<<"Pattern not found"<<endl;
+	}
+	cout<<endl;
+	cout<<"Comparisons"<<endl;
+	output<<endl;
+	output<<"Comparisons"<<endl;	
+	cout<<no_comp<<endl;
+	output<<no_comp<<endl;
+	
+	cout<<endl;
+	cout<<"False positives"<<endl;
+	output<<endl;
+	output<<"False positives"<<endl;	
+	cout<<no_false_pos<<endl;
+	output<<no_false_pos<<endl;
+	
+	cout<<"--------------------"<<endl;
+	output<<"--------------------"<<endl;
+	
 
 	input.close();
 	output.close();
 	return 0;
 }
-
-void print_match(ofstream& output, vector< vector< vector<hash_entry> > > search_entry){
-	
-	if (!(search_entry[0][0].empty())){
-		cout<<endl;
-		output<<endl;
-		
-		//sort(search_entry[0][0].begin(), search_entry[0][0].end(), obj);
-		for (int i=0; i< search_entry[0][0].size(); i++){
-			cout<<"Pattern "<<search_entry[0][0][i].getkey()<<" found at index "<<search_entry[0][0][i].getstart_index()<<endl;
-			output<<"Pattern "<<search_entry[0][0][i].getkey()<<" found at index "<<search_entry[0][0][i].getstart_index()<<endl;
-		}
-	}
-}
-void print_comp(ofstream& output, vector< vector<int> > search_no_comp){
-	cout<<endl;
-	cout<<"Comparisons"<<endl;
-	output<<endl;
-	output<<"Comparisons"<<endl;
-	for (int i=0; i<4;i++){
-		for(int j=0; j<3; j++){
-			cout<<search_no_comp[i][j]<<" ";
-			output<<search_no_comp[i][j]<<" ";
-		}
-		cout<<endl;
-		output<<endl;
-	}
-}
-void print_false_pos(ofstream& output, vector< vector<int> > search_no_false_pos){
-	cout<<endl;
-	cout<<"False positives"<<endl;
-	output<<endl;
-	output<<"False positives"<<endl;
-	for (int i=0; i<4;i++){
-		for(int j=0; j<3; j++){
-			cout<<search_no_false_pos[i][j]<<" ";
-			output<<search_no_false_pos[i][j]<<" ";
-		}
-		cout<<endl;
-		output<<endl;
-	}
-}
-
 
 int hash_code(const char* s, const char* search_key, int code_no){
 	int code = 0;
