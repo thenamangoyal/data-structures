@@ -173,7 +173,7 @@ int main(int argc, char const *argv[]){
 		return 0;
 	}
 	ofstream output;
-	output.open("2015CSB1021Output2-fast.txt", ios::out | ios::trunc);
+	output.open("2015CSB1021Output2-chain.txt", ios::out | ios::trunc);
 	ifstream input;
 	input.open("T2.txt",ios::in);
 

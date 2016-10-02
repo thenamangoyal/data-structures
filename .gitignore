@@ -28,10 +28,10 @@
 *.out
 *.app
 assignment3/2015CSB1021Output1.txt
-assignment3/2015CSB1021Output1-fast.txt
+assignment3/2015CSB1021Output1-chain.txt
 assignment3/2015CSB1021Output2.txt
-assignment3/2015CSB1021Output2-fast.txt
+assignment3/2015CSB1021Output2-chain.txt
 assignment3/q1
-assignment3/q1-fast
+assignment3/q1-chain
 assignment3/q2
-assignment3/q2-fast
+assignment3/q2-chain

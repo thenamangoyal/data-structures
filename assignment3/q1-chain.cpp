@@ -175,7 +175,7 @@ int main(){
 
 
 	ofstream output;
-	output.open("2015CSB1021Output1-fast.txt", ios::out | ios::trunc);
+	output.open("2015CSB1021Output1-chain.txt", ios::out | ios::trunc);
 	ifstream input;
 	ifstream pattern;
 	input.open("T.txt",ios::in);
