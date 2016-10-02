@@ -7,6 +7,7 @@
 #include <algorithm>
 
 #include <bitset>
+#define load_factor 0.5
 using namespace std;
 
 class hash_entry{
@@ -111,8 +112,8 @@ void hash_table::setvalue_no(int v_value_no){
 }
 
 void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
-	
-	if (size>=capacity) {
+	int exp_size = (int)(floor(load_factor*(double)capacity));
+	if (size>=exp_size) {
 		rehash();
 	}
 
@@ -146,16 +147,17 @@ void hash_table::rehash(){
 	int index;
 
 	for (int i=0 ; i< capacity; i++){
-		new_code = hash_code(table[i]->getkey(), code_no);
-		new_value = hash_value(new_code, new_capacity, value_no);
-		index;
-		for(int j=0; j<new_capacity; j++){
-			index = linear_probe_index(new_value, j, new_capacity);
-			if (new_table[index] == NULL){
-				// Found an empty cell
-				new_size++;
-				new_table[index] = new hash_entry(*table[i]);
-				break;
+		if (table[i]){
+			new_code = hash_code(table[i]->getkey(), code_no);
+			new_value = hash_value(new_code, new_capacity, value_no);
+			for(int j=0; j<new_capacity; j++){
+				index = linear_probe_index(new_value, j, new_capacity);
+				if (new_table[index] == NULL){
+					// Found an empty cell
+					new_size++;
+					new_table[index] = new hash_entry(*table[i]);
+					break;
+				}
 			}
 		}
 
@@ -163,7 +165,9 @@ void hash_table::rehash(){
 	if (table != NULL) {
 		// Deleting old table
 		for (int i =0 ; i< capacity; i++){
-			delete table[i];
+			if (table[i]){
+				delete table[i];
+			}
 		}
 		delete [] table;
 		

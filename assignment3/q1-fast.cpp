@@ -8,6 +8,7 @@
 #include <algorithm>
 
 #include <bitset>
+#define load_factor 0.9
 using namespace std;
 
 class hash_entry{
@@ -192,9 +193,10 @@ int main(){
 	while(pattern>>line_pattern){
 		if (counter == 0) {
 			m = line_pattern.size();
+			int tab_size = (int)(ceil((double)(n-m+1)/load_factor));
 			for (int i=0; i<4; i++){
 				for (int j=0; j<3; j++){
-					tab[i][j] = hash_table(i,j,n-m+1);
+					tab[i][j] = hash_table(i,j,tab_size);
 				}
 			}	
 			for (int i=0; i<n-m+1; i++){
