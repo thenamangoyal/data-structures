@@ -275,7 +275,7 @@ int main(){
 
 
 	ofstream output;
-	output.open("2015CSB1021Output1.txt", ios::out | ios::trunc);
+	output.open("2015CSB1021Output1-optimise.txt", ios::out | ios::trunc);
 	ifstream input;
 	ifstream pattern;
 	input.open("T.txt",ios::in);
