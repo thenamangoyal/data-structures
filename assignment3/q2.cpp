@@ -251,7 +251,7 @@ int main(){
 	input.open("T2.txt",ios::in);
 
 	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
-	
+	cout<<"Enter the pattern to search"<<endl;
 	string line_pattern;
 	cin>>line_pattern;
 	

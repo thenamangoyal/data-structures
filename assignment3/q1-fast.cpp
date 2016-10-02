@@ -179,8 +179,8 @@ int main(){
 
 	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
 	
-	string line_pattern;
-	
+	string line_pattern;	
+	cout<<"Running"<<endl;
 	int no_comp;
 	int no_false_pos;
 	int counter = 0;
