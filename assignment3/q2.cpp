@@ -35,6 +35,7 @@ public:
 	~hash_table();
 	void rehash(const char* search_key);
 	int getsize() const;
+	int getcapacity() const;
 	int getcode_no() const;
 	int getvalue_no() const;
 	void setcode_no(int v_code_no);
@@ -91,6 +92,10 @@ hash_table::~hash_table(){
 
 int hash_table::getsize() const{
 	return size;
+}
+
+int hash_table::getcapacity() const{
+	return capacity;
 }
 
 int hash_table::getcode_no() const{
