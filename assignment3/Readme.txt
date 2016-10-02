@@ -6,7 +6,7 @@ A C++ program to search pattern in given input file.
 
 You can search multiple strings. Provide multiple search strings in P.txt and data in T.txt
 
-We offer you two methods for the same. Eitehr using linear probing or separate chaining.
+We offer you 3 options for the same. Eitehr using linear probing or separate chaining or optimisied linear probing.
 
 There are four hash codes:
 1. Integer Casting (Code 0)
@@ -27,6 +27,9 @@ make
 
 *Run multiple search using separate chaining
 ./q1-chain
+
+*Run multiple search using optimised linear probing
+./q1-optimise
 
 ### Single search with optional characters
 
