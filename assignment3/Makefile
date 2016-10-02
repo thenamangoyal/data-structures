@@ -1,4 +1,4 @@
-all: q1 q1-chain q1-optimise q2 q2-chain
+all: q1 q1-chain q1-optimise q2 q2-chain q2-optimise
 
 q1: q1.o
 	g++ q1.o -o q1
@@ -15,14 +15,17 @@ q2: q2.o
 q2-chain: q2-chain.o
 	g++ q2-chain.o -o q2-chain
 
-q1-optimise.o: q1-optimise.cpp
-	g++ -c q1-optimise.cpp
+q2-optimise: q2-optimise.o
+	g++ q2-optimise.o -o q2-optimise
+
+q1.o: q1.cpp
+	g++ -c q1.cpp
 
 q1-chain.o: q1-chain.cpp
 	g++ -c q1-chain.cpp
 
-q1.o: q1.cpp
-	g++ -c q1.cpp
+q1-optimise.o: q1-optimise.cpp
+	g++ -c q1-optimise.cpp
 
 q2.o: q2.cpp
 	g++ -c q2.cpp
@@ -30,5 +33,8 @@ q2.o: q2.cpp
 q2-chain.o: q2-chain.cpp
 	g++ -c q2-chain.cpp
 
+q2-optimise.o: q2-optimise.cpp
+	g++ -c q2-optimise.cpp
+
 clean:
-	rm *.o q1 q1-chain q1-optimise q2 q2-chain
+	rm *.o q1 q1-chain q1-optimise q2 q2-chain q2-optimise
