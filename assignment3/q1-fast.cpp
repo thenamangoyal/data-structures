@@ -7,7 +7,6 @@
 #include <list>
 #include <algorithm>
 
-#include <bitset>
 #define load_factor 0.9
 using namespace std;
 
