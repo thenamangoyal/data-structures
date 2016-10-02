@@ -127,8 +127,7 @@ void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
 	int code = hash_code(h->getkey(), code_no);
 	int value = hash_value(code, capacity, value_no);
 	int index;
-	int i;
-	for(i=0; i<capacity; i++){
+	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index] == NULL){
 			// Found an empty cell
