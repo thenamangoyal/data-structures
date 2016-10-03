@@ -275,7 +275,7 @@ int main(int argc, char const *argv[]){
 	int counter = 0;
 	int m=0;
 	int n = input_str.size();
-	int tab_size = (int)(ceil((double)(n-m+1)/load_factor));
+	int tab_size = (int)(floor((double)(n-m+1)/load_factor))+1;
 
 	hash_table*** tab = new hash_table**[4];
 
