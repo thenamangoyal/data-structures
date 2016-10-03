@@ -6,6 +6,7 @@
 #include <vector>
 #include <list>
 #include <algorithm>
+#include <cstdlib>
 
 #define load_factor 0.9
 using namespace std;
@@ -171,7 +172,7 @@ int hash_entry::getend_index() const{
 
 
 
-int main(){
+int main(int argc, char const *argv[]){
 
 
 	ofstream output;
@@ -198,6 +199,12 @@ int main(){
 		if (counter == 0) {
 			m = line_pattern.size();
 			tab_size = (int)(ceil((double)(n-m+1)/load_factor));
+
+			if (argc>=2){
+				int req_tab_size = atoi(argv[1]);
+				tab_size = (tab_size >= req_tab_size)? tab_size : req_tab_size;		
+			}
+
 			for (int i=0; i<4; i++){
 				for (int j=0; j<3; j++){
 					tab[i][j] = hash_table(i,j,tab_size);
