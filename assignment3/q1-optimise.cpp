@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <ctime>
 
 #define load_factor 0.5
 using namespace std;
@@ -274,7 +275,7 @@ int hash_entry::gethash() const{
 
 int main(int argc, char const *argv[]){
 
-
+	clock_t start = clock();
 	ofstream output;
 	output.open("2015CSB1021Output1-optimise.txt", ios::out | ios::trunc);
 	ifstream input;
@@ -359,6 +360,12 @@ int main(int argc, char const *argv[]){
 		delete [] tab[i];
 	}
 	delete [] tab;
+
+	clock_t end = clock();
+
+	double time = double (end-start)/ CLOCKS_PER_SEC;
+	cout<<"Running time: "<<time<<endl;
+	output<<"Running time: "<<time<<endl;
 
 	input.close();
 	pattern.close();
