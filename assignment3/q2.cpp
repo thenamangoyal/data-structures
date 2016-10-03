@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 
 #define load_factor 0.5
 using namespace std;
@@ -44,6 +45,9 @@ public:
 	vector<hash_entry> search_all(const char* v_key, int& no_comp, int& no_false_pos);
 };
 
+void print_code_no(ofstream& output, int code_no);
+void print_value_no(ofstream& output, int value_no);
+
 int hash_code(const char* s, const char* search_key, int code_no);
 int code_integer_casting(const char* s, const char* search_key);
 int code_component_sum(const char* s, const char* search_key);
@@ -60,6 +64,8 @@ int linear_probe_index(int value, int i, int m);
 int str_len(const char* a);
 bool str_equal(const char* a, const char* b);
 bool str_equal_2(const char* a, const char* b);
+
+
 
 hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 	code_no = v_code_no;
@@ -274,19 +280,19 @@ int main(int argc, char const *argv[]){
 	int default_value_no = 2;
 
 	if (argc>=3){
-		if (argv[2][0] >= '0' && argv[2][0] <= '3'){
-			default_code_no = argv[2][0] - '0';
-		}
+		int req_tab_size = atoi(argv[2]);
+		tab_size = (tab_size >= req_tab_size)? tab_size : req_tab_size;		
 	}
 	if (argc>=4){
-		if (argv[3][0] >= '0' && argv[3][0] <= '2'){
-			default_value_no = argv[3][0] - '0';
+		if (argv[3][0] >= '0' && argv[3][0] <= '3'){
+			default_code_no = argv[3][0] - '0';
 		}
 	}
 
 	if (argc>=5){
-		int req_tab_size = atoi(argv[4]);
-		tab_size = (tab_size >= req_tab_size)? tab_size : req_tab_size;
+		if (argv[4][0] >= '0' && argv[4][0] <= '2'){
+			default_value_no = argv[4][0] - '0';
+		}
 	}
 
 	hash_table tab(default_code_no,default_value_no, tab_size);
@@ -339,9 +345,50 @@ int main(int argc, char const *argv[]){
 	cout<<"Hash table size: "<<tab.getsize()<<" and capacity: "<<tab.getcapacity()<<endl;
 	output<<"Hash table size: "<<tab.getsize()<<" and capacity: "<<tab.getcapacity()<<endl;
 
+	print_code_no(output, tab.getcode_no());
+	print_value_no(output, tab.getvalue_no());
+
 	input.close();
 	output.close();
 	return 0;
+}
+
+void print_code_no(ofstream& output, int code_no){
+	switch(code_no){
+		case 0:
+			cout<<"Hash code: Integer Casting"<<endl;
+			output<<"Hash code: Integer Casting"<<endl;
+			break;
+		case 1:
+			cout<<"Hash code: Component Sum"<<endl;
+			output<<"Hash code: Component Sum"<<endl;
+			break;
+		case 2:
+			cout<<"Hash code: Polynomial Sum"<<endl;
+			output<<"Hash code: Polynomial Sum"<<endl;
+			break;
+		case 3:
+			cout<<"Hash code: Cyclic Sum"<<endl;
+			output<<"Hash code: Cyclic Sum"<<endl;
+			break;
+	}
+}
+
+void print_value_no(ofstream& output, int value_no){
+	switch(value_no){
+		case 0:
+			cout<<"Hash function: Division"<<endl;
+			output<<"Hash function: Division"<<endl;
+			break;
+		case 1:
+			cout<<"Hash function: MAD"<<endl;
+			output<<"Hash function: MAD"<<endl;
+			break;
+		case 2:
+			cout<<"Hash function: Multiplication"<<endl;
+			output<<"Hash function: Multiplication"<<endl;
+			break;
+	}
 }
 
 int hash_code(const char* s, const char* search_key, int code_no){
