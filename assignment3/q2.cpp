@@ -264,7 +264,7 @@ int main(int argc, char const *argv[]){
 	}
 
 	clock_t start = clock();
-	
+
 	ofstream output;
 	output.open("2015CSB1021Output2.txt", ios::out | ios::trunc);
 	ifstream input;
@@ -273,6 +273,7 @@ int main(int argc, char const *argv[]){
 	string input_str ((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));	
 	
 	const char* line_pattern = argv[1];
+	cout<<"Running"<<endl;
 	
 	int no_comp;
 	int no_false_pos;
