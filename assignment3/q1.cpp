@@ -329,14 +329,12 @@ int main(int argc, char const *argv[]){
 	}
 
 	cout<<endl;
-	output<<endl;		
-	cout<<"Hash table size: "<<tab[2][2]->getsize()<<" capacity: "<<tab[2][2]->getcapacity()<<endl;
-	output<<"Hash table size: "<<tab[2][2]->getsize()<<" capacity: "<<tab[2][2]->getcapacity()<<endl;	
-
-	input.close();
-	pattern.close();
-	output.close();
-
+	output<<endl;
+	cout<<"Search queries: "<<counter<<endl;
+	cout<<"Hash table size: "<<tab[2][2]->getsize()<<" and capacity: "<<tab[2][2]->getcapacity()<<endl;
+	output<<"Search queries: "<<counter<<endl;
+	output<<"Hash table size: "<<tab[2][2]->getsize()<<" and capacity: "<<tab[2][2]->getcapacity()<<endl;
+	
 	for (int i=0; i<4; i++){	
 		for (int j=0; j<3; j++){
 			delete tab[i][j];
@@ -344,6 +342,10 @@ int main(int argc, char const *argv[]){
 		delete [] tab[i];
 	}
 	delete [] tab;
+
+	input.close();
+	pattern.close();
+	output.close();	
 
 	return 0;
 }
