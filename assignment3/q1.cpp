@@ -345,7 +345,7 @@ int main(int argc, char const *argv[]){
 
 	input.close();
 	pattern.close();
-	output.close();	
+	output.close();
 
 	return 0;
 }
