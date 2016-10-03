@@ -288,20 +288,20 @@ int main(){
 	int no_comp;
 	int no_false_pos;
 	int counter = 0;
-	int m = 0;
+	int m;
 	int n = input_str.size();
-	int tab_size = 0;
 
 	vector< vector<hash_table> > tab (4, vector<hash_table>(3));
-	
+	for (int i=0; i<4; i++){
+		for (int j=0; j<3; j++){
+			tab[i][j].setcode_no(i);
+			tab[i][j].setvalue_no(j);
+		}
+	}
+
 	while(pattern>>line_pattern){
 		if (counter == 0) {
 			m = line_pattern.size();
-			for (int i=0; i<4; i++){
-				for (int j=0; j<3; j++){
-					tab[i][j] = hash_table(i,j,tab_size);
-				}
-			}
 			for (int i=0; i<n-m+1; i++){
 				for (int j=0; j<4; j++){
 					for (int k=0; k<3; k++){
