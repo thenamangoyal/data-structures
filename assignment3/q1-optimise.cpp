@@ -383,14 +383,28 @@ void print_index(ofstream& output, const vector< vector< vector<int> > >& search
 		}
 	}
 	if (match && !(search_start_index[0][0].empty())){
-		cout<<endl;
-		output<<endl;
+		if (search_start_index[0][0].size() == 1) {
+			cout<<search_start_index[0][0].size()<<" match found"<<endl;
+			cout<<endl;
+			output<<search_start_index[0][0].size()<<" match found"<<endl;
+			output<<endl;
+		}
+		else {
+			cout<<search_start_index[0][0].size()<<" matches found"<<endl;
+			cout<<endl;
+			output<<search_start_index[0][0].size()<<" matches found"<<endl;
+			output<<endl;
+		}
 		for (int i=0; i< search_start_index[0][0].size(); i++){
 			cout<<"Pattern found at index "<<search_start_index[0][0][i]<<endl;
 			output<<"Pattern found at index "<<search_start_index[0][0][i]<<endl;
 		}
 	}
+	else {
+		cout<<"Pattern not found"<<endl;
+	}
 }
+
 void print_comp(ofstream& output, const vector< vector<int> >& search_no_comp){
 	cout<<endl;
 	cout<<"Comparisons"<<endl;
