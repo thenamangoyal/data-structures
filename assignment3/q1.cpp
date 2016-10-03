@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 
 #define load_factor 0.5
 using namespace std;
@@ -254,7 +255,7 @@ int hash_entry::getend_index() const{
 
 
 
-int main(){
+int main(int argc, char const *argv[]){
 
 
 	ofstream output;
@@ -271,24 +272,33 @@ int main(){
 	int no_comp;
 	int no_false_pos;
 	int counter = 0;
-	int m;
+	int m=0;
 	int n = input_str.size();
+	int tab_size = (int)(ceil((double)(n-m+1)/load_factor));
 
-	vector< vector<hash_table> > tab (4, vector<hash_table>(3));
-	for (int i=0; i<4; i++){
-		for (int j=0; j<3; j++){
-			tab[i][j].setcode_no(i);
-			tab[i][j].setvalue_no(j);
-		}
-	}
+	hash_table*** tab = new hash_table**[4];
 
 	while(pattern>>line_pattern){
 		if (counter == 0) {
 			m = line_pattern.size();
+			tab_size = (int)(floor((double)(n-m+1)/load_factor))+1;
+
+			if (argc>=2){
+				int req_tab_size = atoi(argv[1]);
+				tab_size = (tab_size >= req_tab_size)? tab_size : req_tab_size;		
+			}
+
+			for (int i=0; i<4; i++){
+				tab[i] = new hash_table*[3];
+				for (int j=0; j<3; j++){
+					tab[i][j] = new hash_table(i,j,tab_size);
+				}
+			}
+
 			for (int i=0; i<n-m+1; i++){
 				for (int j=0; j<4; j++){
 					for (int k=0; k<3; k++){
-						tab[j][k].insert(input_str.c_str(), i, i+m);
+						tab[j][k]->insert(input_str.c_str(), i, i+m);
 					}
 				}
 			}
@@ -301,7 +311,7 @@ int main(){
 		vector< vector<int> > search_no_false_pos(4, vector<int>(3));
 		for (int i=0; i<4; i++){
 			for (int j=0; j<3; j++){
-				search_entry[i][j] = (tab[i][j].search_all(line_pattern.c_str(), no_comp, no_false_pos));
+				search_entry[i][j] = (tab[i][j]->search_all(line_pattern.c_str(), no_comp, no_false_pos));
 				for(int k=0; k< search_entry[i][j].size(); k++){
 					search_start_index[i][j].push_back(search_entry[i][j][k].getstart_index());
 				}
@@ -320,13 +330,21 @@ int main(){
 
 	cout<<endl;
 	output<<endl;		
-	cout<<"Hash table size: "<<tab[2][2].getsize()<<" capacity: "<<tab[2][2].getcapacity()<<endl;
-	output<<"Hash table size: "<<tab[2][2].getsize()<<" capacity: "<<tab[2][2].getcapacity()<<endl;
-	
+	cout<<"Hash table size: "<<tab[2][2]->getsize()<<" capacity: "<<tab[2][2]->getcapacity()<<endl;
+	output<<"Hash table size: "<<tab[2][2]->getsize()<<" capacity: "<<tab[2][2]->getcapacity()<<endl;	
 
 	input.close();
 	pattern.close();
 	output.close();
+
+	for (int i=0; i<4; i++){	
+		for (int j=0; j<3; j++){
+			delete tab[i][j];
+		}
+		delete [] tab[i];
+	}
+	delete [] tab;
+	
 	return 0;
 }
 
