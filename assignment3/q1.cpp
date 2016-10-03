@@ -45,9 +45,9 @@ public:
 	vector<hash_entry> search_all(const char* v_key, int& no_comp, int& no_false_pos);
 };
 
-void print_index(ofstream& output, vector< vector< vector<int> > > search_start_index);
-void print_comp(ofstream& output, vector< vector<int> > search_no_comp);
-void print_false_pos(ofstream& output, vector< vector<int> > search_no_false_pos);
+void print_index(ofstream& output, const vector< vector< vector<int> > >& search_start_index);
+void print_comp(ofstream& output, const vector< vector<int> >& search_no_comp);
+void print_false_pos(ofstream& output, const vector< vector<int> >& search_no_false_pos);
 
 int hash_code(const char* s, int code_no);
 int code_integer_casting(const char* s);
@@ -344,11 +344,11 @@ int main(int argc, char const *argv[]){
 		delete [] tab[i];
 	}
 	delete [] tab;
-	
+
 	return 0;
 }
 
-void print_index(ofstream& output, vector< vector< vector<int> > > search_start_index){
+void print_index(ofstream& output, const vector< vector< vector<int> > >& search_start_index){
 	bool match = true;
 	for (int i =0 ; i<11; i++){
 		if (search_start_index[i/3][i%3] != search_start_index[(i+1)/3][(i+1)%3]){
@@ -365,7 +365,7 @@ void print_index(ofstream& output, vector< vector< vector<int> > > search_start_
 		}
 	}
 }
-void print_comp(ofstream& output, vector< vector<int> > search_no_comp){
+void print_comp(ofstream& output, const vector< vector<int> >& search_no_comp){
 	cout<<endl;
 	cout<<"Comparisons"<<endl;
 	output<<endl;
@@ -379,7 +379,7 @@ void print_comp(ofstream& output, vector< vector<int> > search_no_comp){
 		output<<endl;
 	}
 }
-void print_false_pos(ofstream& output, vector< vector<int> > search_no_false_pos){
+void print_false_pos(ofstream& output, const vector< vector<int> >& search_no_false_pos){
 	cout<<endl;
 	cout<<"False positives"<<endl;
 	output<<endl;
