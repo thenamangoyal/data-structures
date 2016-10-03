@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <ctime>
 
 #define load_factor 0.5
 using namespace std;
@@ -261,6 +262,9 @@ int main(int argc, char const *argv[]){
 		cout<<"Please provide search string as an argument."<<endl;
 		return 0;
 	}
+
+	clock_t start = clock();
+	
 	ofstream output;
 	output.open("2015CSB1021Output2.txt", ios::out | ios::trunc);
 	ifstream input;
@@ -275,7 +279,7 @@ int main(int argc, char const *argv[]){
 	int m = str_len(line_pattern);
 	int n = input_str.size();
 
-	int tab_size = 0;
+	int tab_size = (int)(floor((double)(n-m+1)/load_factor))+1;
 	int default_code_no = 2;
 	int default_value_no = 2;
 
@@ -295,16 +299,16 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
-	hash_table tab(default_code_no,default_value_no, tab_size);
+	hash_table* tab = new hash_table(default_code_no,default_value_no, tab_size);
 	
 	for (int i=0; i<n-m+1; i++){
-		tab.insert(input_str.c_str(), line_pattern, i, i+m);
+		tab->insert(input_str.c_str(), line_pattern, i, i+m);
 	}
 	cout<<"Pattern: "<<line_pattern<<endl;
 	output<<"Pattern: "<<line_pattern<<endl;
 	
 	vector<hash_entry> search_entry;
-	search_entry = tab.search_all(line_pattern, no_comp, no_false_pos);
+	search_entry = tab->search_all(line_pattern, no_comp, no_false_pos);
 
 	if (!(search_entry.empty())){
 		if (search_entry.size() == 1) {
@@ -342,11 +346,19 @@ int main(int argc, char const *argv[]){
 
 	cout<<endl;
 	output<<endl;
-	cout<<"Hash table size: "<<tab.getsize()<<" and capacity: "<<tab.getcapacity()<<endl;
-	output<<"Hash table size: "<<tab.getsize()<<" and capacity: "<<tab.getcapacity()<<endl;
+	cout<<"Hash table size: "<<tab->getsize()<<" and capacity: "<<tab->getcapacity()<<endl;
+	output<<"Hash table size: "<<tab->getsize()<<" and capacity: "<<tab->getcapacity()<<endl;
 
-	print_code_no(output, tab.getcode_no());
-	print_value_no(output, tab.getvalue_no());
+	print_code_no(output, tab->getcode_no());
+	print_value_no(output, tab->getvalue_no());
+
+	delete tab;
+
+	clock_t end = clock();
+
+	double time = double (end-start)/ CLOCKS_PER_SEC;
+	cout<<"Running time: "<<time<<endl;
+	output<<"Running time: "<<time<<endl;
 
 	input.close();
 	output.close();
