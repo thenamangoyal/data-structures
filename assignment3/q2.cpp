@@ -272,7 +272,7 @@ int main(int argc, char const *argv[]){
 	int tab_size = 0;
 	int default_code_no = 2;
 	int default_value_no = 2;
-	
+
 	if (argc>=3){
 		if (argv[2][0] >= '0' && argv[2][0] <= '3'){
 			default_code_no = argv[2][0] - '0';
@@ -283,6 +283,12 @@ int main(int argc, char const *argv[]){
 			default_value_no = argv[3][0] - '0';
 		}
 	}
+
+	if (argc>=5){
+		int req_tab_size = atoi(argv[4]);
+		tab_size = (tab_size >= req_tab_size)? tab_size : req_tab_size;
+	}
+
 	hash_table tab(default_code_no,default_value_no, tab_size);
 	
 	for (int i=0; i<n-m+1; i++){
@@ -327,6 +333,11 @@ int main(int argc, char const *argv[]){
 	cout<<"False positives: "<<no_false_pos<<endl;
 	output<<endl;
 	output<<"False positives: "<<no_false_pos<<endl;
+
+	cout<<endl;
+	output<<endl;
+	cout<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
+	output<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
 
 	input.close();
 	output.close();
