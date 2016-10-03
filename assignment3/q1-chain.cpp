@@ -188,16 +188,16 @@ int main(){
 	int no_comp;
 	int no_false_pos;
 	int counter = 0;
-	int m;
+	int m = 0;
 	int n = input_str.size();
-
+	int tab_size = (int)(ceil((double)(n-m+1)/load_factor));
 	vector< vector<hash_table> > tab (4, vector<hash_table>(3));
 	
 
 	while(pattern>>line_pattern){
 		if (counter == 0) {
 			m = line_pattern.size();
-			int tab_size = (int)(ceil((double)(n-m+1)/load_factor));
+			tab_size = (int)(ceil((double)(n-m+1)/load_factor));
 			for (int i=0; i<4; i++){
 				for (int j=0; j<3; j++){
 					tab[i][j] = hash_table(i,j,tab_size);
@@ -237,9 +237,11 @@ int main(){
 	}
 
 	cout<<endl;
-	output<<endl;		
-	cout<<"Hash table size: "<<tab[2][2].getsize()<<" capacity: "<<tab[2][2].getcapacity()<<endl;
-	output<<"Hash table size: "<<tab[2][2].getsize()<<" capacity: "<<tab[2][2].getcapacity()<<endl;
+	output<<endl;
+	cout<<"Search queries: "<<counter<<endl;
+	cout<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
+	output<<"Search queries: "<<counter<<endl;
+	output<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
 	
 	input.close();
 	pattern.close();

@@ -336,9 +336,11 @@ int main(){
 	}
 
 	cout<<endl;
-	output<<endl;		
-	cout<<"Hash table size: "<<tab[2][2].getsize()<<" capacity: "<<tab[2][2].getcapacity()<<endl;
-	output<<"Hash table size: "<<tab[2][2].getsize()<<" capacity: "<<tab[2][2].getcapacity()<<endl;
+	output<<endl;
+	cout<<"Search queries: "<<counter<<endl;
+	cout<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
+	output<<"Search queries: "<<counter<<endl;
+	output<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
 
 	input.close();
 	pattern.close();
