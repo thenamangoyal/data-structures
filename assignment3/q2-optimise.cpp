@@ -352,8 +352,8 @@ int main(int argc, char const *argv[]){
 
 	cout<<endl;
 	output<<endl;
-	cout<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
-	output<<"Hash table size: "<<tab[2][2].getsize()<<" and capacity: "<<tab[2][2].getcapacity()<<endl;
+	cout<<"Hash table size: "<<tab.getsize()<<" and capacity: "<<tab.getcapacity()<<endl;
+	output<<"Hash table size: "<<tab.getsize()<<" and capacity: "<<tab.getcapacity()<<endl;
 
 	input.close();
 	output.close();
