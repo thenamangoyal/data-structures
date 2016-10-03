@@ -23,13 +23,16 @@ And there are three hash values
 make
 
 *Run multiple search using linear probing
-./q1
+./q1 <table-size>
+:  table-size is optional and by default calculated based on load factor.
 
 *Run multiple search using separate chaining
-./q1-chain
+./q1-chain <table-size>
+:  table-size is optional and by default calculated based on load factor.
 
 *Run multiple search using optimised linear probing
-./q1-optimise
+./q1-optimise <table-size>
+:  table-size is optional and by default calculated based on load factor.
 
 ### Single search with optional characters
 
@@ -53,16 +56,23 @@ And there are three hash values
 make
 
 *Run single search using linear probing
-./q2 <search_string> <code_no> <value_no>
-value_no and code_no are optioanl and by default 2.
+./q2 <search-string> <table-size> <code-no> <value-no>
+:  table-size is optional and by default calculated based on load factor.
+:  code-no and value-no are optioanl and by default 2.
+:  To specify code-no and value-no but skip specifiying table-size type 0 for table-size.
 
 *Run single search using separate chaining
-./q2-chain <search_string> <code_no> <value_no>
-value_no and code_no are optioanl and by default 2.
+./q2-chain <search-string> <table-size> <code-no> <value-no>
+:  table-size is optional and by default calculated based on load factor.
+:  code-no and value-no are optioanl and by default 2.
+:  To specify code-no and value-no but skip specifiying table-size type 0 for table-size.
 
 *Run single search using optimised linear probing
-./q2-optimise <search_string> <code_no> <value_no>
-value_no and code_no are optioanl and by default 2.
+./q2-optimise <search-string> <table-size> <code-no> <value-no>
+:  table-size is optional and by default calculated based on load factor.
+:  code-no and value-no are optioanl and by default 2.
+:  To specify code-no and value-no but skip specifiying table-size type 0 for table-size.
+
 
 *You can clean the program using
 make clean
