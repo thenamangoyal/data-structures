@@ -16,12 +16,14 @@ private:
 	char* key;
 	int start_index;
 	int end_index;
+	int hash;
 public:
-	hash_entry(const char* v_key, int v_start_index, int v_end_index);
+	hash_entry(const char* v_key, int v_start_index, int v_end_index, int v_hash);
 	hash_entry(const hash_entry& h);
 	char* getkey() const;
 	int getstart_index() const;
 	int getend_index() const;
+	int gethash() const;
 	~hash_entry();
 };
 
@@ -125,19 +127,26 @@ void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
 		rehash();
 	}
 
-	hash_entry* h = new hash_entry(v_key, v_start_index, v_end_index);
-	int code = hash_code(h->getkey(), code_no);
+	char* insert_key = new char[v_end_index-v_start_index+1];
+	for(int i=v_start_index; i < v_end_index; i++){
+		*(insert_key+i-v_start_index) = *(v_key+i);
+	}
+	*(insert_key+v_end_index-v_start_index) = '\0';
+
+	int code = hash_code(insert_key, code_no);
 	int value = hash_value(code, capacity, value_no);
+	
 	int index;
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index] == NULL){
 			// Found an empty cell
 			size++;
-			table[index] = h;
+			table[index] = new hash_entry(insert_key, v_start_index, v_end_index, value);
 			break;
 		}
 	}
+	delete [] insert_key;
 	
 }
 
@@ -162,7 +171,7 @@ void hash_table::rehash(){
 				if (new_table[index] == NULL){
 					// Found an empty cell
 					new_size++;
-					new_table[index] = new hash_entry(*table[i]);
+					new_table[index] = new hash_entry(table[i]->getkey(), table[i]->getstart_index(), table[i]->getend_index(), new_value);
 					break;
 				}
 			}
@@ -198,17 +207,20 @@ vector<hash_entry> hash_table::search_all(const char* v_key, int& no_comp, int& 
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index]){
-			char *p = table[index]->getkey();
-			bool isEqual = str_equal(p,v_key);
-			if (isEqual){
-				// Pattern found
-				ans.push_back(*table[index]);
+			if (table[index]->gethash() == value){
+				char *p = table[index]->getkey();
+				bool isEqual = str_equal(p,v_key);
+				if (isEqual){
+					// Pattern found
+					ans.push_back(*table[index]);
+				}
+				else {
+					// False positive
+					no_false_pos++;
+				}
+				no_comp++;
 			}
-			else {
-				// False positive
-				no_false_pos++;
-			}
-			no_comp++;
+			
 		}
 		else {
 			// Found an empty cell			
@@ -220,12 +232,13 @@ vector<hash_entry> hash_table::search_all(const char* v_key, int& no_comp, int& 
 
 }
 
-hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index){
+hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index, int v_hash){
 	start_index = v_start_index;
 	end_index = v_end_index;
+	hash = v_hash;
 	key = new char[v_end_index-v_start_index+1];
-	for(int i=v_start_index; i < v_end_index; i++){
-		*(key+i-v_start_index) = *(v_key+i);
+	for(int i=0; i < v_end_index-v_start_index; i++){
+		*(key+i) = *(v_key+i);
 	}
 	*(key+v_end_index-v_start_index) = '\0';
 }
@@ -233,6 +246,7 @@ hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index){
 hash_entry::hash_entry(const hash_entry& h){
 	start_index = h.start_index;
 	end_index = h.end_index;
+	hash = h.hash;
 	key = new char[h.end_index-h.start_index+1];
 	for(int i=0; i < h.end_index- h.start_index; i++){
 		*(key+i) = *(h.key+i);
@@ -252,6 +266,9 @@ int hash_entry::getstart_index() const{
 }
 int hash_entry::getend_index() const{
 	return end_index;
+}
+int hash_entry::gethash() const{
+	return hash;
 }
 
 
@@ -343,7 +360,7 @@ int main(int argc, char const *argv[]){
 		delete [] tab[i];
 	}
 	delete [] tab;
-	
+
 	clock_t end = clock();
 
 	double time = double (end-start)/ CLOCKS_PER_SEC;

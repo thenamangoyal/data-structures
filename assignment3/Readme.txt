@@ -6,7 +6,7 @@ A C++ program to search pattern in given input file.
 
 You can search multiple strings. Provide multiple search strings in P.txt and data in T.txt
 
-We offer you 3 options for the same. Eitehr using linear probing or separate chaining or optimisied linear probing.
+We offer you 3 options for the same. Eitehr using linear probing or separate chaining or cluster counting linear probing.
 
 There are four hash codes:
 1. Integer Casting (Code 0)
@@ -30,8 +30,8 @@ make
 ./q1-chain <table-size>
 :  table-size is optional and by default calculated based on load factor.
 
-*Run multiple search using optimised linear probing
-./q1-optimise <table-size>
+*Run multiple search using cluster counting linear probing
+./q1-extra <table-size>
 :  table-size is optional and by default calculated based on load factor.
 
 ### Single search with optional characters
@@ -39,7 +39,7 @@ make
 You can search single string with optioanl characters specified by ?. Provide data in T2.txt
 *Example You can type in something like ?orcius and have the program match this patternto the Porcius
 
-We offer you 3 options for the same. Eitehr using linear probing or separate chaining or optimisied linear probing.
+We offer you 3 options for the same. Eitehr using linear probing or separate chaining or cluster counting linear probing.
 
 There are four hash codes:
 1. Integer Casting (Code 0)
@@ -67,8 +67,8 @@ make
 :  code-no and value-no are optioanl and by default 2.
 :  To specify code-no and value-no but skip specifiying table-size type 0 for table-size.
 
-*Run single search using optimised linear probing
-./q2-optimise <search-string> <table-size> <code-no> <value-no>
+*Run single search using cluster counting linear probing
+./q2-extra <search-string> <table-size> <code-no> <value-no>
 :  table-size is optional and by default calculated based on load factor.
 :  code-no and value-no are optioanl and by default 2.
 :  To specify code-no and value-no but skip specifiying table-size type 0 for table-size.
