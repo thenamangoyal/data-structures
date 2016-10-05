@@ -3,8 +3,6 @@
 #include <sstream>
 #include <cmath>
 #include <string>
-#include <vector>
-#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 
@@ -43,7 +41,7 @@ public:
 	void setcode_no(int v_code_no);
 	void setvalue_no(int v_value_no);
 	void insert(const char* v_key, const char* search_key, int v_start_index, int v_end_index);
-	vector<hash_entry> search_all(const char* v_key, int& no_comp, int& no_false_pos);
+	void search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos);
 };
 
 void print_code_no(ofstream& output, int code_no);
@@ -65,8 +63,6 @@ int linear_probe_index(int value, int i, int m);
 int str_len(const char* a);
 bool str_equal(const char* a, const char* b);
 bool str_equal_2(const char* a, const char* b);
-
-
 
 hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 	code_no = v_code_no;
@@ -127,19 +123,26 @@ void hash_table::insert(const char* v_key, const char* search_key, int v_start_i
 		rehash(search_key);
 	}
 
-	hash_entry* h = new hash_entry(v_key, v_start_index, v_end_index);
-	int code = hash_code(h->getkey(), search_key, code_no);
+	char* insert_key = new char[v_end_index-v_start_index+1];
+	for(int i=v_start_index; i < v_end_index; i++){
+		*(insert_key+i-v_start_index) = *(v_key+i);
+	}
+	*(insert_key+v_end_index-v_start_index) = '\0';
+
+	int code = hash_code(insert_key, search_key, code_no);
 	int value = hash_value(code, capacity, value_no);
+
 	int index;
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index] == NULL){
 			// Found an empty cell
 			size++;
-			table[index] = h;
+			table[index] = new hash_entry(insert_key, v_start_index, v_end_index);
 			break;
 		}
 	}
+	delete [] insert_key;
 	
 }
 
@@ -164,7 +167,7 @@ void hash_table::rehash(const char* search_key){
 				if (new_table[index] == NULL){
 					// Found an empty cell
 					new_size++;
-					new_table[index] = new hash_entry(*table[i]);
+					new_table[index] = new hash_entry(table[i]->getkey(), table[i]->getstart_index(), table[i]->getend_index());
 					break;
 				}
 			}
@@ -187,9 +190,9 @@ void hash_table::rehash(const char* search_key){
 }
 
 
-vector<hash_entry> hash_table::search_all(const char* v_key, int& no_comp, int& no_false_pos){
+void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos){
 	//cout<<"Capacity: "<<capacity<<" Size: "<<size<<endl;
-	vector<hash_entry> ans;
+	
 	no_comp = 0;
 	no_false_pos = 0;
 	int code = hash_code(v_key, v_key, code_no);
@@ -197,28 +200,46 @@ vector<hash_entry> hash_table::search_all(const char* v_key, int& no_comp, int& 
 	int value = hash_value(code, capacity, value_no);
 	//cout<<value<<endl;
 	int index;
+	int counter = 0;
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index]){
+			
 			char *p = table[index]->getkey();
 			bool isEqual = str_equal_2(p,v_key);
 			if (isEqual){
 				// Pattern found
-				ans.push_back(*table[index]);
+				cout<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
+				output<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
+				counter++;
 			}
 			else {
 				// False positive
 				no_false_pos++;
 			}
 			no_comp++;
+			
 		}
 		else {
-			// Found an empty cell			
-			return ans;
+			// Found an empty cell		
+			break;
 		}
-	}	
+	}
+	cout<<endl;
+	output<<endl;
 	// Checked all cells
-	return ans;
+	if (counter == 0){
+		cout<<"Pattern not found"<<endl;
+		output<<"Pattern not found"<<endl;
+	}
+	else if (counter == 1) {
+		cout<<counter<<" match found"<<endl;		
+		output<<counter<<" match found"<<endl;		
+	}	
+	else {
+		cout<<counter<<" matches found"<<endl;
+		output<<counter<<" matches found"<<endl;
+	}	
 
 }
 
@@ -226,8 +247,8 @@ hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index){
 	start_index = v_start_index;
 	end_index = v_end_index;
 	key = new char[v_end_index-v_start_index+1];
-	for(int i=v_start_index; i < v_end_index; i++){
-		*(key+i-v_start_index) = *(v_key+i);
+	for(int i=0; i < v_end_index-v_start_index; i++){
+		*(key+i) = *(v_key+i);
 	}
 	*(key+v_end_index-v_start_index) = '\0';
 }
@@ -308,33 +329,8 @@ int main(int argc, char const *argv[]){
 	cout<<"Pattern: "<<line_pattern<<endl;
 	output<<"Pattern: "<<line_pattern<<endl;
 	
-	vector<hash_entry> search_entry;
-	search_entry = tab->search_all(line_pattern, no_comp, no_false_pos);
+	tab->search_all(output, line_pattern, no_comp, no_false_pos);
 
-	if (!(search_entry.empty())){
-		if (search_entry.size() == 1) {
-			cout<<search_entry.size()<<" match found"<<endl;
-			cout<<endl;
-			output<<search_entry.size()<<" match found"<<endl;
-			output<<endl;
-		}
-		else {
-			cout<<search_entry.size()<<" matches found"<<endl;
-			cout<<endl;
-			output<<search_entry.size()<<" matches found"<<endl;
-			output<<endl;
-		}
-		
-		
-		for (int i=0; i< search_entry.size(); i++){
-			cout<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
-			output<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
-		}
-	}
-	else {
-		cout<<"Pattern not found"<<endl;
-		output<<"Pattern not found"<<endl;
-	}
 	cout<<endl;
 	cout<<"Comparisons: "<<no_comp<<endl;
 	output<<endl;
