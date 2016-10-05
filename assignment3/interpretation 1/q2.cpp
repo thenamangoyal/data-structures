@@ -500,7 +500,7 @@ int code_cyclic_sum(const char* s, const char* search_key){
 	int n2 = str_len(search_key);
 	if (n1 == n2){
 		for(int i=0; i<n1; i++){
-			code = (code<<h)+ (code>>(32-h));
+			code = (code<<h) | (code>>(32-h));
 			if (search_key[i] != '?'){				
 				code += s[i];
 			}

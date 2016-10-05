@@ -517,7 +517,7 @@ int code_cyclic_sum(const char* s){
 	int h = 5;
 	int n = str_len(s);
 	for(int i=0; i<n; i++){
-		code = (code<<h)+ (code>>(32-h));
+		code = (code<<h) | (code>>(32-h));
 		code += s[i];
 	}
 	return code;
