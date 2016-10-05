@@ -227,23 +227,21 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 			// Found an empty cell		
 			break;
 		}
-	}	
+	}
+	cout<<endl;
+	output<<endl;
 	// Checked all cells
 	if (counter == 0){
 		cout<<"Pattern not found"<<endl;
 		output<<"Pattern not found"<<endl;
 	}
 	else if (counter == 1) {
-		cout<<counter<<" match found"<<endl;
-		cout<<endl;
-		output<<counter<<" match found"<<endl;
-		output<<endl;
+		cout<<counter<<" match found"<<endl;		
+		output<<counter<<" match found"<<endl;		
 	}	
 	else {
 		cout<<counter<<" matches found"<<endl;
-		cout<<endl;
 		output<<counter<<" matches found"<<endl;
-		output<<endl;
 	}	
 
 }
