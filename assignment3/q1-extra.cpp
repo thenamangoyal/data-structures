@@ -385,6 +385,7 @@ void print_index(ofstream& output, const vector< vector< vector<int> > >& search
 	}
 	else {
 		cout<<"Pattern not found"<<endl;
+		output<<"Pattern not found"<<endl;
 	}
 }
 
