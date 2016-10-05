@@ -122,19 +122,26 @@ void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
 		rehash();
 	}
 
-	hash_entry* h = new hash_entry(v_key, v_start_index, v_end_index);
-	int code = hash_code(h->getkey(), code_no);
+	char* insert_key = new char[v_end_index-v_start_index+1];
+	for(int i=v_start_index; i < v_end_index; i++){
+		*(insert_key+i-v_start_index) = *(v_key+i);
+	}
+	*(insert_key+v_end_index-v_start_index) = '\0';
+
+	int code = hash_code(insert_key, code_no);
 	int value = hash_value(code, capacity, value_no);
+	
 	int index;
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index] == NULL){
 			// Found an empty cell
 			size++;
-			table[index] = h;
+			table[index] = new hash_entry(insert_key, v_start_index, v_end_index);
 			break;
 		}
 	}
+	delete [] insert_key;
 	
 }
 
@@ -159,7 +166,7 @@ void hash_table::rehash(){
 				if (new_table[index] == NULL){
 					// Found an empty cell
 					new_size++;
-					new_table[index] = new hash_entry(*table[i]);
+					new_table[index] = new hash_entry(table[i]->getkey(), table[i]->getstart_index(), table[i]->getend_index());
 					break;
 				}
 			}
@@ -181,7 +188,6 @@ void hash_table::rehash(){
 	size = new_size;
 }
 
-
 void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos){
 	//cout<<"Capacity: "<<capacity<<" Size: "<<size<<endl;
 	
@@ -196,6 +202,7 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index]){
+
 			char *p = table[index]->getkey();
 			bool isEqual = str_equal(p,v_key);
 			if (isEqual){
@@ -210,7 +217,8 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 				// False positive
 				no_false_pos++;
 			}
-			no_comp++;
+			no_comp++;		
+			
 		}
 		else {
 			// Found an empty cell			
@@ -234,7 +242,7 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 			cout<<counter<<" matches found"<<endl;
 			output<<counter<<" matches found"<<endl;
 		}
-	}
+	}	
 
 }
 
@@ -242,8 +250,8 @@ hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index){
 	start_index = v_start_index;
 	end_index = v_end_index;
 	key = new char[v_end_index-v_start_index+1];
-	for(int i=v_start_index; i < v_end_index; i++){
-		*(key+i-v_start_index) = *(v_key+i);
+	for(int i=0; i < v_end_index-v_start_index; i++){
+		*(key+i) = *(v_key+i);
 	}
 	*(key+v_end_index-v_start_index) = '\0';
 }
