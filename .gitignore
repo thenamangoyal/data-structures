@@ -27,15 +27,23 @@
 *.exe
 *.out
 *.app
-assignment3/2015CSB1021Output1.txt
-assignment3/2015CSB1021Output1-chain.txt
-assignment3/2015CSB1021Output1-extra.txt
-assignment3/2015CSB1021Output2.txt
-assignment3/2015CSB1021Output2-chain.txt
-assignment3/2015CSB1021Output2-extra.txt
-assignment3/q1
-assignment3/q1-chain
-assignment3/q1-extra
-assignment3/q2
-assignment3/q2-chain
-assignment3/q2-extra
+assignment3/interpretation 1/2015CSB1021Output1.txt
+assignment3/interpretation 1/2015CSB1021Output1-chain.txt
+assignment3/interpretation 1/2015CSB1021Output2.txt
+assignment3/interpretation 1/2015CSB1021Output2-chain.txt
+assignment3/interpretation 1/q1
+assignment3/interpretation 1/q1-chain
+assignment3/interpretation 1/q2
+assignment3/interpretation 1/q2-chain
+assignment3/interpretation 2/2015CSB1021Output1.txt
+assignment3/interpretation 2/2015CSB1021Output1-chain.txt
+assignment3/interpretation 2/2015CSB1021Output1-extra.txt
+assignment3/interpretation 2/2015CSB1021Output2.txt
+assignment3/interpretation 2/2015CSB1021Output2-chain.txt
+assignment3/interpretation 2/2015CSB1021Output2-extra.txt
+assignment3/interpretation 2/q1
+assignment3/interpretation 2/q1-chain
+assignment3/interpretation 2/q1-extra
+assignment3/interpretation 2/q2
+assignment3/interpretation 2/q2-chain
+assignment3/interpretation 2/q2-extra
