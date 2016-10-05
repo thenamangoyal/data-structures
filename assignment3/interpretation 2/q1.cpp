@@ -245,8 +245,7 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 			cout<<counter<<" matches found"<<endl;
 			output<<counter<<" matches found"<<endl;
 		}
-	}
-	
+	}	
 
 }
 
@@ -401,6 +400,7 @@ void print_comp(ofstream& output, int search_no_comp[][3]){
 		output<<endl;
 	}
 }
+
 void print_false_pos(ofstream& output, int search_no_false_pos[][3]){
 	cout<<endl;
 	cout<<"False positives"<<endl;
