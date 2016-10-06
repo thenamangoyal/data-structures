@@ -3,9 +3,7 @@
 #include <sstream>
 #include <cmath>
 #include <string>
-#include <vector>
 #include <list>
-#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 
@@ -28,7 +26,7 @@ public:
 
 class hash_table {
 private:
-	vector< list<hash_entry> > table;
+	list<hash_entry> *table;
 	int capacity;
 	int size;
 	int code_no;
@@ -70,11 +68,20 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 	size = 0;
 	capacity = v_capacity;
 	list<hash_entry> l_temp;
-	table = vector< list<hash_entry> >(v_capacity);
+	if (capacity > 0){
+		table = new list<hash_entry>[capacity];
+	}
+	else {
+		table = NULL;
+	}
 
 }
 
 hash_table::~hash_table(){
+	if (table != NULL) {
+		// Deleting old table
+		delete [] table;		
+	}
 }
 
 
