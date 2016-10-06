@@ -565,7 +565,7 @@ int value_division(int code, int m){
 int value_mad(int code, int m){
 	code = (code >= 0)? code : (-1)*code;
 	int a = (int)(floor(sqrt((double)m)));	
-	int b = m/2;
+	int b = (int)(floor(sqrt((double)m))) + 1;
 	return ((a*(code%m)%m)+b)%m;
 }
 int value_multiplication(int code, int m){
