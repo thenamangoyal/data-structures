@@ -188,7 +188,7 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 				no_false_pos++;
 			}
 			no_comp++;
-			iter = iter->next;	
+			iter = iter->next;
 	}
 	// Checked all cells
 	if(code_no == 2 && value_no == 2){
