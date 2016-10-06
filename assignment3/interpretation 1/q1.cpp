@@ -227,7 +227,6 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 				}
 				else {
 					// False positive
-					no_false_pos++;
 				}
 				any_hash_value_match = 1;
 				no_comp++;
@@ -260,14 +259,14 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 
 	if (any_hash_value_match == 1){
 			if (ans_found == 1){
-				no_comp = 0;
+				no_false_pos = 0;
 			}
 			else {
-				no_comp = 1;
+				no_false_pos = 1;
 			}			
 		}
 	else{
-		no_comp = 0;
+		no_false_pos = 0;
 	}
 
 }
