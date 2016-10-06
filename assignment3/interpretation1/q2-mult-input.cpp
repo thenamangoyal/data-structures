@@ -364,7 +364,7 @@ int main(int argc, char const *argv[]){
 	
 	clock_t start = clock();
 	ofstream output;
-	output.open("2015CSB1021Output2-mult-ques-(linear).txt", ios::out | ios::trunc);
+	output.open("2015CSB1021Output2-mult-input.txt", ios::out | ios::trunc);
 	ifstream input;
 	ifstream pattern;
 	input.open("T2.txt",ios::in);

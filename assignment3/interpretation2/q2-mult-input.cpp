@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#define load_factor 0.9
+#define load_factor 0.5
 using namespace std;
 
 class hash_entry{
@@ -14,45 +14,28 @@ private:
 	char* key;
 	int start_index;
 	int end_index;
+	int hash;
 public:
-	hash_entry(const char* v_key, int v_start_index, int v_end_index);
+	hash_entry(const char* v_key, int v_start_index, int v_end_index, int v_hash);
 	hash_entry(const hash_entry& h);
 	char* getkey() const;
 	int getstart_index() const;
 	int getend_index() const;
+	int gethash() const;
 	~hash_entry();
-};
-
-class node{
-public:
-	hash_entry entry;
-	node* next;
-public:
-	node(const hash_entry& h, node* v_next = NULL);
-	~node();
-};
-
-node::node(const hash_entry& h, node* v_next): entry(h), next(v_next) {}
-
-node::~node(){
-}
-
-class linklist{
-public:
-	node* head;
-	node* tail;
 };
 
 class hash_table {
 private:
-	linklist* table;
+	hash_entry** table;
 	int capacity;
 	int size;
 	int code_no;
 	int value_no;
 public:
-	hash_table(int v_code_no = 2, int v_value_no = 2, int v_capacity=1);
+	hash_table(int v_code_no = 2, int v_value_no = 2, int v_capacity=0);
 	~hash_table();
+	void rehash();
 	int getsize() const;
 	int getcapacity() const;
 	int getcode_no() const;
@@ -77,6 +60,8 @@ int value_division(int code, int m);
 int value_mad(int code, int m);
 int value_multiplication(int code, int m);
 
+int linear_probe_index(int value, int i, int m);
+
 int str_len(const char* a);
 bool str_equal(const char* a, const char* b);
 
@@ -85,11 +70,10 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 	value_no = v_value_no;
 	size = 0;
 	capacity = v_capacity;
-	if (capacity > 0){
-		table = new linklist[capacity];
-		for(int i=0; i<capacity; i++){
-			table[i].head = NULL;
-			table[i].tail = NULL;
+	if (capacity>0){
+		table = new hash_entry*[capacity];
+		for (int i=0; i< capacity; i++){
+			table[i] = NULL;
 		}
 	}
 	else {
@@ -101,14 +85,13 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 hash_table::~hash_table(){
 	if (table != NULL) {
 		// Deleting old table
-		for(int i=0; i<capacity; i++){
-			while(table[i].head){
-				node* todel = table[i].head;
-				table[i].head = (table[i].head)->next;
-				delete todel;
+		for (int i =0 ; i< capacity; i++){
+			if (table[i]){
+				delete table[i];
 			}
 		}
-		delete [] table;		
+		delete [] table;
+		
 	}
 }
 
@@ -135,27 +118,80 @@ void hash_table::setvalue_no(int v_value_no){
 	value_no = v_value_no;
 }
 
-void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){	
-	hash_entry h = hash_entry(v_key, v_start_index, v_end_index);
-	int code = hash_code(h.getkey(), code_no);
+void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
+	int exp_size = (int)(floor(load_factor*(double)capacity));
+	if (size>=exp_size) {
+		rehash();
+	}
+
+	char* insert_key = new char[v_end_index-v_start_index+1];
+	for(int i=v_start_index; i < v_end_index; i++){
+		*(insert_key+i-v_start_index) = *(v_key+i);
+	}
+	*(insert_key+v_end_index-v_start_index) = '\0';
+
+	int code = hash_code(insert_key, code_no);
 	int value = hash_value(code, capacity, value_no);
 	
-	node* toad = new node(h, NULL);
-
-	if (table[value].head==NULL){
-		table[value].head = table[value].tail = toad;
+	int index;
+	for(int i=0; i<capacity; i++){
+		index = linear_probe_index(value, i, capacity);
+		if (table[index] == NULL){
+			// Found an empty cell
+			size++;
+			table[index] = new hash_entry(insert_key, v_start_index, v_end_index, value);
+			break;
+		}
 	}
-	else{
-		(table[value].tail)->next = toad;
-		table[value].tail = toad;
-	}
-
-	size++;
+	delete [] insert_key;
+	
 }
 
+void hash_table::rehash(){	
+	int new_capacity = (2*capacity > 1)? (2*capacity): 1;
+	int new_size = 0;
+	hash_entry** new_table = new hash_entry*[new_capacity];
+	for (int i=0; i< new_capacity; i++){
+		new_table[i] = NULL;
+	}
 
-void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos){
-	
+	int new_code;
+	int new_value;
+	int index;
+
+	for (int i=0 ; i< capacity; i++){
+		if (table[i]){
+			new_code = hash_code(table[i]->getkey(), code_no);
+			new_value = hash_value(new_code, new_capacity, value_no);
+			for(int j=0; j<new_capacity; j++){
+				index = linear_probe_index(new_value, j, new_capacity);
+				if (new_table[index] == NULL){
+					// Found an empty cell
+					new_size++;
+					new_table[index] = new hash_entry(table[i]->getkey(), table[i]->getstart_index(), table[i]->getend_index(), new_value);
+					break;
+				}
+			}
+		}
+
+	}
+	if (table != NULL) {
+		// Deleting old table
+		for (int i =0 ; i< capacity; i++){
+			if (table[i]){
+				delete table[i];
+			}
+		}
+		delete [] table;
+		
+	}
+	table = new_table;
+	capacity = new_capacity;
+	size = new_size;
+}
+
+void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos){	
+
 	int n = str_len(v_key);
 
 	char* search_key = new char[n];
@@ -167,9 +203,9 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 	int counter = 0;
 
 	no_comp = 0;
-	
-	int any_hash_value_match = 0;
-	int ans_found = 0;
+	no_false_pos = 0;
+
+	int index;
 
 	int pos = -1;
 
@@ -187,50 +223,65 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 			int code = hash_code(search_key, code_no);
 			int value = hash_value(code, capacity, value_no);
 
-			node* iter = table[value].head;
-
-			while(iter){
-					char *p = (iter->entry).getkey();
-					bool isEqual = str_equal(p,search_key);
-					if (isEqual){
-						// Pattern found
-						ans_found = 1;			
-						counter++;						
-						cout<<"Pattern "<<p<<" found at index "<<(iter->entry).getstart_index()<<endl;
-						output<<"Pattern "<<p<<" found at index "<<(iter->entry).getstart_index()<<endl;
+			for(int i=0; i<capacity; i++){
+				index = linear_probe_index(value, i, capacity);
+				if (table[index]){
+					if (table[index]->gethash() == value){
+						char *p = table[index]->getkey();
+						bool isEqual = str_equal(p,search_key);
+						if (isEqual){
+							// Pattern found
+							counter++;								
+							cout<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
+							output<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;						
+							
+						}
+						else {
+							// False positive
+							no_false_pos++;
+						}
+						no_comp++;
 					}
-					else {
-						// False positive
-					}
-					any_hash_value_match = 1;
-					no_comp++;
-					iter = iter->next;
-			}
-		}	
+					
+				}
+				else {
+					// Found an empty cell			
+					break;
+				}
+			}			
+			
+		}
 
 	}
-	else{
+	else {
 		int code = hash_code(search_key, code_no);
 		int value = hash_value(code, capacity, value_no);
 
-		node* iter = table[value].head;
-
-		while(iter){
-				char *p = (iter->entry).getkey();
-				bool isEqual = str_equal(p,search_key);
-				if (isEqual){
-					// Pattern found
-					ans_found = 1;			
-					counter++;
-					cout<<"Pattern "<<p<<" found at index "<<(iter->entry).getstart_index()<<endl;
-					output<<"Pattern "<<p<<" found at index "<<(iter->entry).getstart_index()<<endl;
+		for(int i=0; i<capacity; i++){
+			index = linear_probe_index(value, i, capacity);
+			if (table[index]){
+				if (table[index]->gethash() == value){
+					char *p = table[index]->getkey();
+					bool isEqual = str_equal(p,search_key);
+					if (isEqual){
+						// Pattern found
+						counter++;								
+						cout<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
+						output<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;						
+						
+					}
+					else {
+						// False positive
+						no_false_pos++;
+					}
+					no_comp++;
 				}
-				else {
-					// False positive
-				}
-				any_hash_value_match = 1;
-				no_comp++;
-				iter = iter->next;
+				
+			}
+			else {
+				// Found an empty cell			
+				break;
+			}
 		}
 	}
 
@@ -250,26 +301,15 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 		output<<counter<<" matches found"<<endl;
 	}
 
-	if (any_hash_value_match == 1){
-			if (ans_found == 1){
-				no_false_pos = 0;
-			}
-			else {
-				no_false_pos = 1;
-			}			
-		}
-	else{
-		no_false_pos = 0;
-	}
-
 }
 
-hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index){
+hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index, int v_hash){
 	start_index = v_start_index;
 	end_index = v_end_index;
+	hash = v_hash;
 	key = new char[v_end_index-v_start_index+1];
-	for(int i=v_start_index; i < v_end_index; i++){
-		*(key+i-v_start_index) = *(v_key+i);
+	for(int i=0; i < v_end_index-v_start_index; i++){
+		*(key+i) = *(v_key+i);
 	}
 	*(key+v_end_index-v_start_index) = '\0';
 }
@@ -277,6 +317,7 @@ hash_entry::hash_entry(const char* v_key, int v_start_index, int v_end_index){
 hash_entry::hash_entry(const hash_entry& h){
 	start_index = h.start_index;
 	end_index = h.end_index;
+	hash = h.hash;
 	key = new char[h.end_index-h.start_index+1];
 	for(int i=0; i < h.end_index- h.start_index; i++){
 		*(key+i) = *(h.key+i);
@@ -297,14 +338,17 @@ int hash_entry::getstart_index() const{
 int hash_entry::getend_index() const{
 	return end_index;
 }
+int hash_entry::gethash() const{
+	return hash;
+}
 
 
 
-int main(int argc, char const *argv[]){
-
+int main(int argc, char const *argv[]){	
+	
 	clock_t start = clock();
 	ofstream output;
-	output.open("2015CSB1021Output2-mult-ques-(chaining).txt", ios::out | ios::trunc);
+	output.open("2015CSB1021Output2-mult-input.txt", ios::out | ios::trunc);
 	ifstream input;
 	ifstream pattern;
 	input.open("T2.txt",ios::in);
@@ -546,6 +590,10 @@ int value_multiplication(int code, int m){
 	double ans = ((double)m)*fracpart;
 	ans = floor(ans);
 	return (int)ans;
+}
+
+int linear_probe_index(int value, int i, int m){
+	return (value+i)%m;
 }
 
 bool str_equal(const char* a, const char* b){
