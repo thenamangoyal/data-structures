@@ -203,7 +203,9 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 	int counter = 0;
 
 	no_comp = 0;
-	no_false_pos = 0;
+
+	int any_hash_value_match = 0;
+	int ans_found = 0;
 
 	int index;
 
@@ -231,6 +233,7 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 						bool isEqual = str_equal(p,search_key);
 						if (isEqual){
 							// Pattern found
+							ans_found = 1;
 							counter++;								
 							cout<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
 							output<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;						
@@ -238,8 +241,8 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 						}
 						else {
 							// False positive
-							no_false_pos++;
 						}
+						any_hash_value_match = 1;
 						no_comp++;
 					}
 					
@@ -265,6 +268,7 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 					bool isEqual = str_equal(p,search_key);
 					if (isEqual){
 						// Pattern found
+						ans_found = 1;
 						counter++;								
 						cout<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
 						output<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;						
@@ -272,8 +276,8 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 					}
 					else {
 						// False positive
-						no_false_pos++;
 					}
+					any_hash_value_match = 1;
 					no_comp++;
 				}
 				
@@ -299,6 +303,18 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 	else {
 		cout<<counter<<" matches found"<<endl;
 		output<<counter<<" matches found"<<endl;
+	}
+
+	if (any_hash_value_match == 1){
+			if (ans_found == 1){
+				no_false_pos = 0;
+			}
+			else {
+				no_false_pos = 1;
+			}			
+		}
+	else{
+		no_false_pos = 0;
 	}
 
 }
