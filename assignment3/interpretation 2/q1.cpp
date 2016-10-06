@@ -246,12 +246,12 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 		else if (counter == 1) {
 			//cout<<counter<<" match found"<<endl;		
 			output<<counter<<" match found"<<endl;		
-		}	
+		}
 		else {
 			//cout<<counter<<" matches found"<<endl;
 			output<<counter<<" matches found"<<endl;
 		}
-	}	
+	}
 
 }
 

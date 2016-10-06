@@ -80,7 +80,7 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 hash_table::~hash_table(){
 	if (table != NULL) {
 		// Deleting old table
-		delete [] table;		
+		delete [] table;
 	}
 }
 
