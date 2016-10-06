@@ -111,7 +111,7 @@ void hash_table::insert(const char* v_key, int v_start_index, int v_end_index){
 	hash_entry h = hash_entry(v_key, v_start_index, v_end_index);
 	int code = hash_code(h.getkey(), code_no);
 	int value = hash_value(code, capacity, value_no);
-	table[value].push_front(h);
+	table[value].push_back(h);
 	size++;
 }
 
