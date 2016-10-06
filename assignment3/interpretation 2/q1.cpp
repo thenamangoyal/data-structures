@@ -215,10 +215,10 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 				bool isEqual = str_equal(p,v_key);
 				if (isEqual){
 					// Pattern found
+					counter++;
 					if (code_no == 2 && value_no == 2){
 						//cout<<"Pattern found at index "<<table[index]->getstart_index()<<endl;
-						output<<"Pattern found at index "<<table[index]->getstart_index()<<endl;
-						counter++;
+						output<<"Pattern found at index "<<table[index]->getstart_index()<<endl;						
 					}
 				}
 				else {
