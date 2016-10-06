@@ -1,0 +1,5486 @@
+Pattern: MUKESH
+Pattern found at index 0
+Pattern found at index 9678
+
+2 matches found
+
+Comparisons
+20 20 20 
+488 488 488 
+2 2 4 
+4 4 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: GURPAR
+
+Pattern not found
+
+Comparisons
+9 9 2 
+388 388 388 
+2 2 0 
+1 1 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: MANJIT
+
+Pattern not found
+
+Comparisons
+6 6 6 
+740 740 740 
+0 0 2 
+0 0 2 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: KUBERC
+Pattern found at index 8353
+
+1 match found
+
+Comparisons
+1 1 5 
+797 797 797 
+1 1 1 
+2 2 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SHASHI
+Pattern found at index 14585
+Pattern found at index 14598
+Pattern found at index 14608
+Pattern found at index 14618
+Pattern found at index 14629
+Pattern found at index 14640
+Pattern found at index 28723
+Pattern found at index 28729
+Pattern found at index 28739
+Pattern found at index 31221
+
+10 matches found
+
+Comparisons
+44 44 44 
+816 816 816 
+10 10 11 
+10 10 10 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: VIJEND
+Pattern found at index 17548
+
+1 match found
+
+Comparisons
+6 6 6 
+816 816 816 
+1 1 2 
+3 3 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: BELLAM
+
+Pattern not found
+
+Comparisons
+3 3 4 
+472 472 472 
+0 0 0 
+1 1 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: SUTAPA
+Pattern found at index 30319
+
+1 match found
+
+Comparisons
+12 12 12 
+461 461 461 
+1 1 1 
+2 2 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RAMESH
+Pattern found at index 11095
+Pattern found at index 11103
+Pattern found at index 11752
+Pattern found at index 12748
+Pattern found at index 12754
+Pattern found at index 26235
+Pattern found at index 27114
+
+7 matches found
+
+Comparisons
+13 13 13 
+816 816 816 
+9 9 7 
+7 7 7 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: HEMEND
+Pattern found at index 6164
+Pattern found at index 6172
+
+2 matches found
+
+Comparisons
+10 10 10 
+634 634 634 
+2 2 2 
+3 3 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ABHASH
+
+Pattern not found
+
+Comparisons
+35 35 35 
+307 307 307 
+0 0 0 
+1 1 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ABHISH
+Pattern found at index 287
+
+1 match found
+
+Comparisons
+22 22 21 
+552 552 552 
+4 4 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ADITYA
+Pattern found at index 585
+Pattern found at index 591
+Pattern found at index 604
+Pattern found at index 2117
+Pattern found at index 2477
+Pattern found at index 4340
+Pattern found at index 7259
+Pattern found at index 8538
+Pattern found at index 17591
+
+9 matches found
+
+Comparisons
+20 20 17 
+797 797 797 
+12 12 9 
+10 10 9 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ADITYA
+Pattern found at index 585
+Pattern found at index 591
+Pattern found at index 604
+Pattern found at index 2117
+Pattern found at index 2477
+Pattern found at index 4340
+Pattern found at index 7259
+Pattern found at index 8538
+Pattern found at index 17591
+
+9 matches found
+
+Comparisons
+20 20 17 
+797 797 797 
+12 12 9 
+10 10 9 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ALLUKR
+
+Pattern not found
+
+Comparisons
+0 0 0 
+601 601 601 
+1 1 1 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: ALOKKI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+911 911 911 
+0 0 0 
+2 2 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ANIRUD
+Pattern found at index 1325
+Pattern found at index 27512
+
+2 matches found
+
+Comparisons
+2 2 2 
+740 740 740 
+3 3 2 
+3 3 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: BANDIY
+
+Pattern not found
+
+Comparisons
+2 2 2 
+809 809 809 
+0 0 2 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: CHAUDH
+
+Pattern not found
+
+Comparisons
+0 0 0 
+472 472 472 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: EESHAA
+
+Pattern not found
+
+Comparisons
+17 17 17 
+307 307 307 
+1 1 0 
+0 0 2 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: HARSHI
+Pattern found at index 6049
+Pattern found at index 6056
+Pattern found at index 14768
+Pattern found at index 21716
+Pattern found at index 21724
+Pattern found at index 21732
+
+6 matches found
+
+Comparisons
+14 14 14 
+823 823 823 
+7 7 6 
+6 6 6 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: HIMANS
+Pattern found at index 6209
+
+1 match found
+
+Comparisons
+9 9 9 
+816 816 816 
+2 2 2 
+1 1 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: JATING
+
+Pattern not found
+
+Comparisons
+0 0 0 
+838 838 838 
+0 0 0 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: KATTAS
+
+Pattern not found
+
+Comparisons
+1 1 1 
+634 634 634 
+0 0 2 
+2 2 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+1 1 1 
+--------------------
+Pattern: KESHAV
+Pattern found at index 8045
+
+1 match found
+
+Comparisons
+8 8 8 
+781 781 781 
+1 1 1 
+1 1 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: KOUSTA
+
+Pattern not found
+
+Comparisons
+1 1 1 
+204 204 204 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: MANASG
+
+Pattern not found
+
+Comparisons
+0 0 2 
+809 809 809 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: MANISH
+Pattern found at index 9168
+Pattern found at index 9174
+Pattern found at index 10599
+Pattern found at index 14783
+Pattern found at index 24758
+Pattern found at index 24765
+Pattern found at index 25926
+
+7 matches found
+
+Comparisons
+44 44 44 
+816 816 816 
+8 8 7 
+7 7 7 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: NNIKHI
+
+Pattern not found
+
+Comparisons
+4 4 4 
+789 789 789 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: NAMANG
+
+Pattern not found
+
+Comparisons
+11 11 11 
+714 714 714 
+0 0 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: PANKAJ
+Pattern found at index 11033
+Pattern found at index 26210
+
+2 matches found
+
+Comparisons
+2 2 2 
+767 767 767 
+2 2 3 
+2 2 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: PIYUSH
+Pattern found at index 11478
+
+1 match found
+
+Comparisons
+4 4 4 
+62 62 62 
+1 1 2 
+1 1 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: PRATHA
+
+Pattern not found
+
+Comparisons
+15 15 15 
+816 816 816 
+0 0 1 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: PRATIK
+Pattern found at index 11925
+Pattern found at index 15931
+
+2 matches found
+
+Comparisons
+10 10 10 
+601 601 601 
+4 4 3 
+3 3 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RAJATS
+Pattern found at index 12581
+
+1 match found
+
+Comparisons
+1 1 1 
+687 687 687 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SACHIN
+Pattern found at index 13296
+
+1 match found
+
+Comparisons
+15 15 15 
+724 724 724 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SANJAY
+Pattern found at index 13727
+
+1 match found
+
+Comparisons
+7 7 7 
+717 717 717 
+1 1 1 
+3 3 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SARTHA
+Pattern found at index 13904
+
+1 match found
+
+Comparisons
+10 10 10 
+740 740 740 
+2 2 1 
+1 1 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SDMAHA
+
+Pattern not found
+
+Comparisons
+19 19 19 
+590 590 590 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SHIVAM
+
+Pattern not found
+
+Comparisons
+1 1 1 
+634 634 634 
+0 0 1 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: SONUCS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+116 116 116 
+1 1 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: SOUMYA
+Pattern found at index 15403
+Pattern found at index 29581
+
+2 matches found
+
+Comparisons
+3 3 3 
+88 88 88 
+6 6 8 
+3 3 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SUMITS
+Pattern found at index 15848
+Pattern found at index 15853
+
+2 matches found
+
+Comparisons
+3 3 3 
+39 39 39 
+2 2 3 
+2 2 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: THOTAV
+
+Pattern not found
+
+Comparisons
+0 0 0 
+221 221 221 
+0 0 0 
+1 1 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: UNITBH
+
+Pattern not found
+
+Comparisons
+1 1 1 
+570 570 570 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: VINITJ
+
+Pattern not found
+
+Comparisons
+0 0 0 
+276 276 276 
+0 0 0 
+3 3 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: VISHAL
+Pattern found at index 17756
+Pattern found at index 31821
+Pattern found at index 31828
+
+3 matches found
+
+Comparisons
+20 20 20 
+685 685 685 
+3 3 3 
+3 3 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: NAROTA
+
+Pattern not found
+
+Comparisons
+1 1 1 
+687 687 687 
+0 0 1 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: NITTIN
+
+Pattern not found
+
+Comparisons
+5 5 4 
+221 221 221 
+0 0 1 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: SHREYA
+Pattern found at index 14932
+Pattern found at index 29050
+Pattern found at index 29056
+
+3 matches found
+
+Comparisons
+9 9 9 
+492 492 492 
+3 3 3 
+3 3 5 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SHIKHA
+Pattern found at index 14758
+Pattern found at index 14764
+Pattern found at index 20445
+Pattern found at index 28825
+Pattern found at index 31424
+
+5 matches found
+
+Comparisons
+9 9 8 
+794 794 794 
+5 5 5 
+5 5 5 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SHUBHA
+Pattern found at index 15071
+Pattern found at index 15077
+Pattern found at index 15085
+Pattern found at index 15095
+Pattern found at index 29178
+Pattern found at index 29192
+
+6 matches found
+
+Comparisons
+14 14 14 
+911 911 911 
+8 8 6 
+7 7 6 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ABHISH
+Pattern found at index 287
+
+1 match found
+
+Comparisons
+22 22 21 
+552 552 552 
+4 4 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ABHISH
+Pattern found at index 287
+
+1 match found
+
+Comparisons
+22 22 21 
+552 552 552 
+4 4 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ABHISH
+Pattern found at index 287
+
+1 match found
+
+Comparisons
+22 22 21 
+552 552 552 
+4 4 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ADITYA
+Pattern found at index 585
+Pattern found at index 591
+Pattern found at index 604
+Pattern found at index 2117
+Pattern found at index 2477
+Pattern found at index 4340
+Pattern found at index 7259
+Pattern found at index 8538
+Pattern found at index 17591
+
+9 matches found
+
+Comparisons
+20 20 17 
+797 797 797 
+12 12 9 
+10 10 9 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: AKASHM
+
+Pattern not found
+
+Comparisons
+5 5 5 
+767 767 767 
+0 0 1 
+2 2 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: ANILKU
+
+Pattern not found
+
+Comparisons
+1 1 1 
+729 729 729 
+1 1 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: ANKITY
+
+Pattern not found
+
+Comparisons
+0 0 0 
+399 399 399 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: ARPITS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+328 328 328 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: BHANUS
+
+Pattern not found
+
+Comparisons
+8 8 8 
+789 789 789 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: DURGES
+
+Pattern not found
+
+Comparisons
+0 0 0 
+570 570 570 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: ESHANI
+Pattern found at index 1322
+Pattern found at index 20959
+
+2 matches found
+
+Comparisons
+25 25 25 
+794 794 794 
+3 3 3 
+2 2 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: GAURAV
+Pattern found at index 5381
+
+1 match found
+
+Comparisons
+4 4 4 
+717 717 717 
+1 1 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: HARSHA
+Pattern found at index 6007
+Pattern found at index 6013
+Pattern found at index 6020
+Pattern found at index 6027
+Pattern found at index 6036
+Pattern found at index 14318
+Pattern found at index 14605
+Pattern found at index 14650
+Pattern found at index 21702
+Pattern found at index 21708
+
+10 matches found
+
+Comparisons
+25 25 25 
+809 809 809 
+11 11 10 
+10 10 11 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: HARSHJ
+
+Pattern not found
+
+Comparisons
+0 0 0 
+816 816 816 
+0 0 0 
+3 3 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: JITEND
+Pattern found at index 7359
+
+1 match found
+
+Comparisons
+4 4 4 
+799 799 799 
+1 1 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: JYOTIP
+Pattern found at index 7446
+
+1 match found
+
+Comparisons
+1 1 1 
+83 83 83 
+1 1 1 
+1 1 5 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: JYOTSN
+Pattern found at index 22796
+
+1 match found
+
+Comparisons
+1 1 1 
+28 28 28 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: KARTIK
+Pattern found at index 7881
+Pattern found at index 7887
+
+2 matches found
+
+Comparisons
+4 4 4 
+717 717 717 
+3 3 2 
+3 3 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: KINSHU
+Pattern found at index 8135
+
+1 match found
+
+Comparisons
+11 11 11 
+335 335 335 
+2 2 1 
+2 2 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: KUMARA
+Pattern found at index 704
+Pattern found at index 14174
+Pattern found at index 15269
+
+3 matches found
+
+Comparisons
+15 15 15 
+789 789 789 
+3 3 3 
+3 3 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: KURKUR
+
+Pattern not found
+
+Comparisons
+0 0 0 
+35 35 35 
+0 0 2 
+2 2 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+1 1 1 
+--------------------
+Pattern: KUSHAL
+Pattern found at index 8446
+Pattern found at index 23766
+
+2 matches found
+
+Comparisons
+20 20 20 
+634 634 634 
+2 2 2 
+2 2 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: LALASH
+
+Pattern not found
+
+Comparisons
+23 23 23 
+767 767 767 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: NAMANG
+
+Pattern not found
+
+Comparisons
+11 11 11 
+714 714 714 
+0 0 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: NIKHIL
+Pattern found at index 10345
+Pattern found at index 10351
+Pattern found at index 25798
+
+3 matches found
+
+Comparisons
+6 6 6 
+823 823 823 
+3 3 6 
+3 3 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: OMRAJB
+
+Pattern not found
+
+Comparisons
+4 4 3 
+911 911 911 
+1 1 1 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: PARIKS
+Pattern found at index 11218
+
+1 match found
+
+Comparisons
+1 1 1 
+570 570 570 
+3 3 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: PRATYU
+
+Pattern not found
+
+Comparisons
+0 0 0 
+39 39 39 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: RAGHAV
+Pattern found at index 12410
+Pattern found at index 12416
+
+2 matches found
+
+Comparisons
+2 2 2 
+764 764 764 
+3 3 2 
+2 2 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ROHANA
+
+Pattern not found
+
+Comparisons
+52 52 52 
+764 764 764 
+1 1 2 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: SNIGDH
+Pattern found at index 29482
+
+1 match found
+
+Comparisons
+1 1 2 
+838 838 838 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: TANAYN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+601 601 601 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: UTTAMS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+88 88 88 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: YVIJAY
+
+Pattern not found
+
+Comparisons
+12 12 12 
+93 93 93 
+0 0 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: AAKASH
+Pattern found at index 39
+Pattern found at index 832
+
+2 matches found
+
+Comparisons
+28 28 28 
+365 365 365 
+3 3 2 
+2 2 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ABHISH
+Pattern found at index 287
+
+1 match found
+
+Comparisons
+22 22 21 
+552 552 552 
+4 4 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: AKSHAY
+Pattern found at index 892
+Pattern found at index 18513
+Pattern found at index 20266
+
+3 matches found
+
+Comparisons
+5 5 5 
+789 789 789 
+5 5 3 
+4 4 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: AMBUJG
+
+Pattern not found
+
+Comparisons
+0 0 0 
+724 724 724 
+0 0 2 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: ANUJKA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+804 804 804 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: AVINAS
+Pattern found at index 2003
+
+1 match found
+
+Comparisons
+6 6 6 
+781 781 781 
+2 2 1 
+5 5 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: DEVADA
+Pattern found at index 4017
+Pattern found at index 4028
+Pattern found at index 4035
+
+3 matches found
+
+Comparisons
+5 5 5 
+195 195 195 
+3 3 3 
+3 3 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: DUSHYA
+Pattern found at index 4711
+
+1 match found
+
+Comparisons
+22 22 20 
+461 461 461 
+1 1 1 
+2 2 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: EKJOTS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+399 399 399 
+0 0 0 
+1 1 5 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ESLAVA
+
+Pattern not found
+
+Comparisons
+17 17 16 
+797 797 797 
+1 1 0 
+1 1 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: GAURAV
+Pattern found at index 5381
+
+1 match found
+
+Comparisons
+4 4 4 
+717 717 717 
+1 1 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: HARSHS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+549 549 549 
+1 1 0 
+3 3 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: HARSHA
+Pattern found at index 6007
+Pattern found at index 6013
+Pattern found at index 6020
+Pattern found at index 6027
+Pattern found at index 6036
+Pattern found at index 14318
+Pattern found at index 14605
+Pattern found at index 14650
+Pattern found at index 21702
+Pattern found at index 21708
+
+10 matches found
+
+Comparisons
+25 25 25 
+809 809 809 
+11 11 10 
+10 10 11 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: MAYANK
+Pattern found at index 9364
+Pattern found at index 9370
+
+2 matches found
+
+Comparisons
+6 6 6 
+789 789 789 
+3 3 2 
+2 2 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: MOHSAH
+
+Pattern not found
+
+Comparisons
+0 0 0 
+816 816 816 
+0 0 1 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: NABAJI
+
+Pattern not found
+
+Comparisons
+1 1 3 
+195 195 195 
+0 0 1 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: NISHAN
+Pattern found at index 1347
+Pattern found at index 9176
+Pattern found at index 10540
+Pattern found at index 10549
+Pattern found at index 25928
+
+5 matches found
+
+Comparisons
+79 79 79 
+789 789 789 
+5 5 6 
+5 5 5 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: PRAGYA
+Pattern found at index 26504
+Pattern found at index 26510
+Pattern found at index 26524
+
+3 matches found
+
+Comparisons
+6 6 14 
+729 729 729 
+3 3 3 
+3 3 4 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: PRANIT
+Pattern found at index 11792
+
+1 match found
+
+Comparisons
+24 24 24 
+461 461 461 
+1 1 1 
+1 1 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RAHULY
+
+Pattern not found
+
+Comparisons
+0 0 0 
+217 217 217 
+0 0 0 
+1 1 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: RANJIT
+Pattern found at index 3226
+Pattern found at index 12904
+Pattern found at index 27195
+
+3 matches found
+
+Comparisons
+6 6 6 
+634 634 634 
+3 3 4 
+3 3 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RATANK
+
+Pattern not found
+
+Comparisons
+4 4 4 
+789 789 789 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RISHAB
+Pattern found at index 13084
+Pattern found at index 28458
+
+2 matches found
+
+Comparisons
+8 8 8 
+764 764 764 
+2 2 2 
+9 9 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RISHAB
+Pattern found at index 13084
+Pattern found at index 28458
+
+2 matches found
+
+Comparisons
+8 8 8 
+764 764 764 
+2 2 2 
+9 9 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RITIKR
+Pattern found at index 23612
+
+1 match found
+
+Comparisons
+2 2 2 
+217 217 217 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ROHANP
+
+Pattern not found
+
+Comparisons
+1 1 1 
+634 634 634 
+2 2 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: ROHITK
+
+Pattern not found
+
+Comparisons
+1 1 1 
+388 388 388 
+2 2 0 
+1 1 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: RUSHIT
+
+Pattern not found
+
+Comparisons
+25 25 20 
+83 83 83 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SACHAN
+
+Pattern not found
+
+Comparisons
+95 95 95 
+590 590 590 
+0 0 0 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: SACHIN
+Pattern found at index 13296
+
+1 match found
+
+Comparisons
+15 15 15 
+724 724 724 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SANDEE
+Pattern found at index 13698
+Pattern found at index 13705
+
+2 matches found
+
+Comparisons
+7 7 7 
+653 653 653 
+4 4 2 
+2 2 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SHASHI
+Pattern found at index 14585
+Pattern found at index 14598
+Pattern found at index 14608
+Pattern found at index 14618
+Pattern found at index 14629
+Pattern found at index 14640
+Pattern found at index 28723
+Pattern found at index 28729
+Pattern found at index 28739
+Pattern found at index 31221
+
+10 matches found
+
+Comparisons
+44 44 44 
+816 816 816 
+10 10 11 
+10 10 10 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SUMITK
+
+Pattern not found
+
+Comparisons
+0 0 0 
+118 118 118 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: SUVEER
+
+Pattern not found
+
+Comparisons
+6 6 8 
+130 130 130 
+1 1 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: VIKASH
+
+Pattern not found
+
+Comparisons
+28 28 28 
+717 717 717 
+0 0 1 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: AAKASH
+Pattern found at index 39
+Pattern found at index 832
+
+2 matches found
+
+Comparisons
+28 28 28 
+365 365 365 
+3 3 2 
+2 2 2 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ANKITK
+
+Pattern not found
+
+Comparisons
+0 0 2 
+781 781 781 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: ATHULT
+
+Pattern not found
+
+Comparisons
+1 1 1 
+335 335 335 
+1 1 0 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+Pattern: PATILP
+
+Pattern not found
+
+Comparisons
+0 0 0 
+570 570 570 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: PATILS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+488 488 488 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: SAHILS
+Pattern found at index 13395
+
+1 match found
+
+Comparisons
+6 6 6 
+729 729 729 
+2 2 2 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SURYAW
+
+Pattern not found
+
+Comparisons
+0 0 0 
+14 14 14 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: TEEKAM
+
+Pattern not found
+
+Comparisons
+1 1 1 
+809 809 809 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: VISHAL
+Pattern found at index 17756
+Pattern found at index 31821
+Pattern found at index 31828
+
+3 matches found
+
+Comparisons
+20 20 20 
+685 685 685 
+3 3 3 
+3 3 3 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: AMELIA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+365 365 365 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: OLIVIA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+729 729 729 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: EMILYA
+
+Pattern not found
+
+Comparisons
+5 5 2 
+789 789 789 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: AVAISL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+816 816 816 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ISLAJE
+
+Pattern not found
+
+Comparisons
+1 1 1 
+794 794 794 
+0 0 1 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: JESSIC
+
+Pattern not found
+
+Comparisons
+0 0 0 
+789 789 789 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: POPPYI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+52 52 52 
+3 3 1 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: ISABEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+653 653 653 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: SOPHIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+634 634 634 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: MIARUB
+
+Pattern not found
+
+Comparisons
+0 0 0 
+816 816 816 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: RUBYLI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+204 204 204 
+2 2 0 
+2 2 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+Pattern: LILYGR
+
+Pattern not found
+
+Comparisons
+0 0 0 
+328 328 328 
+1 1 1 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: GRACEE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+307 307 307 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: EVIESO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+601 601 601 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: SOPHIA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+729 729 729 
+0 0 0 
+1 1 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ELLASC
+
+Pattern not found
+
+Comparisons
+0 0 0 
+755 755 755 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: SCARLE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+804 804 804 
+0 0 2 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: CHLOEI
+
+Pattern not found
+
+Comparisons
+0 0 3 
+755 755 755 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ISABEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+653 653 653 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: FREYAC
+
+Pattern not found
+
+Comparisons
+1 1 0 
+804 804 804 
+2 2 0 
+0 0 0 
+
+False positives
+1 1 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: CHARLO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+764 764 764 
+0 0 1 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: SIENNA
+
+Pattern not found
+
+Comparisons
+3 3 3 
+799 799 799 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: DAISYP
+
+Pattern not found
+
+Comparisons
+2 2 0 
+570 570 570 
+0 0 0 
+1 1 0 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: PHOEBE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+722 722 722 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: MILLIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+797 797 797 
+2 2 0 
+2 2 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+Pattern: EVAALI
+
+Pattern not found
+
+Comparisons
+3 3 3 
+714 714 714 
+0 0 0 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: ALICEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+357 357 357 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: LUCYFL
+
+Pattern not found
+
+Comparisons
+2 2 0 
+432 432 432 
+1 1 0 
+0 0 3 
+
+False positives
+1 1 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: FLOREN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+717 717 717 
+0 0 1 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: SOFIAL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+799 799 799 
+1 1 2 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: LAYLAL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+823 823 823 
+0 0 1 
+0 0 3 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: LOLAHO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+823 823 823 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: HOLLYI
+
+Pattern not found
+
+Comparisons
+0 0 1 
+388 388 388 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: IMOGEN
+
+Pattern not found
+
+Comparisons
+1 1 1 
+823 823 823 
+1 1 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: MOLLYM
+
+Pattern not found
+
+Comparisons
+0 0 0 
+130 130 130 
+1 1 2 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: MATILD
+
+Pattern not found
+
+Comparisons
+1 1 0 
+911 911 911 
+0 0 0 
+2 2 0 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: LILLYR
+
+Pattern not found
+
+Comparisons
+3 3 0 
+194 194 194 
+1 1 1 
+1 1 0 
+
+False positives
+1 1 0 
+1 1 1 
+1 1 1 
+1 1 0 
+--------------------
+Pattern: ROSIEE
+
+Pattern not found
+
+Comparisons
+1 1 0 
+685 685 685 
+0 0 0 
+1 1 0 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: ELIZAB
+
+Pattern not found
+
+Comparisons
+0 0 0 
+809 809 809 
+1 1 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: ERINMA
+
+Pattern not found
+
+Comparisons
+7 7 7 
+797 797 797 
+1 1 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: MAISIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+794 794 794 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: LEXIEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+740 740 740 
+0 0 0 
+1 1 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ELLIEH
+
+Pattern not found
+
+Comparisons
+0 0 0 
+722 722 722 
+1 1 1 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: HANNAH
+
+Pattern not found
+
+Comparisons
+1 1 1 
+590 590 590 
+0 0 2 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: EVELYN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+328 328 328 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: ABIGAI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+59 59 59 
+3 3 2 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: ELSIES
+
+Pattern not found
+
+Comparisons
+0 0 0 
+687 687 687 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: SUMMER
+
+Pattern not found
+
+Comparisons
+8 8 9 
+184 184 184 
+1 1 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: MEGANJ
+
+Pattern not found
+
+Comparisons
+9 9 2 
+714 714 714 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: JASMIN
+
+Pattern not found
+
+Comparisons
+0 0 3 
+781 781 781 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: MAYAAM
+
+Pattern not found
+
+Comparisons
+5 5 4 
+724 724 724 
+1 1 0 
+0 0 2 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: AMELIE
+
+Pattern not found
+
+Comparisons
+1 1 0 
+472 472 472 
+0 0 2 
+0 0 1 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: LACEYW
+
+Pattern not found
+
+Comparisons
+0 0 0 
+687 687 687 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: WILLOW
+
+Pattern not found
+
+Comparisons
+3 3 0 
+88 88 88 
+0 0 0 
+0 0 1 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: EMMABE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+307 307 307 
+0 0 0 
+2 2 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: BELLAE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+195 195 195 
+1 1 4 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: ELEANO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+755 755 755 
+2 2 0 
+3 3 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+Pattern: ESMEEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+911 911 911 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: ELIZAG
+
+Pattern not found
+
+Comparisons
+0 0 0 
+797 797 797 
+1 1 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: GEORGI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+838 838 838 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: HARRIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+911 911 911 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: GRACIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+389 389 389 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ANNABE
+
+Pattern not found
+
+Comparisons
+1 1 1 
+195 195 195 
+0 0 1 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: EMILIA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+634 634 634 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: AMBERI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+653 653 653 
+0 0 0 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: IVYBRO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+116 116 116 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: BROOKE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+781 781 781 
+0 0 0 
+2 2 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ROSEAN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+634 634 634 
+0 0 0 
+4 4 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: ANNAZA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+764 764 764 
+1 1 0 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: ZARALE
+
+Pattern not found
+
+Comparisons
+3 3 3 
+823 823 823 
+1 1 0 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+Pattern: LEAHMO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+724 724 724 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: MOLLIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+781 781 781 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: MARTHA
+Pattern found at index 11087
+
+1 match found
+
+Comparisons
+10 10 10 
+838 838 838 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: FAITHH
+
+Pattern not found
+
+Comparisons
+1 1 1 
+755 755 755 
+0 0 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: HOLLIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+838 838 838 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: AMYBET
+
+Pattern not found
+
+Comparisons
+0 0 1 
+781 781 781 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: BETHAN
+
+Pattern not found
+
+Comparisons
+18 18 18 
+714 714 714 
+1 1 1 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: VIOLET
+
+Pattern not found
+
+Comparisons
+0 0 0 
+328 328 328 
+3 3 0 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: KATIEM
+
+Pattern not found
+
+Comparisons
+0 0 0 
+911 911 911 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: MARYAM
+
+Pattern not found
+
+Comparisons
+1 1 1 
+685 685 685 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: FRANCE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+552 552 552 
+0 0 3 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: JULIAM
+
+Pattern not found
+
+Comparisons
+1 1 1 
+781 781 781 
+0 0 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: MARIAD
+
+Pattern not found
+
+Comparisons
+0 0 0 
+590 590 590 
+0 0 2 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: DARCEY
+
+Pattern not found
+
+Comparisons
+0 0 0 
+794 794 794 
+3 3 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: ISABEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+653 653 653 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: TILLYM
+
+Pattern not found
+
+Comparisons
+0 0 0 
+116 116 116 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: MADDIS
+
+Pattern not found
+
+Comparisons
+3 3 1 
+714 714 714 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: VICTOR
+
+Pattern not found
+
+Comparisons
+0 0 0 
+204 204 204 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ISOBEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+799 799 799 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: NIAMHS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+816 816 816 
+0 0 1 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: SKYEMA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+570 570 570 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: MADISO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+838 838 838 
+2 2 0 
+2 2 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: DARCYA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+755 755 755 
+0 0 1 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: AISHAB
+
+Pattern not found
+
+Comparisons
+8 8 8 
+258 258 258 
+0 0 0 
+1 1 2 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: BEATRI
+
+Pattern not found
+
+Comparisons
+17 17 17 
+809 809 809 
+0 0 0 
+0 0 2 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: SARAHZ
+
+Pattern not found
+
+Comparisons
+0 0 0 
+549 549 549 
+0 0 2 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: ZOEPAI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+634 634 634 
+0 0 2 
+0 0 4 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: PAIGEH
+
+Pattern not found
+
+Comparisons
+0 0 0 
+590 590 590 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: HEIDIL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+552 552 552 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: LYDIAS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+717 717 717 
+2 2 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: OLIVER
+
+Pattern not found
+
+Comparisons
+0 0 0 
+388 388 388 
+1 1 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: JACKHA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+155 155 155 
+2 2 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: HARRYJ
+
+Pattern not found
+
+Comparisons
+0 0 0 
+399 399 399 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: JACOBC
+
+Pattern not found
+
+Comparisons
+0 0 0 
+155 155 155 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: CHARLI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+722 722 722 
+1 1 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: THOMAS
+
+Pattern not found
+
+Comparisons
+1 1 2 
+492 492 492 
+1 1 3 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: OSCARW
+
+Pattern not found
+
+Comparisons
+0 0 0 
+432 432 432 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: WILLIA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+781 781 781 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: JAMESG
+
+Pattern not found
+
+Comparisons
+0 0 0 
+809 809 809 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: GEORGE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+764 764 764 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ALFIEJ
+
+Pattern not found
+
+Comparisons
+0 0 0 
+389 389 389 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: JOSHUA
+
+Pattern not found
+
+Comparisons
+2 2 2 
+570 570 570 
+0 0 1 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: NOAHET
+
+Pattern not found
+
+Comparisons
+1 1 1 
+823 823 823 
+0 0 0 
+0 0 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: ETHANM
+
+Pattern not found
+
+Comparisons
+6 6 6 
+838 838 838 
+2 2 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: MUHAMM
+
+Pattern not found
+
+Comparisons
+3 3 3 
+687 687 687 
+1 1 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: ARCHIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+423 423 423 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: LEOHEN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+911 911 911 
+0 0 0 
+2 2 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: HENRYJ
+
+Pattern not found
+
+Comparisons
+0 0 1 
+399 399 399 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: JOSEPH
+
+Pattern not found
+
+Comparisons
+0 0 0 
+549 549 549 
+0 0 2 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: SAMUEL
+
+Pattern not found
+
+Comparisons
+0 0 1 
+685 685 685 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 1 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: RILEYD
+
+Pattern not found
+
+Comparisons
+0 0 0 
+549 549 549 
+0 0 2 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: DANIEL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+472 472 472 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: MOHAMM
+Pattern found at index 11462
+
+1 match found
+
+Comparisons
+3 3 3 
+823 823 823 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ALEXAN
+
+Pattern not found
+
+Comparisons
+2 2 0 
+764 764 764 
+2 2 3 
+0 0 1 
+
+False positives
+1 1 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: MAXLUC
+
+Pattern not found
+
+Comparisons
+0 0 0 
+570 570 570 
+0 0 1 
+1 1 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+1 1 1 
+--------------------
+Pattern: LUCASM
+
+Pattern not found
+
+Comparisons
+7 7 0 
+687 687 687 
+0 0 2 
+1 1 1 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 1 
+1 1 1 
+--------------------
+Pattern: MASONL
+
+Pattern not found
+
+Comparisons
+1 1 0 
+570 570 570 
+0 0 0 
+1 1 0 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: LOGANI
+
+Pattern not found
+
+Comparisons
+3 3 3 
+804 804 804 
+0 0 0 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: ISAACB
+
+Pattern not found
+
+Comparisons
+0 0 0 
+272 272 272 
+1 1 0 
+2 2 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: BENJAM
+
+Pattern not found
+
+Comparisons
+0 0 0 
+472 472 472 
+1 1 0 
+1 1 9 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: DYLANJ
+
+Pattern not found
+
+Comparisons
+2 2 2 
+781 781 781 
+1 1 0 
+0 0 5 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: JAKEED
+
+Pattern not found
+
+Comparisons
+0 0 0 
+206 206 206 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: EDWARD
+
+Pattern not found
+
+Comparisons
+2 2 2 
+809 809 809 
+0 0 0 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: FINLEY
+
+Pattern not found
+
+Comparisons
+0 0 0 
+685 685 685 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: FREDDI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+590 590 590 
+0 0 1 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: HARRIS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+549 549 549 
+1 1 0 
+1 1 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: TYLERS
+
+Pattern not found
+
+Comparisons
+0 0 0 
+55 55 55 
+0 0 0 
+2 2 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: SEBAST
+
+Pattern not found
+
+Comparisons
+0 0 0 
+781 781 781 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: ZACHAR
+
+Pattern not found
+
+Comparisons
+21 21 21 
+764 764 764 
+1 1 3 
+0 0 2 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: ADAMTH
+
+Pattern not found
+
+Comparisons
+1 1 1 
+552 552 552 
+2 2 1 
+0 0 2 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: THEOJA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+911 911 911 
+1 1 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: JAYDEN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+911 911 911 
+0 0 0 
+1 1 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ARTHUR
+
+Pattern not found
+
+Comparisons
+0 0 0 
+221 221 221 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: TOBYLU
+
+Pattern not found
+
+Comparisons
+0 0 0 
+83 83 83 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: LUKELE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+781 781 781 
+2 2 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: LEWISM
+
+Pattern not found
+
+Comparisons
+0 0 0 
+388 388 388 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: MATTHE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+740 740 740 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: HARVEY
+
+Pattern not found
+
+Comparisons
+0 0 0 
+432 432 432 
+1 1 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+Pattern: HARLEY
+
+Pattern not found
+
+Comparisons
+0 0 0 
+687 687 687 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: DAVIDR
+
+Pattern not found
+
+Comparisons
+1 1 0 
+804 804 804 
+0 0 0 
+0 0 3 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: RYANTO
+
+Pattern not found
+
+Comparisons
+1 1 4 
+118 118 118 
+1 1 0 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+Pattern: TOMMYM
+
+Pattern not found
+
+Comparisons
+0 0 0 
+55 55 55 
+0 0 2 
+2 2 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: MICHAE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+307 307 307 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: REUBEN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+789 789 789 
+1 1 1 
+3 3 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+1 1 0 
+--------------------
+Pattern: NATHAN
+Pattern found at index 6511
+Pattern found at index 10104
+Pattern found at index 13257
+Pattern found at index 14208
+
+4 matches found
+
+Comparisons
+18 18 18 
+804 804 804 
+5 5 4 
+4 4 4 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: BLAKEM
+
+Pattern not found
+
+Comparisons
+0 0 0 
+423 423 423 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: MOHAMM
+Pattern found at index 11462
+
+1 match found
+
+Comparisons
+3 3 3 
+823 823 823 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: JENSON
+
+Pattern not found
+
+Comparisons
+0 0 0 
+488 488 488 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: BOBBYL
+
+Pattern not found
+
+Comparisons
+0 0 0 
+804 804 804 
+0 0 2 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: LUCACH
+
+Pattern not found
+
+Comparisons
+0 0 0 
+653 653 653 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: CHARLE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+552 552 552 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: FRANKI
+
+Pattern not found
+
+Comparisons
+7 7 7 
+911 911 911 
+0 0 0 
+2 2 1 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: DEXTER
+
+Pattern not found
+
+Comparisons
+0 0 0 
+492 492 492 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: KAIALE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+307 307 307 
+0 0 0 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: ALEXCO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+797 797 797 
+2 2 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: CONNOR
+
+Pattern not found
+
+Comparisons
+0 0 0 
+432 432 432 
+0 0 0 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: LIAMJA
+
+Pattern not found
+
+Comparisons
+1 1 0 
+590 590 590 
+1 1 0 
+0 0 3 
+
+False positives
+1 1 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: JAMIEE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+389 389 389 
+2 2 0 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 1 
+--------------------
+Pattern: ELIJAH
+
+Pattern not found
+
+Comparisons
+1 1 1 
+472 472 472 
+1 1 0 
+1 1 1 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 0 
+1 1 1 
+--------------------
+Pattern: STANLE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+685 685 685 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: LOUIEJ
+
+Pattern not found
+
+Comparisons
+0 0 1 
+634 634 634 
+1 1 1 
+1 1 3 
+
+False positives
+0 0 1 
+1 1 1 
+1 1 1 
+1 1 1 
+--------------------
+Pattern: JUDECA
+
+Pattern not found
+
+Comparisons
+0 0 0 
+423 423 423 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: CALLUM
+
+Pattern not found
+
+Comparisons
+6 6 1 
+799 799 799 
+0 0 0 
+0 0 2 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: HUGOLE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+729 729 729 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: LEONEL
+
+Pattern not found
+
+Comparisons
+0 0 20 
+823 823 823 
+0 0 0 
+1 1 3 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+1 1 1 
+--------------------
+Pattern: ELLIOT
+
+Pattern not found
+
+Comparisons
+0 0 1 
+549 549 549 
+0 0 0 
+3 3 0 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: LOUIST
+
+Pattern not found
+
+Comparisons
+0 0 0 
+68 68 68 
+1 1 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: THEODO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+740 740 740 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: GABRIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+357 357 357 
+0 0 1 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+1 1 0 
+--------------------
+Pattern: OLLIEA
+
+Pattern not found
+
+Comparisons
+1 1 0 
+724 724 724 
+0 0 2 
+0 0 2 
+
+False positives
+1 1 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: AARONF
+
+Pattern not found
+
+Comparisons
+0 0 0 
+809 809 809 
+2 2 1 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+1 1 0 
+--------------------
+Pattern: FREDER
+
+Pattern not found
+
+Comparisons
+0 0 0 
+794 794 794 
+1 1 1 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+0 0 1 
+--------------------
+Pattern: EVANEL
+
+Pattern not found
+
+Comparisons
+2 2 2 
+911 911 911 
+0 0 0 
+1 1 0 
+
+False positives
+1 1 1 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: ELLIOT
+
+Pattern not found
+
+Comparisons
+0 0 1 
+549 549 549 
+0 0 0 
+3 3 0 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: OWENTE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+335 335 335 
+0 0 1 
+0 0 2 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: TEDDYF
+
+Pattern not found
+
+Comparisons
+0 0 0 
+816 816 816 
+1 1 1 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+1 1 0 
+--------------------
+Pattern: FINLAY
+
+Pattern not found
+
+Comparisons
+0 0 0 
+740 740 740 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: CALEBI
+
+Pattern not found
+
+Comparisons
+0 0 0 
+102 102 102 
+0 0 1 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: IBRAHI
+Pattern found at index 6359
+
+1 match found
+
+Comparisons
+3 3 3 
+552 552 552 
+1 1 1 
+1 1 1 
+
+False positives
+0 0 0 
+0 0 0 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: RONNIE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+601 601 601 
+3 3 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+0 0 0 
+--------------------
+Pattern: FELIXA
+
+Pattern not found
+
+Comparisons
+0 0 1 
+764 764 764 
+0 0 0 
+0 0 1 
+
+False positives
+0 0 1 
+1 1 1 
+0 0 0 
+0 0 1 
+--------------------
+Pattern: AIDENC
+
+Pattern not found
+
+Comparisons
+0 0 0 
+206 206 206 
+0 0 0 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+0 0 0 
+--------------------
+Pattern: CAMERO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+809 809 809 
+0 0 1 
+0 0 1 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 1 
+--------------------
+Pattern: AUSTIN
+
+Pattern not found
+
+Comparisons
+0 0 0 
+276 276 276 
+0 0 2 
+0 0 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 1 
+0 0 0 
+--------------------
+Pattern: KIANRO
+
+Pattern not found
+
+Comparisons
+4 4 4 
+729 729 729 
+2 2 1 
+0 0 0 
+
+False positives
+1 1 1 
+1 1 1 
+1 1 1 
+0 0 0 
+--------------------
+Pattern: RORYSE
+
+Pattern not found
+
+Comparisons
+0 0 0 
+35 35 35 
+1 1 2 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 1 
+1 1 0 
+--------------------
+Pattern: SETHRO
+
+Pattern not found
+
+Comparisons
+0 0 0 
+217 217 217 
+0 0 0 
+2 2 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: ROBERT
+
+Pattern not found
+
+Comparisons
+0 0 0 
+461 461 461 
+0 0 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+0 0 0 
+1 1 0 
+--------------------
+Pattern: ALBERT
+
+Pattern not found
+
+Comparisons
+0 0 0 
+804 804 804 
+1 1 0 
+1 1 0 
+
+False positives
+0 0 0 
+1 1 1 
+1 1 0 
+1 1 0 
+--------------------
+
+********************
+For all patterns
+
+Total no of Comparisons
+1584 1584 1568 
+194362 194362 194362 
+387 387 350 
+353 353 384 
+
+Total no of False positives
+84 84 83 
+256 256 256 
+94 94 84 
+81 81 105 
+
+********************
+
+Search queries: 329
+Hash table size: 32033 and capacity: 64067
+Running time: 5.40625
