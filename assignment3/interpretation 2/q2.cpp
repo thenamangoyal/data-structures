@@ -193,16 +193,16 @@ void hash_table::rehash(const char* search_key){
 
 
 void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos){
-	//cout<<"Capacity: "<<capacity<<" Size: "<<size<<endl;
-	
+		
 	no_comp = 0;
 	no_false_pos = 0;
+
 	int code = hash_code(v_key, v_key, code_no);
-	//cout<<code<<endl;
 	int value = hash_value(code, capacity, value_no);
-	//cout<<value<<endl;
+
 	int index;
 	int counter = 0;
+	
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index]){

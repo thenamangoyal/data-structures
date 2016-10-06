@@ -3,8 +3,6 @@
 #include <sstream>
 #include <cmath>
 #include <string>
-#include <vector>
-#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 
@@ -45,7 +43,7 @@ public:
 	void setcode_no(int v_code_no);
 	void setvalue_no(int v_value_no);
 	void insert(const char* v_key, const char* search_key, int v_start_index, int v_end_index);
-	vector<hash_entry> search_all(const char* v_key, int& ans_found, int& any_hash_value_match, int& no_comp);
+	void search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos);
 };
 
 void print_code_no(ofstream& output, int code_no);
@@ -194,17 +192,19 @@ void hash_table::rehash(const char* search_key){
 }
 
 
-vector<hash_entry> hash_table::search_all(const char* v_key, int& ans_found, int& any_hash_value_match, int& no_comp){
-	//cout<<"Capacity: "<<capacity<<" Size: "<<size<<endl;
-	vector<hash_entry> ans;
-	ans_found = 0;
-	any_hash_value_match = 0;
+void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos){
+	
 	no_comp = 0;
+
+	int any_hash_value_match = 0;
+	int ans_found = 0;
+
 	int code = hash_code(v_key, v_key, code_no);
-	//cout<<code<<endl;
 	int value = hash_value(code, capacity, value_no);
-	//cout<<value<<endl;
+
 	int index;
+	int counter = 0;
+
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index]){
@@ -213,8 +213,10 @@ vector<hash_entry> hash_table::search_all(const char* v_key, int& ans_found, int
 				bool isEqual = str_equal_2(p,v_key);
 				if (isEqual){
 					// Pattern found
-					ans.push_back(*table[index]);
 					ans_found = 1;
+					cout<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
+					output<<"Pattern "<<p<<" found at index "<<table[index]->getstart_index()<<endl;
+					counter++;
 				}
 				else {
 					// False positive
@@ -224,12 +226,37 @@ vector<hash_entry> hash_table::search_all(const char* v_key, int& ans_found, int
 			}
 		}
 		else {
-			// Found an empty cell			
-			return ans;
+			// Found an empty cell		
+			break;
 		}
-	}	
+	}
+	cout<<endl;
+	output<<endl;
 	// Checked all cells
-	return ans;
+	if (counter == 0){
+		cout<<"Pattern not found"<<endl;
+		output<<"Pattern not found"<<endl;
+	}
+	else if (counter == 1) {
+		cout<<counter<<" match found"<<endl;		
+		output<<counter<<" match found"<<endl;		
+	}	
+	else {
+		cout<<counter<<" matches found"<<endl;
+		output<<counter<<" matches found"<<endl;
+	}
+
+	if (any_hash_value_match == 1){
+			if (ans_found == 1){
+				no_false_pos = 0;
+			}
+			else {
+				no_false_pos = 1;
+			}			
+		}
+	else{
+		no_false_pos = 0;
+	}
 
 }
 
@@ -291,8 +318,6 @@ int main(int argc, char const *argv[]){
 	const char* line_pattern = argv[1];
 	cout<<"Running"<<endl;
 	
-	int ans_found;
-	int any_hash_value_match;
 	int no_comp;
 	int no_false_pos;
 	int m = str_len(line_pattern);
@@ -326,45 +351,8 @@ int main(int argc, char const *argv[]){
 	cout<<"Pattern: "<<line_pattern<<endl;
 	output<<"Pattern: "<<line_pattern<<endl;
 	
-	vector<hash_entry> search_entry;
-	search_entry = tab->search_all(line_pattern, ans_found, any_hash_value_match, no_comp);
+	tab->search_all(output, line_pattern, no_comp, no_false_pos);
 
-	if (any_hash_value_match == 1){
-		if (ans_found == 1){
-			no_false_pos = 0;
-		}
-		else {
-			no_false_pos = 1;
-		}			
-	}
-	else{
-		no_false_pos = 0;
-	}
-
-	if (!(search_entry.empty())){
-		if (search_entry.size() == 1) {
-			cout<<search_entry.size()<<" match found"<<endl;
-			cout<<endl;
-			output<<search_entry.size()<<" match found"<<endl;
-			output<<endl;
-		}
-		else {
-			cout<<search_entry.size()<<" matches found"<<endl;
-			cout<<endl;
-			output<<search_entry.size()<<" matches found"<<endl;
-			output<<endl;
-		}
-		
-		
-		for (int i=0; i< search_entry.size(); i++){
-			cout<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
-			output<<"Pattern "<<search_entry[i].getkey()<<" found at index "<<search_entry[i].getstart_index()<<endl;
-		}
-	}
-	else {
-		cout<<"Pattern not found"<<endl;
-		output<<"Pattern not found"<<endl;
-	}
 	cout<<endl;
 	cout<<"Comparisons: "<<no_comp<<endl;
 	output<<endl;
