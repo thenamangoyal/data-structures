@@ -9,8 +9,6 @@
 #define load_factor 0.9
 using namespace std;
 
-
-
 class hash_entry{
 private:
 	char* key;
