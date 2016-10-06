@@ -46,6 +46,8 @@ public:
 	void search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos);
 };
 
+void final_print_comp(ofstream& output, long long int search_no_comp[][3]);
+void final_print_false_pos(ofstream& output, long long int search_no_false_pos[][3]);
 void print_comp(ofstream& output, int search_no_comp[][3]);
 void print_false_pos(ofstream& output, int search_no_false_pos[][3]);
 
@@ -191,16 +193,20 @@ void hash_table::rehash(){
 }
 
 void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, int& no_false_pos){
-	//cout<<"Capacity: "<<capacity<<" Size: "<<size<<endl;
 	
+	if (code_no == 2 && value_no == 2){
+		//cout<<"Pattern: "<<v_key<<endl;
+		output<<"Pattern: "<<v_key<<endl;
+	}
+
 	no_comp = 0;
 	no_false_pos = 0;
 	int code = hash_code(v_key, code_no);
-	//cout<<code<<endl;
 	int value = hash_value(code, capacity, value_no);
-	//cout<<value<<endl;	
+
 	int index;
 	int counter = 0;
+
 	for(int i=0; i<capacity; i++){
 		index = linear_probe_index(value, i, capacity);
 		if (table[index]){
@@ -210,7 +216,7 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 				if (isEqual){
 					// Pattern found
 					if (code_no == 2 && value_no == 2){
-						cout<<"Pattern found at index "<<table[index]->getstart_index()<<endl;
+						//cout<<"Pattern found at index "<<table[index]->getstart_index()<<endl;
 						output<<"Pattern found at index "<<table[index]->getstart_index()<<endl;
 						counter++;
 					}
@@ -230,19 +236,19 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 	}	
 	// Checked all cells
 	if(code_no == 2 && value_no == 2){
-		cout<<endl;
+		//cout<<endl;
 		output<<endl;
 		// Checked all cells
 		if (counter == 0){
-			cout<<"Pattern not found"<<endl;
+			//cout<<"Pattern not found"<<endl;
 			output<<"Pattern not found"<<endl;
 		}
 		else if (counter == 1) {
-			cout<<counter<<" match found"<<endl;		
+			//cout<<counter<<" match found"<<endl;		
 			output<<counter<<" match found"<<endl;		
 		}	
 		else {
-			cout<<counter<<" matches found"<<endl;
+			//cout<<counter<<" matches found"<<endl;
 			output<<counter<<" matches found"<<endl;
 		}
 	}	
@@ -313,6 +319,16 @@ int main(int argc, char const *argv[]){
 
 	hash_table*** tab = new hash_table**[4];
 
+	long long int final_no_comp[4][3];
+	long long int final_no_false_pos[4][3];
+
+	for (int i=0; i<4; i++){
+		for(int j=0; j<3; j++){
+			final_no_comp[i][j] = 0;
+			final_no_false_pos[i][j] = 0;
+		}
+	}
+
 	while(pattern>>line_pattern){
 		if (counter == 0) {
 			m = line_pattern.size();
@@ -337,9 +353,7 @@ int main(int argc, char const *argv[]){
 					}
 				}
 			}
-		}
-		cout<<"Pattern: "<<line_pattern<<endl;
-		output<<"Pattern: "<<line_pattern<<endl;
+		}		
 		
 		int search_no_comp[4][3];
 		int search_no_false_pos[4][3];
@@ -347,16 +361,25 @@ int main(int argc, char const *argv[]){
 			for (int j=0; j<3; j++){
 				tab[i][j]->search_all(output, line_pattern.c_str(), no_comp, no_false_pos);
 				search_no_comp[i][j] = no_comp;
-				search_no_false_pos[i][j] = no_false_pos;				
+				search_no_false_pos[i][j] = no_false_pos;
+				final_no_comp[i][j] += search_no_comp[i][j];
+				final_no_false_pos[i][j] += search_no_false_pos[i][j];			
 			}
 		}
 		
 		print_comp(output, search_no_comp);
 		print_false_pos(output, search_no_false_pos);
-		cout<<"--------------------"<<endl;
+		//cout<<"--------------------"<<endl;
 		output<<"--------------------"<<endl;
 		counter++;
 	}
+
+	output<<endl<<"********************"<<endl;	
+	cout<<"For all patterns"<<endl;
+	output<<"For all patterns"<<endl;
+	final_print_comp(output, final_no_comp);
+	final_print_false_pos(output, final_no_false_pos);
+	output<<endl<<"********************"<<endl;
 
 	cout<<endl;
 	output<<endl;
@@ -386,11 +409,12 @@ int main(int argc, char const *argv[]){
 	return 0;
 }
 
-void print_comp(ofstream& output, int search_no_comp[][3]){
+
+void final_print_comp(ofstream& output, long long int search_no_comp[][3]){
 	cout<<endl;
-	cout<<"Comparisons"<<endl;
+	cout<<"Total no of Comparisons"<<endl;
 	output<<endl;
-	output<<"Comparisons"<<endl;
+	output<<"Total no of Comparisons"<<endl;
 	for (int i=0; i<4;i++){
 		for(int j=0; j<3; j++){
 			cout<<search_no_comp[i][j]<<" ";
@@ -401,17 +425,47 @@ void print_comp(ofstream& output, int search_no_comp[][3]){
 	}
 }
 
-void print_false_pos(ofstream& output, int search_no_false_pos[][3]){
+void final_print_false_pos(ofstream& output, long long int search_no_false_pos[][3]){
 	cout<<endl;
-	cout<<"False positives"<<endl;
+	cout<<"Total no of False positives"<<endl;
 	output<<endl;
-	output<<"False positives"<<endl;
+	output<<"Total no of False positives"<<endl;
 	for (int i=0; i<4;i++){
 		for(int j=0; j<3; j++){
 			cout<<search_no_false_pos[i][j]<<" ";
 			output<<search_no_false_pos[i][j]<<" ";
 		}
 		cout<<endl;
+		output<<endl;
+	}
+}
+
+void print_comp(ofstream& output, int search_no_comp[][3]){
+	//cout<<endl;
+	//cout<<"Comparisons"<<endl;
+	output<<endl;
+	output<<"Comparisons"<<endl;
+	for (int i=0; i<4;i++){
+		for(int j=0; j<3; j++){
+			//cout<<search_no_comp[i][j]<<" ";
+			output<<search_no_comp[i][j]<<" ";
+		}
+		//cout<<endl;
+		output<<endl;
+	}
+}
+
+void print_false_pos(ofstream& output, int search_no_false_pos[][3]){
+	//cout<<endl;
+	//cout<<"False positives"<<endl;
+	output<<endl;
+	output<<"False positives"<<endl;
+	for (int i=0; i<4;i++){
+		for(int j=0; j<3; j++){
+			//cout<<search_no_false_pos[i][j]<<" ";
+			output<<search_no_false_pos[i][j]<<" ";
+		}
+		//cout<<endl;
 		output<<endl;
 	}
 }
