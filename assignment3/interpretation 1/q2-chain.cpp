@@ -3,7 +3,6 @@
 #include <sstream>
 #include <cmath>
 #include <string>
-#include <list>
 #include <cstdlib>
 #include <ctime>
 
@@ -24,9 +23,29 @@ public:
 	~hash_entry();
 };
 
+class node{
+public:
+	hash_entry entry;
+	node* next;
+public:
+	node(const hash_entry& h, node* v_next = NULL);
+	~node();
+};
+
+node::node(const hash_entry& h, node* v_next): entry(h), next(v_next) {}
+
+node::~node(){
+}
+
+class linklist{
+public:
+	node* head;
+	node* tail;
+};
+
 class hash_table {
 private:
-	list<hash_entry> *table;
+	linklist* table;
 	int capacity;
 	int size;
 	int code_no;
@@ -67,9 +86,12 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 	value_no = v_value_no;
 	size = 0;
 	capacity = v_capacity;
-	list<hash_entry> l_temp;
 	if (capacity > 0){
-		table = new list<hash_entry>[capacity];
+		table = new linklist[capacity];
+		for(int i=0; i<capacity; i++){
+			table[i].head = NULL;
+			table[i].tail = NULL;
+		}
 	}
 	else {
 		table = NULL;
@@ -80,7 +102,14 @@ hash_table::hash_table(int v_code_no, int v_value_no, int v_capacity){
 hash_table::~hash_table(){
 	if (table != NULL) {
 		// Deleting old table
-		delete [] table;		
+		for(int i=0; i<capacity; i++){
+			while(table[i].head){
+				node* todel = table[i].head;
+				table[i].head = (table[i].head)->next;
+				delete todel;
+			}
+		}
+		delete [] table;
 	}
 }
 
@@ -111,7 +140,17 @@ void hash_table::insert(const char* v_key, const char* search_key, int v_start_i
 	hash_entry h = hash_entry(v_key, v_start_index, v_end_index);
 	int code = hash_code(h.getkey(), search_key, code_no);
 	int value = hash_value(code, capacity, value_no);
-	table[value].push_back(h);
+	
+	node* toad = new node(h, NULL);
+
+	if (table[value].head==NULL){
+		table[value].head = table[value].tail = toad;
+	}
+	else{
+		(table[value].tail)->next = toad;
+		table[value].tail = toad;
+	}
+
 	size++;
 }
 
@@ -128,22 +167,25 @@ void hash_table::search_all(ofstream& output, const char* v_key, int& no_comp, i
 
 	int counter = 0;
 
-	for(list<hash_entry>::iterator i = table[value].begin(); i != table[value].end(); i++){
-			char *p = i->getkey();
+	node* iter = table[value].head;
+
+	while(iter){
+			char *p = (iter->entry).getkey();
 			bool isEqual = str_equal_2(p,v_key);
 			if (isEqual){
 				// Pattern found
 				ans_found = 1;
-				cout<<"Pattern "<<p<<" found at index "<<i->getstart_index()<<endl;
-				output<<"Pattern "<<p<<" found at index "<<i->getstart_index()<<endl;
+				cout<<"Pattern "<<p<<" found at index "<<(iter->entry).getstart_index()<<endl;
+				output<<"Pattern "<<p<<" found at index "<<(iter->entry).getstart_index()<<endl;
 				counter++;
 			}
 			else {
 				// False positive
 			}
 			any_hash_value_match = 1;
-			no_comp++;		
-	}	
+			no_comp++;
+			iter = iter->next;	
+	}
 	cout<<endl;
 	output<<endl;
 	// Checked all cells
