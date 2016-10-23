@@ -415,12 +415,56 @@ typename AVL<E>::Iterator AVL<E>::floorEntry(const K& k){
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::lowerEntry(const K& k){
+	node* prev = NULL;	
+	node* curr = root;
+	while(curr){
+		
+		if (k < curr->elem.key()){			
+			curr = curr->left;
+		}
+		else if (k > curr->elem.key()) {
+			prev = curr;
+			curr = curr->right;
+		}
+		else {
+			if (curr->left){
+				prev = curr->left;
+				while(prev->right){
+					prev = prev->right;
+				}
+			}
+			break;
+		}
+	}
+	return Iterator(prev);
 	
 }
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::higherEntry(const K& k){
-	
+	node* succ = NULL;
+	node* curr = root;
+	while(curr){
+		
+		if (k < curr->elem.key()){
+			succ = curr;
+			curr = curr->left;
+		}
+		else if (k > curr->elem.key()) {
+			
+			curr = curr->right;
+		}
+		else {
+			if (curr->right){
+				succ = curr->right;			
+				while(succ->left){
+					succ = succ->left;
+				}
+			}
+			break;
+		}
+	}
+	return Iterator(succ);
 
 }
 
