@@ -26,7 +26,6 @@ class AVL{
 public:
 	typedef typename E::Key K;
 	typedef typename E::Value V;
-	//class Iterator;
 private:
 	class node{
 	public:
@@ -38,41 +37,57 @@ private:
 		node(const E& v_elem = E(), node* v_left = NULL, node* v_right = NULL, int v_height = 0): elem(v_elem), left(v_left), right(v_right), height(v_height) {}
 	};
 public:
-	/*class Iterator{
-	private:
-		node* v;
-	public:
-		Iterator(node* u) : v(u) {}
-		E& operator*() {return v->elem;}
-		bool operator==(const Iterator& i) const{ return v == i.v;}
-		Iterator& operator++();
-		Iterator& operator--();
-		friend class AVL<E>;
-	};*/
-public:
 	node* root;
-	int n;
-public:
-	AVL(): root(NULL), n(0) {}
-	int size() const {return n;}
-	bool empty() const {return n==0;}
-	//Iterator begin();
-	//Iterator end();	
-	//void erase(const Iterator& i);
+
 
 public:
 	node* insert(node* curr,const K& k, const V& v);
 	node* remove(node* curr, const K& k);
 	node* search(node* curr, const K& k);
+	node* insucc(node* curr, const K& k);
+	node* inpred(node* curr, const K& k);
 	void print(node* p,int indent=0);
-
 private:
 	int getbalance(node* u);
 	node* leftrotate(node* u);
 	node* rightrotate(node* u);
-
+private:
 	int height(node* u);
 	int max(int a, int b);
+
+private:
+	int n;
+public:
+	class Iterator{
+	private:
+		node* v;
+	public:
+		Iterator(node* u) : v(u) {}
+		const E& operator*() {return v->elem;}
+		bool operator==(const Iterator& i) const{ return v == i.v;}
+		Iterator& operator++();
+		Iterator& operator--();
+		friend class AVL<E>;
+	};
+	
+public:
+	AVL(): root(NULL), n(0) {}
+	int size() const {return n;}
+	bool empty() const {return n==0;}
+	Iterator begin();
+	Iterator end();
+
+	Iterator firstEntry();
+	Iterator lastEntry();
+	Iterator ceilingEntry(const K& k);
+	Iterator floorEntry(const K& k);
+	Iterator lowerEntry(const K& k);
+	Iterator higherEntry(const K& k);
+	Iterator find(const K& k);
+	Iterator put(const K& k, const V& v);
+	void erase(const K& k);
+	void erase(const Iterator& p);
+
 };
 
 template <typename E>
@@ -210,6 +225,69 @@ typename AVL<E>::node* AVL<E>::search(node* curr, const K& k){
 }
 
 template <typename E>
+typename AVL<E>::node* AVL<E>::insucc(node* curr, const K& k){
+	node* v = search(root, k);
+	if (v == NULL){
+		return NULL;
+	}
+	node* succ = NULL;
+	
+	if (v->right){
+		succ = v->right;
+		while(succ->left){
+			succ = succ->left;
+		}
+	}
+	else {
+		succ = NULL;
+		node* ancestor = root;
+
+		while (ancestor != v){
+			if (v->elem.key() < ancestor->elem.key()){
+				succ = ancestor;
+				ancestor = ancestor->left;
+			}
+			else{
+				ancestor = ancestor->right;
+			}
+		}
+	}
+	return succ;
+}
+
+template <typename E>
+typename AVL<E>::node* AVL<E>::inpred(node* curr, const K& k){
+	node* v = search(curr, k);
+	if (v == NULL){
+		return NULL;
+	}
+	node* pred = NULL;
+	
+	if (v->left){
+		pred = v->left;
+		while(pred->right){
+			pred = pred->right;
+		}
+	}
+	else {
+		pred = NULL;
+		node* ancestor = root;
+
+		while (ancestor != v){
+			if (v->elem.key() > ancestor->elem.key()){
+				pred = ancestor;
+				ancestor = ancestor->right;
+			}
+			else{
+				ancestor = ancestor->left;
+			}
+		}
+	}
+	
+	return pred;
+}
+
+template <typename E>
 typename AVL<E>::node* AVL<E>::leftrotate(node* u) {
 	node* v = u->right;	
 	node* T2 = v->left;
@@ -251,7 +329,133 @@ template <typename E>
 int AVL<E>::max(int a, int b) {
 	return (a>b)? a: b;
 }
-/*
+
+///////////////////////////////////////////////
+////////////// Public Interface ///////////////
+///////////////////////////////////////////////
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::begin(){
+	if (root == NULL){
+		return Iterator(NULL);
+	}
+	node* smallest = root;
+	while(smallest->left){
+		smallest = smallest->left;
+	}
+	return Iterator(smallest);
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::end(){
+	return Iterator(NULL);
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::firstEntry(){
+	return begin();
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::lastEntry(){
+	if (root == NULL){
+		return Iterator(NULL);
+	}
+	node* largest = root;
+	while (largest->right){
+		largest = largest->right;
+	}
+	return Iterator(largest);
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::ceilingEntry(const K& k){
+	
+	node* succ = NULL;
+	node* curr = root;
+	while(curr){
+		
+		if (k < curr->elem.key()){
+			succ = curr;
+			curr = curr->left;
+		}
+		else if (k > curr->elem.key()) {
+			
+			curr = curr->right;
+		}
+		else {
+			succ = curr;	
+			break;
+		}
+	}
+	return Iterator(succ);
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::floorEntry(const K& k){
+	node* prev = NULL;	
+	node* curr = root;
+	while(curr){
+		
+		if (k < curr->elem.key()){			
+			curr = curr->left;
+		}
+		else if (k > curr->elem.key()) {
+			prev = curr;
+			curr = curr->right;
+		}
+		else {
+			prev = curr;	
+			break;
+		}
+	}
+	return Iterator(prev);
+
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::lowerEntry(const K& k){
+	
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::higherEntry(const K& k){
+	
+
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::find(const K& k){
+	return Iterator(search(root,k));
+}
+
+template <typename E>
+typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
+	return Iterator(insert(root,k,v));
+}
+
+template <typename E>
+void AVL<E>::erase(const K& k){
+	if (search(root,k) ==  NULL){
+		// Not found
+		return;
+	}
+	root = remove(root,k);
+}
+
+template <typename E>
+void AVL<E>::erase(const Iterator& p){
+	if (p == end()){
+		// Not found
+		return;
+	}
+	root = remove(root, (*p).key());
+}
+
+///////////////////////////////////////////////
+////////////////// Iterator ///////////////////
+///////////////////////////////////////////////
+
 template <typename E>
 typename AVL<E>::Iterator& AVL<E>::Iterator::operator++(){
 	node* succ = NULL;
@@ -311,7 +515,7 @@ typename AVL<E>::Iterator& AVL<E>::Iterator::operator--(){
 	v = pred;
 	return *this;
 }
-*/
+
 
 
 

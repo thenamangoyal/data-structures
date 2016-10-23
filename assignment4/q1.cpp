@@ -3,7 +3,8 @@
 using namespace std;
 
 int main(){
-	AVL<Entry<int,int> > a;
+	typedef Entry<int,int> Entry;
+	AVL<Entry> a;
 	a.root = a.insert(a.root, 9, 1);
     a.root = a.insert(a.root, 5,2);
     a.root = a.insert(a.root, 10,3);
@@ -17,8 +18,9 @@ int main(){
 	a.root = a.remove(a.root, 10);
 	cout<<endl<<endl<<endl<<endl<<endl<<endl<<"New"<<endl<<endl;
 	a.print(a.root);
-	cout<<endl<<endl<<endl<<endl<<endl<<endl<<"Search"<<endl<<endl;
-	a.print(a.search(a.root, 9));
+	AVL<Entry>::Iterator i = a.begin();
+	cout<<(*i).key()<<endl;
+
 
 	return 0;
 }
