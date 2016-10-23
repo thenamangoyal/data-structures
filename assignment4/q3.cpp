@@ -4,6 +4,23 @@ using namespace std;
 
 enum Color {RED, BLACK};
 
+
+template <typename K, typename V>
+class Entry{
+public:
+	typedef K Key;
+	typedef V Value;
+private:
+	K _key;
+	V _value;
+public:
+	Entry(const K& k = K(), const V& v = V()): _key(k), _value(v) {}
+	const K& key() const {return _key;}
+	const V& value() const {return _value;}
+	void setKey(const K& k) {_key = k;}
+	void setvalue(const V& v) {_value = v;}
+};
+
 class node{
 public:
 	int data;
@@ -322,12 +339,9 @@ int main(){
 	r.insert(20);
 	r.insert(30);
 	r.insert(15);
-	r.insert(15);
-	r.insert(15);
-	r.insert(15);
 	r.print(r.root);
 	cout<<"New after"<<endl;
-	r.remove(0);
+	r.remove(10);
 	r.remove(20);
 	r.remove(30);
 	r.remove(15);
