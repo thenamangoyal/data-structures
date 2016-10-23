@@ -42,6 +42,7 @@ private:
 	void fixinsert(node* z);
 	void transplant(node* u, node* v);
 	void fixremove(node* x);
+	int max(int a, int b);
 	
 public:
 	rbtree() {
@@ -51,7 +52,10 @@ public:
 	}
 	void insert(const int& n);
 	void remove(const int& n);
-
+	int height(node* curr);
+	int blackheight(node* curr);
+	int countleaf(node* curr);
+	void getkeyinrange(node* curr, int a, int b);
 	node* search(node* x, const int& n);
 	void print(node* p,int indent=0);
 
@@ -60,14 +64,14 @@ public:
 
 void rbtree::print(node* p,int indent){
 	
-	if(p != NULL) {
-        if(p->right) {
+	if(p != nil) {
+        if(p->right != nil) {
             print(p->right, indent+4);
         }
         if (indent) {
             cout << setw(indent) << ' ';
         }
-        if (p->right) {cout<<" /\n" << setw(indent) << ' ';}
+        if (p->right != nil) {cout<<" /\n" << setw(indent) << ' ';}
         cout<< p->data;
         if (p->color){
         	cout<<"[B]"<<endl;
@@ -75,7 +79,7 @@ void rbtree::print(node* p,int indent){
         else{
         	cout<<"[R]"<<endl;
         }
-        if(p->left) {
+        if(p->left != nil) {
             cout << setw(indent) << ' ' <<" \\\n";
             print(p->left, indent+4);
         }
@@ -88,6 +92,10 @@ node* rbtree::minimum(node* x){
 		x = x->left;
 	}
 	return x;
+}
+
+int rbtree::max(int a, int b){
+	return (a>b) ? a : b;
 }
 
 void rbtree::leftrotate(node* x){
@@ -130,6 +138,49 @@ void rbtree::rightrotate(node* x){
 	x->parent = y;
 }
 
+int rbtree::height(node* curr){
+	if (curr == nil){
+		return 0;
+	}
+	int lh = height(curr->left);
+	int rh = height(curr->right);
+	return (1 + max(lh, rh));
+}
+int rbtree::blackheight(node* curr){
+	if (curr == nil){
+		return 0;
+	}
+	int lh = blackheight(curr->left);
+	int rh = blackheight(curr->right);
+	if (curr->color == RED){
+		return max(lh, rh);
+	}
+	return (1 + max(lh, rh));
+}
+
+int rbtree::countleaf(node* curr){
+	if (curr == nil){
+		return 0;
+	}
+	if (curr->left == nil && curr->right == nil){
+		return 1;
+	}
+	return (countleaf(curr->left) + countleaf(curr->right));
+}
+
+void rbtree::getkeyinrange(node* curr, int a, int b){
+	if (curr != nil){
+		if (a < curr->data){
+			getkeyinrange(curr->left, a, b);			
+		}
+		if (curr->data >= a && curr->data <= b){
+			cout<<curr->data<<" ";
+		}
+		if (b > curr->data){
+			getkeyinrange(curr->right, a, b);
+		}		
+	}
+}
 
 void rbtree::insert(const int& n){
 	node* z = new node(n);
@@ -333,18 +384,27 @@ void rbtree::fixremove(node* x){
 
 int main(){
 	rbtree r;
+
+	cout<<r.height(r.root)<<" "<<r.blackheight(r.root)<<" "<<r.countleaf(r.root)<<endl;
 	r.print(r.root);
 	cout<<"New before"<<endl;
+
 	r.insert(10);
 	r.insert(20);
 	r.insert(30);
 	r.insert(15);
+
+	cout<<r.height(r.root)<<" "<<r.blackheight(r.root)<<" "<<r.countleaf(r.root)<<endl;
 	r.print(r.root);
+	r.getkeyinrange(r.root, 16, 21);
 	cout<<"New after"<<endl;
+
 	r.remove(10);
 	r.remove(20);
 	r.remove(30);
 	r.remove(15);
+
+	cout<<r.height(r.root)<<" "<<r.blackheight(r.root)<<" "<<r.countleaf(r.root)<<endl;
 	r.print(r.root);
 	
 	return 0;
