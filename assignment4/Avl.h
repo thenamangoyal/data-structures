@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <algorithm>
 
 template <typename K, typename V>
 class Entry{
@@ -27,20 +26,19 @@ class AVL{
 public:
 	typedef typename E::Key K;
 	typedef typename E::Value V;
-	class Iterator;
+	//class Iterator;
 private:
 	class node{
 	public:
 		E elem;
 		node* left;
 		node* right;
-		node* p;
 		int height;
 	public:
-		node(const E& v_elem = E(), node* v_left = NULL, node* v_right = NULL, node* v_p = NULL, int v_height = 0): elem(v_elem), left(v_left), right(v_right), p(v_p), height(v_height) {}
+		node(const E& v_elem = E(), node* v_left = NULL, node* v_right = NULL, int v_height = 0): elem(v_elem), left(v_left), right(v_right), height(v_height) {}
 	};
 public:
-	class Iterator{
+	/*class Iterator{
 	private:
 		node* v;
 	public:
@@ -50,8 +48,8 @@ public:
 		Iterator& operator++();
 		Iterator& operator--();
 		friend class AVL<E>;
-	};
-private:
+	};*/
+public:
 	node* root;
 	int n;
 public:
@@ -59,25 +57,26 @@ public:
 	int size() const {return n;}
 	bool empty() const {return n==0;}
 	//Iterator begin();
-	//Iterator end();
+	//Iterator end();	
+	//void erase(const Iterator& i);
 
 public:
-	Iterator insert(const K& k, const V& v);
-	//void erase(const K& k);
-	//void erase(const Iterator& i);
-	void print(Iterator i,int indent=0);
+	node* insert(node* curr,const K& k, const V& v);
+	node* remove(node* curr, const K& k);
+	node* search(node* curr, const K& k);
+	void print(node* p,int indent=0);
 
 private:
-	int balance(node* u);
-	void leftrotate(node* u);
-	void rightrotate(node* u);
+	int getbalance(node* u);
+	node* leftrotate(node* u);
+	node* rightrotate(node* u);
 
-	void height(node* u);
+	int height(node* u);
+	int max(int a, int b);
 };
 
 template <typename E>
-void AVL<E>::print(Iterator i,int indent){
-	node* p = i.v;
+void AVL<E>::print(node* p,int indent){
 	
 	if(p != NULL) {
         if(p->right) {
@@ -87,7 +86,7 @@ void AVL<E>::print(Iterator i,int indent){
             std::cout << std::setw(indent) << ' ';
         }
         if (p->right) std::cout<<" /\n" << std::setw(indent) << ' ';
-        std::cout<<"("<< (p->elem).key()<<"," << p->elem.value()<<") "<<p->height<<std::endl;
+        std::cout<<"("<< (p->elem).key()<<"," << p->elem.value()<<","<<p->height<<")"<<std::endl;
         if(p->left) {
             std::cout << std::setw(indent) << ' ' <<" \\\n";
             print(p->left, indent+4);
@@ -97,79 +96,146 @@ void AVL<E>::print(Iterator i,int indent){
 }
 
 template <typename E>
-int AVL<E>::balance(node* u) {
+int AVL<E>::getbalance(node* u) {
 	return height(u->left) - height(u->right);
 }
 
 template <typename E>
-typename AVL<E>::Iterator AVL<E>::insert(const K& k, const V& v){
-	node* prev = NULL;
-	node* curr = root;
-	int newh = 0;
-	while(curr){
-		prev = curr;
-		if (k< curr->elem.key()){
-			curr = curr->left;
-		}
-		else if (k> curr->elem.key()) {
-			curr = curr->right;
-		}
-		else {
-			curr->elem.setvalue(v);
-			return Iterator(curr);
-		}
+typename AVL<E>::node* AVL<E>::insert(node* curr, const K& k, const V& v){
+	if (curr == NULL){
+		curr =  new node(Entry<K,V>(k,v));
+		return curr;
 	}
-	node* ins = new node (Entry<K,V>(k,v));
-	ins->p = prev;
-	if (prev ==  NULL){
-		root = ins;
+	else if (k < curr->elem.key()){
+		curr->left = insert(curr->left,k,v);
 	}
-	else if (k< prev->elem.key()){
-		prev->left = ins;		
+	else if (k > curr->elem.key()){
+		curr->right = insert(curr->right,k,v);
 	}
-	else {
-		prev->right = ins;
+	else{
+		curr->elem.setvalue(v);
+		return curr;
 	}
-	return Iterator(ins);
+	curr->height = 1+ max(height(curr->left),height(curr->right));
 
-	
+	int bal = getbalance(curr);
+
+	if(bal > 1 && k < curr->left->elem.key()){
+		return rightrotate(curr);
+	}
+	if (bal>1 && k > curr->left->elem.key()){
+		curr->left = leftrotate(curr->left);
+		return rightrotate(curr);
+	}
+	if (bal<-1 && k > curr->right->elem.key()){
+		return leftrotate(curr);
+	}
+	if (bal<-1 && k < curr->right->elem.key()){
+		curr->right = rightrotate(curr->right);
+		return leftrotate(curr);
+	}
+
+	return curr;
 }
 
 template <typename E>
-void AVL<E>::leftrotate(node* u) {
-	node* v = u->left;
-	node* T1 = v->left;
-	node* T2 = v->right;
-	node* T3 = u->right;
+typename AVL<E>::node* AVL<E>::remove(node* curr, const K& k){
+	if (curr == NULL){
+		return NULL;
+	}
+	else if (k < curr->elem.key()){
+		curr->left = remove(curr->left,k);
+	}
+	else if (k > curr->elem.key()){
+		curr->right = remove(curr->right,k);
+	}
+	else{
+		if (curr->left == NULL && curr->right == NULL){
+			delete curr;
+			return NULL;
+		}
+		else if (curr->right == NULL){
+			node* temp = curr;
+			curr= curr->left;
+			delete temp;
+		}
+		else if (curr->left == NULL){
+			node* temp = curr;
+			curr= curr->right;
+			delete temp;
+		}
+		else{
+			node* insucc = curr->right;
+			while(insucc->left){
+				insucc = insucc->left;
+			}
+			curr->elem = insucc->elem;
+			curr->right = remove(curr->right,curr->elem.key());
+		}
+	}
+	curr->height = 1+ max(height(curr->left),height(curr->right));
 
-	v->right = u;
-	u->left = T2;
+	int bal = getbalance(curr);
 
-	T2->p = u;
-	v->p = u->p;
-	u->p = v;
+	if(bal > 1 && getbalance(curr->left)>=0){
+		return rightrotate(curr);
+	}
+	if (bal>1 && getbalance(curr->left)<0){
+		curr->left = leftrotate(curr->left);
+		return rightrotate(curr);
+	}
+	if (bal<-1 && getbalance(curr->right)<=0){
+		return leftrotate(curr);
+	}
+	if (bal<-1 && getbalance(curr->right)>0){
+		curr->right = rightrotate(curr->right);
+		return leftrotate(curr);
+	}
 
-	u->height = 1 + max(height(u->left), height(u->right));
-	v->height = 1 + max(height(v->left), height(v->left));
+	return curr;
+}
+
+template <typename E>
+typename AVL<E>::node* AVL<E>::search(node* curr, const K& k){
+	if (curr == NULL || k == curr->elem.key()){
+		return curr;
+	}
+	if (k < curr->elem.key()){
+		return search(curr->left, k);
+	}
+	if (k > curr->elem.key()){
+		return search(curr->right, k);
+	}
 
 }
 
 template <typename E>
-void AVL<E>::rightrotate(node* u) {
-	node* v = u->right;
-	node* T1 = u->left;
+typename AVL<E>::node* AVL<E>::leftrotate(node* u) {
+	node* v = u->right;	
 	node* T2 = v->left;
-	node* T3 = v->right;
 
 	v->left = u;
 	u->right = T2;
 
-	T2->p = u;
-	v->p = u->p;
-	u->p = v;
+	u->height = 1 + max(height(u->left), height(u->right));
+	v->height = 1 + max(height(v->left), height(v->left));
+	return v;
+
+}
+
+template <typename E>
+typename AVL<E>::node* AVL<E>::rightrotate(node* u) {	
+
+	node* v = u->left;
+	node* T2 = v->right;
+
+	v->right = u;
+	u->left = T2;
 
 	u->height = 1 + max(height(u->left), height(u->right));
 	v->height = 1 + max(height(v->left), height(v->left));
+
+	return v;
 
 }
 
@@ -177,12 +243,15 @@ template <typename E>
 int AVL<E>::height(node* u) {
 	if (u == NULL){
 		return -1;
-	}
-	else {
-		return u->height;
-	}
+	}	
+	return u->height;
 }
 
+template <typename E>
+int AVL<E>::max(int a, int b) {
+	return (a>b)? a: b;
+}
+/*
 template <typename E>
 typename AVL<E>::Iterator& AVL<E>::Iterator::operator++(){
 	node* succ = NULL;
@@ -242,7 +311,7 @@ typename AVL<E>::Iterator& AVL<E>::Iterator::operator--(){
 	v = pred;
 	return *this;
 }
-
+*/
 
 
 
