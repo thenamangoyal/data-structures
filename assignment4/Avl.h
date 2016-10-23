@@ -40,8 +40,8 @@ private:
 	node* root;
 
 private:
-	node* insert(node* curr,const K& k, const V& v);
-	node* remove(node* curr, const K& k);
+	void insert(node*& curr,const K& k, const V& v);
+	void remove(node*& curr, const K& k);
 	node* search(node* curr, const K& k);
 	node* insucc(node* curr, const K& k);
 	node* inpred(node* curr, const K& k);
@@ -50,8 +50,8 @@ private:
 	void genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix);
 
 	int getbalance(node* u);
-	node* leftrotate(node* u);
-	node* rightrotate(node* u);
+	void leftrotate(node*& u);
+	void rightrotate(node*& u);
 
 	int height(node* u);
 	int calcheight(node* u);
@@ -136,58 +136,64 @@ int AVL<E>::getbalance(node* u) {
 }
 
 template <typename E>
-typename AVL<E>::node* AVL<E>::insert(node* curr, const K& k, const V& v){
+void AVL<E>::insert(node*& curr, const K& k, const V& v){
 	if (curr == NULL){
 		curr =  new node(Entry<K,V>(k,v));
-		return curr;
+		return;
 	}
 	else if (k < curr->elem.key()){
-		curr->left = insert(curr->left,k,v);
+		insert(curr->left,k,v);
 	}
 	else if (k > curr->elem.key()){
-		curr->right = insert(curr->right,k,v);
+		insert(curr->right,k,v);
 	}
 	else{
 		curr->elem.setvalue(v);
-		return curr;
+		return;
 	}
 	curr->height = 1+ max(height(curr->left),height(curr->right));
 
 	int bal = getbalance(curr);
 
 	if(bal > 1 && k < curr->left->elem.key()){
-		return rightrotate(curr);
+		rightrotate(curr);
+		return;
 	}
 	if (bal>1 && k > curr->left->elem.key()){
-		curr->left = leftrotate(curr->left);
-		return rightrotate(curr);
+		leftrotate(curr->left);
+		rightrotate(curr);
+		return;
 	}
 	if (bal<-1 && k > curr->right->elem.key()){
-		return leftrotate(curr);
+		leftrotate(curr);
+		return;
 	}
 	if (bal<-1 && k < curr->right->elem.key()){
-		curr->right = rightrotate(curr->right);
-		return leftrotate(curr);
+		rightrotate(curr->right);
+		leftrotate(curr);
+		return;
 	}
 
-	return curr;
+	return;
 }
 
 template <typename E>
-typename AVL<E>::node* AVL<E>::remove(node* curr, const K& k){
+void AVL<E>::remove(node*& curr, const K& k){
 	if (curr == NULL){
-		return NULL;
+		return;
 	}
 	else if (k < curr->elem.key()){
-		curr->left = remove(curr->left,k);
+		remove(curr->left,k);
 	}
 	else if (k > curr->elem.key()){
-		curr->right = remove(curr->right,k);
+		remove(curr->right,k);
 	}
 	else{
 		if (curr->left == NULL && curr->right == NULL){
-			delete curr;
-			return NULL;
+			node* temp = curr;
+			curr = NULL;
+			delete temp;			
+			return;
 		}
 		else if (curr->right == NULL){
 			node* temp = curr;
@@ -205,7 +211,7 @@ typename AVL<E>::node* AVL<E>::remove(node* curr, const K& k){
 				insucc = insucc->left;
 			}
 			curr->elem = insucc->elem;
-			curr->right = remove(curr->right,curr->elem.key());
+			remove(curr->right,curr->elem.key());
 		}
 	}
 	curr->height = 1+ max(height(curr->left),height(curr->right));
@@ -213,21 +219,25 @@ typename AVL<E>::node* AVL<E>::remove(node* curr, const K& k){
 	int bal = getbalance(curr);
 
 	if(bal > 1 && getbalance(curr->left)>=0){
-		return rightrotate(curr);
+		rightrotate(curr);
+		return;
 	}
 	if (bal>1 && getbalance(curr->left)<0){
-		curr->left = leftrotate(curr->left);
-		return rightrotate(curr);
+		leftrotate(curr->left);
+		rightrotate(curr);
+		return;
 	}
 	if (bal<-1 && getbalance(curr->right)<=0){
-		return leftrotate(curr);
+		leftrotate(curr);
+		return;
 	}
 	if (bal<-1 && getbalance(curr->right)>0){
-		curr->right = rightrotate(curr->right);
-		return leftrotate(curr);
+		rightrotate(curr->right);
+		leftrotate(curr);
+		return;
 	}
 
-	return curr;
+	return;
 }
 
 template <typename E>
@@ -308,8 +318,13 @@ typename AVL<E>::node* AVL<E>::inpred(node* curr, const K& k){
 }
 
 template <typename E>
-typename AVL<E>::node* AVL<E>::leftrotate(node* u) {
+void AVL<E>::leftrotate(node*& u) {
+
 	K k = u->elem.key();
+	std::cout<<":: Left rotating at key "<<k<<std::endl;
+	std::cout<<"------ Before rotation"<<std::endl;
+	print(); std::cout<<std::endl;
+
 	node* v = u->right;	
 	node* T2 = v->left;
 
@@ -318,13 +333,21 @@ typename AVL<E>::node* AVL<E>::leftrotate(node* u) {
 
 	u->height = 1 + max(height(u->left), height(u->right));
 	v->height = 1 + max(height(v->left), height(v->left));
-	return v;
+	
+	u = v;
+	std::cout<<"------ After rotation"<<std::endl;
+	print(); std::cout<<std::endl;
 
 }
 
 template <typename E>
-typename AVL<E>::node* AVL<E>::rightrotate(node* u) {	
+void AVL<E>::rightrotate(node*& u) {
+
 	K k = u->elem.key();
+	std::cout<<":: Right rotating at key "<<k<<std::endl;
+	std::cout<<"------ Before rotation"<<std::endl;
+	print(); std::cout<<std::endl;
+
 	node* v = u->left;
 	node* T2 = v->right;
 
@@ -334,7 +357,9 @@ typename AVL<E>::node* AVL<E>::rightrotate(node* u) {
 	u->height = 1 + max(height(u->left), height(u->right));
 	v->height = 1 + max(height(v->left), height(v->left));	
 
-	return v;
+	u = v;
+	std::cout<<"------ After rotation"<<std::endl;
+	print(); std::cout<<std::endl;
 
 }
 
@@ -543,42 +568,45 @@ typename AVL<E>::Iterator AVL<E>::find(const K& k){
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
+	std::cout<<"Inserting entry with key "<<k<<" and value "<<v<<std::endl;
 	if (search(root,k) == NULL){
 		n++;
 	}
-	root = insert(root,k,v);
-	std::cout<<"Tree after inserting entry with key "<<k<<" and value "<<v<<std::endl;
+	insert(root,k,v);
+	
 	print();
 	std::cout<<std::endl;
 	return find(k);
 }
 
 template <typename E>
-void AVL<E>::erase(const K& k){
+void AVL<E>::erase(const K& k){	
+	std::cout<<"Deleting entry with key "<<k<<std::endl;
 	if (search(root,k) ==  NULL){
 		// Not found
+		std::cout<<":: No entry found with key "<<k<<std::endl;
 		return;
 	}
-	root = remove(root,k);
+	remove(root,k);
 	n--;
-	std::cout<<"Tree after deleting key "<<k<<std::endl;
-	print();
-	std::cout<<std::endl;
+	
+	print(); std::cout<<std::endl;
 }
 
 template <typename E>
 void AVL<E>::erase(const Iterator& p){
+	std::cout<<"Deleting using iterator";
 	if (p == end()){
 		// Not found
+		std::cout<<std::endl<<":: End iterator "<<std::endl;
 		return;
 	}
 	node* u = p.v;
 	K k = u->elem.key();
-	root = remove(root, k);
-	n--;
-	std::cout<<"Tree after deleting iterator with key "<<k<<std::endl;
-	print();
-	std::cout<<std::endl;
+	std::cout<<" with key "<<k<<std::endl;
+	remove(root, k);
+	n--;	
+	print(); std::cout<<std::endl;
 }
 
 template <typename E>
