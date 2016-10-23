@@ -366,7 +366,7 @@ typename AVL<E>::Iterator AVL<E>::lastEntry(){
 	while (largest->right){
 		largest = largest->right;
 	}
-	return Iterator(largest);
+	return Iterator(largest, *this);
 }
 
 template <typename E>
@@ -465,7 +465,7 @@ typename AVL<E>::Iterator AVL<E>::higherEntry(const K& k){
 			break;
 		}
 	}
-	return Iterator(succ);
+	return Iterator(succ, *this);
 
 }
 
