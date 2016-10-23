@@ -476,6 +476,9 @@ typename AVL<E>::Iterator AVL<E>::find(const K& k){
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
+	if (search(root,k) != NULL){
+		n++;
+	}
 	root = insert(root,k,v);
 	return find(k);
 }
@@ -487,6 +490,7 @@ void AVL<E>::erase(const K& k){
 		return;
 	}
 	root = remove(root,k);
+	n--;
 }
 
 template <typename E>
@@ -496,6 +500,7 @@ void AVL<E>::erase(const Iterator& p){
 		return;
 	}
 	root = remove(root, (*p).key());
+	n--;
 }
 
 ///////////////////////////////////////////////
