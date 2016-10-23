@@ -20,7 +20,7 @@ int main(){
 	a.print(a.root);
 	AVL<Entry>::Iterator i = a.begin();
 	cout<<(*i).key()<<endl;
-
+	++i;
 
 	return 0;
 }

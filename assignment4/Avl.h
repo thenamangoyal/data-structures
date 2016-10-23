@@ -61,8 +61,9 @@ public:
 	class Iterator{
 	private:
 		node* v;
+		AVL& parent;
 	public:
-		Iterator(node* u) : v(u) {}
+		Iterator(node* u, AVL& tree) : v(u), parent(tree) {}
 		const E& operator*() {return v->elem;}
 		bool operator==(const Iterator& i) const{ return v == i.v;}
 		Iterator& operator++();
@@ -337,18 +338,18 @@ int AVL<E>::max(int a, int b) {
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::begin(){
 	if (root == NULL){
-		return Iterator(NULL);
+		return Iterator(NULL, *this);
 	}
 	node* smallest = root;
 	while(smallest->left){
 		smallest = smallest->left;
 	}
-	return Iterator(smallest);
+	return Iterator(smallest, *this);
 }
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::end(){
-	return Iterator(NULL);
+	return Iterator(NULL, *this);
 }
 
 template <typename E>
@@ -359,7 +360,7 @@ typename AVL<E>::Iterator AVL<E>::firstEntry(){
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::lastEntry(){
 	if (root == NULL){
-		return Iterator(NULL);
+		return Iterator(NULL, *this);
 	}
 	node* largest = root;
 	while (largest->right){
@@ -388,7 +389,7 @@ typename AVL<E>::Iterator AVL<E>::ceilingEntry(const K& k){
 			break;
 		}
 	}
-	return Iterator(succ);
+	return Iterator(succ, *this);
 }
 
 template <typename E>
@@ -409,7 +410,7 @@ typename AVL<E>::Iterator AVL<E>::floorEntry(const K& k){
 			break;
 		}
 	}
-	return Iterator(prev);
+	return Iterator(prev, *this);
 
 }
 
@@ -436,7 +437,7 @@ typename AVL<E>::Iterator AVL<E>::lowerEntry(const K& k){
 			break;
 		}
 	}
-	return Iterator(prev);
+	return Iterator(prev, *this);
 	
 }
 
@@ -470,12 +471,12 @@ typename AVL<E>::Iterator AVL<E>::higherEntry(const K& k){
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::find(const K& k){
-	return Iterator(search(root,k));
+	return Iterator(search(root,k), *this);
 }
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
-	return Iterator(insert(root,k,v));
+	return Iterator(insert(root,k,v), *this);
 }
 
 template <typename E>
@@ -514,7 +515,7 @@ typename AVL<E>::Iterator& AVL<E>::Iterator::operator++(){
 	}
 	else {
 		succ = NULL;
-		node* ancestor = root;
+		node* ancestor = parent.root;
 
 		while (ancestor != v){
 			if (v->elem.key() < ancestor->elem.key()){
@@ -544,7 +545,7 @@ typename AVL<E>::Iterator& AVL<E>::Iterator::operator--(){
 	}
 	else {
 		pred = NULL;
-		node* ancestor = root;
+		node* ancestor = parent.root;
 
 		while (ancestor != v){
 			if (v->elem.key() > ancestor->elem.key()){
