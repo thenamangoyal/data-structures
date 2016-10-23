@@ -16,8 +16,7 @@ int main(){
     a.put(1,8);
     a.put(2,9);
     a.put(2,5);
-   
-	a.print_rot();
+   	cout<<"Final tree"<<endl;
 	a.print();
 	
 	

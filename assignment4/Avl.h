@@ -48,12 +48,13 @@ private:
 
 	void print_old(node* p,int indent=0);
 	void genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix);
-	
+
 	int getbalance(node* u);
 	node* leftrotate(node* u);
 	node* rightrotate(node* u);
 
 	int height(node* u);
+	int calcheight(node* u);
 	void getmaxwidth(node* curr, int level, int* count);
 	int width(node* curr);
 	int countnodes(node* curr);
@@ -308,6 +309,7 @@ typename AVL<E>::node* AVL<E>::inpred(node* curr, const K& k){
 
 template <typename E>
 typename AVL<E>::node* AVL<E>::leftrotate(node* u) {
+	K k = u->elem.key();
 	node* v = u->right;	
 	node* T2 = v->left;
 
@@ -322,7 +324,7 @@ typename AVL<E>::node* AVL<E>::leftrotate(node* u) {
 
 template <typename E>
 typename AVL<E>::node* AVL<E>::rightrotate(node* u) {	
-
+	K k = u->elem.key();
 	node* v = u->left;
 	node* T2 = v->right;
 
@@ -330,7 +332,7 @@ typename AVL<E>::node* AVL<E>::rightrotate(node* u) {
 	u->left = T2;
 
 	u->height = 1 + max(height(u->left), height(u->right));
-	v->height = 1 + max(height(v->left), height(v->left));
+	v->height = 1 + max(height(v->left), height(v->left));	
 
 	return v;
 
@@ -340,8 +342,18 @@ template <typename E>
 int AVL<E>::height(node* u) {
 	if (u == NULL){
 		return -1;
-	}	
+	}
 	return u->height;
+}
+
+template <typename E>
+int AVL<E>::calcheight(node* u){
+	if (u == NULL){
+		return -1;
+	}
+	int lh = calcheight(u->left);
+	int rh = calcheight(u->right);
+	return (1 + max(lh,rh));
 }
 
 template <typename E>
@@ -535,6 +547,9 @@ typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
 		n++;
 	}
 	root = insert(root,k,v);
+	std::cout<<"Tree after inserting entry with key "<<k<<" and value "<<v<<std::endl;
+	print();
+	std::cout<<std::endl;
 	return find(k);
 }
 
@@ -546,6 +561,9 @@ void AVL<E>::erase(const K& k){
 	}
 	root = remove(root,k);
 	n--;
+	std::cout<<"Tree after deleting key "<<k<<std::endl;
+	print();
+	std::cout<<std::endl;
 }
 
 template <typename E>
@@ -555,13 +573,17 @@ void AVL<E>::erase(const Iterator& p){
 		return;
 	}
 	node* u = p.v;
-	root = remove(root, u->elem.key());
+	K k = u->elem.key();
+	root = remove(root, k);
 	n--;
+	std::cout<<"Tree after deleting iterator with key "<<k<<std::endl;
+	print();
+	std::cout<<std::endl;
 }
 
 template <typename E>
 void AVL<E>::print(){
-	int high = height(root)+1;
+	int high = calcheight(root)+1;
 	int wide = countnodes(root);
 	node*** printMatrix = new node**[high];	
 	for(int i=0; i< high; i++){
