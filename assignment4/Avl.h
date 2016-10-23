@@ -36,23 +36,27 @@ private:
 	public:
 		node(const E& v_elem = E(), node* v_left = NULL, node* v_right = NULL, int v_height = 0): elem(v_elem), left(v_left), right(v_right), height(v_height) {}
 	};
-public:
+private:
 	node* root;
 
-
-public:
+private:
 	node* insert(node* curr,const K& k, const V& v);
 	node* remove(node* curr, const K& k);
 	node* search(node* curr, const K& k);
 	node* insucc(node* curr, const K& k);
 	node* inpred(node* curr, const K& k);
-	void print(node* p,int indent=0);
-private:
+
+	void print_old(node* p,int indent=0);
+	void genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix);
+	
 	int getbalance(node* u);
 	node* leftrotate(node* u);
 	node* rightrotate(node* u);
-private:
+
 	int height(node* u);
+	void getmaxwidth(node* curr, int level, int* count);
+	int width(node* curr);
+	int countnodes(node* curr);
 	int max(int a, int b);
 
 private:
@@ -77,7 +81,6 @@ public:
 	bool empty() const {return n==0;}
 	Iterator begin();
 	Iterator end();
-
 	Iterator firstEntry();
 	Iterator lastEntry();
 	Iterator ceilingEntry(const K& k);
@@ -88,15 +91,17 @@ public:
 	Iterator put(const K& k, const V& v);
 	void erase(const K& k);
 	void erase(const Iterator& p);
+	void print();
+	void print_rot();
 
 };
 
 template <typename E>
-void AVL<E>::print(node* p,int indent){
+void AVL<E>::print_old(node* p,int indent){
 	
 	if(p != NULL) {
         if(p->right) {
-            print(p->right, indent+4);
+            print_old(p->right, indent+4);
         }
         if (indent) {
             std::cout << std::setw(indent) << ' ';
@@ -105,11 +110,24 @@ void AVL<E>::print(node* p,int indent){
         std::cout<<"("<< (p->elem).key()<<"," << p->elem.value()<<","<<p->height<<")"<<std::endl;
         if(p->left) {
             std::cout << std::setw(indent) << ' ' <<" \\\n";
-            print(p->left, indent+4);
+            print_old(p->left, indent+4);
         }
     }
           
 }
+
+template <typename E>
+void AVL<E>::genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix){
+	if (curr){
+
+		genPrintMatrix(curr->left, depth+1, counter, printMatrix);
+		printMatrix[depth][counter] = curr;
+		counter++;
+		genPrintMatrix(curr->right, depth+1, counter, printMatrix);
+	}
+	
+}
+
 
 template <typename E>
 int AVL<E>::getbalance(node* u) {
@@ -327,9 +345,46 @@ int AVL<E>::height(node* u) {
 }
 
 template <typename E>
+void AVL<E>::getmaxwidth(node* curr, int level, int* count){
+	if (curr){
+		count[level]++;
+		getmaxwidth(curr->left,level+1, count);
+		getmaxwidth(curr->right, level+1, count);
+	}
+}
+
+template <typename E>
+int AVL<E>::width(node* curr){
+	if (curr){
+		int* count = new int[height(curr)+1];
+		int level=0;
+		getmaxwidth(curr, level, count);
+		int width = count[0];
+		for(int i=1; i< height(curr)+1; i++){
+			if (width < count[i]){
+				width = count[i];
+			}
+		}
+		delete [] count;
+		return width;
+	}
+	return 0;
+	
+}
+
+template <typename E>
+int AVL<E>::countnodes(node* curr){
+	if (curr){
+		return (countnodes(curr->left) + countnodes(curr->right) + 1);
+	}
+	return 0;
+}
+
+template <typename E>
 int AVL<E>::max(int a, int b) {
 	return (a>b)? a: b;
 }
+
 
 ///////////////////////////////////////////////
 ////////////// Public Interface ///////////////
@@ -502,6 +557,45 @@ void AVL<E>::erase(const Iterator& p){
 	node* u = p.v;
 	root = remove(root, u->elem.key());
 	n--;
+}
+
+template <typename E>
+void AVL<E>::print(){
+	int high = height(root)+1;
+	int wide = countnodes(root);
+	node*** printMatrix = new node**[high];	
+	for(int i=0; i< high; i++){
+		printMatrix[i] = new node*[wide];
+		for(int j=0; j< wide; j++){
+			printMatrix[i][j] = NULL;
+		}
+	}
+	int counter = 0;
+	genPrintMatrix(root, 0, counter, printMatrix);
+
+	for(int i=0; i< high; i++){
+		for (int j=0; j < wide; j++){
+			node* p = printMatrix[i][j];
+			if (p == NULL){
+				std::cout << std::setw(4) << ' ';
+			}
+			else {
+				std::cout<<"("<< (p->elem).key()<<"," << p->elem.value()<<")";
+			}
+		}
+		std::cout<<std::endl;
+	}
+
+
+	for(int i=0; i< high; i++){
+		delete [] printMatrix[i];
+	}
+	delete [] printMatrix;
+}
+
+template <typename E>
+void AVL<E>::print_rot(){
+	print_old(root);
 }
 
 ///////////////////////////////////////////////
