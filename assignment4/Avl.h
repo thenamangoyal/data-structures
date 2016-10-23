@@ -476,7 +476,8 @@ typename AVL<E>::Iterator AVL<E>::find(const K& k){
 
 template <typename E>
 typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
-	return Iterator(insert(root,k,v), *this);
+	root = insert(root,k,v);
+	return find(k);
 }
 
 template <typename E>
