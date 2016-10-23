@@ -499,7 +499,8 @@ void AVL<E>::erase(const Iterator& p){
 		// Not found
 		return;
 	}
-	root = remove(root, (*p).key());
+	node* u = p.v;
+	root = remove(root, u->elem.key());
 	n--;
 }
 
