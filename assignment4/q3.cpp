@@ -45,6 +45,28 @@ private:
 	node* nil;
 	int n;
 
+public:
+	class Iterator{
+	private:
+		node* v;
+		rbtree& ptree;
+	public:
+		Iterator(node* u, rbtree& tree) : v(u), ptree(tree) {}
+		Iterator(const Iterator& p): v(p.v), ptree(p.ptree) {}
+		const E& operator*() {return v->elem;}
+		Iterator& operator=(const Iterator& p){
+			if (this != &p){
+				v = p.v;
+				ptree = p.ptree;
+			}
+			return *this;
+		}
+		bool operator==(const Iterator& i) const{ return v == i.v;}
+		Iterator& operator++();
+		Iterator& operator--();
+		friend class rbtree<E>;
+	};
+
 private:
 	node* minimum(node* x);
 	node* search(node* x, const K& k);
@@ -75,9 +97,13 @@ public:
 	int size() const {return n;}
 	void empty() const {return (n==0);}
 
-	void insert(const K& k, const V& v);
+	Iterator begin();
+	Iterator end();
+
+	Iterator insert(const K& k, const V& v);
 	void remove(const K& k);
-	void find(const K& k);
+	void remove(const Iterator& p);
+	Iterator find(const K& k);
 
 	int getheight();
 	int getblackheight();
@@ -90,6 +116,90 @@ public:
 	void print_rot();
 
 };
+
+
+
+///////////////////////////////////////////////
+////////////////// Iterator ///////////////////
+///////////////////////////////////////////////
+
+template <typename E>
+typename rbtree<E>::Iterator& rbtree<E>::Iterator::operator++(){
+	node* succ = nil;
+	if (v == nil){
+		return *this;
+	}
+	if (v->right){
+		succ = v->right;
+		while(succ->left){
+			succ = succ->left;
+		}
+	}
+	else {
+		succ = nil;
+		node* ancestor = ptree.root;
+
+		while (ancestor != v){
+			if (v->elem.key() < ancestor->elem.key()){
+				succ = ancestor;
+				ancestor = ancestor->left;
+			}
+			else{
+				ancestor = ancestor->right;
+			}
+		}
+	}
+	v = succ;
+	return *this;
+}
+
+template <typename E>
+typename rbtree<E>::Iterator& rbtree<E>::Iterator::operator--(){
+	node* pred = nil;
+	if (v == nil){
+		return *this;
+	}
+	if (v->left){
+		pred = v->left;
+		while(pred->right){
+			pred = pred->right;
+		}
+	}
+	else {
+		pred = nil;
+		node* ancestor = ptree.root;
+
+		while (ancestor != v){
+			if (v->elem.key() > ancestor->elem.key()){
+				pred = ancestor;
+				ancestor = ancestor->right;
+			}
+			else{
+				ancestor = ancestor->left;
+			}
+		}
+	}
+	v = pred;
+	return *this;
+}
+
+template <typename E>
+typename rbtree<E>::Iterator rbtree<E>::begin(){
+	if (root == nil){
+		return Iterator(nil, *this);
+	}
+	node* smallest = root;
+	while(smallest->left){
+		smallest = smallest->left;
+	}
+	return Iterator(smallest, *this);
+}
+
+
+template <typename E>
+typename rbtree<E>::Iterator rbtree<E>::end(){
+	return Iterator(nil, *this);
+}
 
 template <typename E>
 int rbtree<E>::countnodes(node* curr){
@@ -314,7 +424,7 @@ void rbtree<E>::getkeyinrange(const K& a, const K& b){
 }
 
 template <typename E>
-void rbtree<E>::insert(const K& k, const V& v){
+typename rbtree<E>::Iterator rbtree<E>::insert(const K& k, const V& v){
 	node* z = new node(Entry<K,V>(k,v));
 	node* y = nil;
 	node* x = root;
@@ -329,7 +439,7 @@ void rbtree<E>::insert(const K& k, const V& v){
 		}
 		else {
 			x->elem.setvalue(v);
-			return;
+			return find(k);
 		}
 	}
 	z->parent = y;
@@ -345,8 +455,9 @@ void rbtree<E>::insert(const K& k, const V& v){
 	z->left = nil;
 	z->right = nil;
 	z->color = RED;
-	fixinsert(z);
+	fixinsert(z);	
 	n++;
+	return find(k);
 }
 
 template <typename E>
@@ -523,14 +634,20 @@ void rbtree<E>::fixremove(node* x){
 
 
 template <typename E>
-void rbtree<E>::find(const K& k){
-	node* p = search(root, k);
-	if (p != nil){
-		cout<<"Found key "<<k<<endl;
+void rbtree<E>::remove(const Iterator& p){
+	if (p == end()){
+		// Not found		
+		return;
 	}
-	else{
-		cout<<"Couldn't find key "<<k<<endl;
-	}
+	node* u = p.v;
+	K k = u->elem.key();	
+	remove(k);
+}
+
+
+template <typename E>
+typename rbtree<E>::Iterator rbtree<E>::find(const K& k){
+	return Iterator(search(root,k), *this);
 }
 
 int main(){
