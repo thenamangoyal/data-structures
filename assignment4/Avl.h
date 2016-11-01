@@ -599,8 +599,10 @@ typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
 		n++;
 	}
 	insert(root,k,v);
+	std::cout<<"Tree after insertion of key "<<k<<std::endl;
 	print();
 	std::cout<<std::endl;
+
 	
 	return find(k);
 }
@@ -615,6 +617,7 @@ void AVL<E>::erase(const K& k){
 	}
 	remove(root,k);
 	n--;
+	std::cout<<"Tree after deletion of key "<<k<<std::endl;
 	print();
 	std::cout<<std::endl;
 }
@@ -632,6 +635,7 @@ void AVL<E>::erase(const Iterator& p){
 	std::cout<<" with key "<<k<<std::endl;
 	remove(root, k);
 	n--;
+	std::cout<<"Tree after deletion using iterator with key "<<k<<std::endl;
 	print();
 	std::cout<<std::endl;
 }
