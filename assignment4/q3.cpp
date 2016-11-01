@@ -21,48 +21,139 @@ public:
 	void setvalue(const V& v) {_value = v;}
 };
 
-class node{
-public:
-	int data;
-	bool color;
-	node* left;
-	node* right;
-	node* parent;
-	node(int v_data, bool v_color = RED, node* v_left = NULL, node* v_right = NULL, node* v_parent = NULL): data(v_data), color(v_color), left(v_left), right(v_right), parent(v_parent) {}
-};
 
+
+template <typename E>
 class rbtree{
+public:
+	typedef typename E::Key K;
+	typedef typename E::Value V;
+public:
+	class node{
+	public:
+		int data;
+		bool color;
+		node* left;
+		node* right;
+		node* parent;
+		node(int v_data, bool v_color = RED, node* v_left = NULL, node* v_right = NULL, node* v_parent = NULL): data(v_data), color(v_color), left(v_left), right(v_right), parent(v_parent) {}
+	};
+
 public:
 	node* root;
 	node* nil;
+	int n;
+
 private:
 	node* minimum(node* x);
+	node* search(node* x, const int& k);
 	void leftrotate(node* x);
 	void rightrotate(node* x);
 	void fixinsert(node* z);
 	void transplant(node* u, node* v);
 	void fixremove(node* x);
 	int max(int a, int b);
+
+	void genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix);
+
+	int height(node* curr);
+	int blackheight(node* curr);
+	int countleaf(node* curr);
+	int countnodes(node* curr);	
+	void keyinrange(node* curr, int a, int b);
 	
 public:
 	rbtree() {
 		nil = new node(0,BLACK);
 		nil->color = BLACK;
 		root = nil;
+		n = 0;
 	}
-	void insert(const int& n);
-	void remove(const int& n);
-	int height(node* curr);
-	int blackheight(node* curr);
-	int countleaf(node* curr);
-	void getkeyinrange(node* curr, int a, int b);
-	node* search(node* x, const int& n);
+	int size() const {return n;}
+	void empty() const {return (n==0);}
+
+	void insert(const int& k);
+	void remove(const int& k);
+	void find(const int& k);
+
+	int getheight();
+	int getblackheight();
+	int getcountleaf();
+	int getcountnodes();
+	void getkeyinrange(int a, int b);
+
+	
 	void print(node* p,int indent=0);
+
+	void print();
 
 };
 
+template <typename E>
+int rbtree<E>::countnodes(node* curr){
+	if (curr){
+		return (countnodes(curr->left) + countnodes(curr->right) + 1);
+	}
+	return 0;
+}
 
-void rbtree::print(node* p,int indent){
+
+template <typename E>
+void rbtree<E>::genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix){
+	if (curr != nil){
+
+		genPrintMatrix(curr->left, depth+1, counter, printMatrix);
+		printMatrix[depth][counter] = curr;
+		counter++;
+		genPrintMatrix(curr->right, depth+1, counter, printMatrix);
+	}
+	
+}
+
+
+template <typename E>
+void rbtree<E>::print(){
+	int high = height(root);
+	int wide = countnodes(root);
+	node*** printMatrix = new node**[high];	
+	for(int i=0; i< high; i++){
+		printMatrix[i] = new node*[wide];
+		for(int j=0; j< wide; j++){
+			printMatrix[i][j] = NULL;
+		}
+	}
+	int counter = 0;
+	genPrintMatrix(root, 0, counter, printMatrix);
+
+	for(int i=0; i< high; i++){
+		for (int j=0; j < wide; j++){
+			node* p = printMatrix[i][j];
+			if (p == NULL){
+				std::cout << std::setw(4) << ' ';
+			}
+			else {
+				//std::cout<<"("<< (p->elem).key()<<"," << p->elem.value()<<")";
+				cout<< p->data;
+		        if (p->color){
+		        	cout<<"[B]";
+		        }
+		        else{
+		        	cout<<"[R]";
+		        }
+			}
+		}
+		std::cout<<std::endl;
+	}
+
+
+	for(int i=0; i< high; i++){
+		delete [] printMatrix[i];
+	}
+	delete [] printMatrix;
+}
+
+template <typename E>
+void rbtree<E>::print(node* p,int indent){
 	
 	if(p != nil) {
         if(p->right != nil) {
@@ -87,18 +178,21 @@ void rbtree::print(node* p,int indent){
           
 }
 
-node* rbtree::minimum(node* x){
+template <typename E>
+typename rbtree<E>::node* rbtree<E>::minimum(node* x){
 	while (x->left != nil){
 		x = x->left;
 	}
 	return x;
 }
 
-int rbtree::max(int a, int b){
+template <typename E>
+int rbtree<E>::max(int a, int b){
 	return (a>b) ? a : b;
 }
 
-void rbtree::leftrotate(node* x){
+template <typename E>
+void rbtree<E>::leftrotate(node* x){
 	node* y = x->right;
 	x->right = y->left;
 	if (y->left != nil){
@@ -118,7 +212,8 @@ void rbtree::leftrotate(node* x){
 	x->parent = y;
 }
 
-void rbtree::rightrotate(node* x){
+template <typename E>
+void rbtree<E>::rightrotate(node* x){
 	node* y = x->left;
 	x->left = y->right;
 	if (y->right != nil){
@@ -138,7 +233,8 @@ void rbtree::rightrotate(node* x){
 	x->parent = y;
 }
 
-int rbtree::height(node* curr){
+template <typename E>
+int rbtree<E>::height(node* curr){
 	if (curr == nil){
 		return 0;
 	}
@@ -146,7 +242,9 @@ int rbtree::height(node* curr){
 	int rh = height(curr->right);
 	return (1 + max(lh, rh));
 }
-int rbtree::blackheight(node* curr){
+
+template <typename E>
+int rbtree<E>::blackheight(node* curr){
 	if (curr == nil){
 		return 0;
 	}
@@ -158,7 +256,8 @@ int rbtree::blackheight(node* curr){
 	return (1 + max(lh, rh));
 }
 
-int rbtree::countleaf(node* curr){
+template <typename E>
+int rbtree<E>::countleaf(node* curr){
 	if (curr == nil){
 		return 0;
 	}
@@ -168,22 +267,49 @@ int rbtree::countleaf(node* curr){
 	return (countleaf(curr->left) + countleaf(curr->right));
 }
 
-void rbtree::getkeyinrange(node* curr, int a, int b){
+template <typename E>
+void rbtree<E>::keyinrange(node* curr, int a, int b){
 	if (curr != nil){
 		if (a < curr->data){
-			getkeyinrange(curr->left, a, b);			
+			keyinrange(curr->left, a, b);			
 		}
 		if (curr->data >= a && curr->data <= b){
 			cout<<curr->data<<" ";
 		}
 		if (b > curr->data){
-			getkeyinrange(curr->right, a, b);
+			keyinrange(curr->right, a, b);
 		}		
 	}
 }
 
-void rbtree::insert(const int& n){
-	node* z = new node(n);
+template <typename E>
+int rbtree<E>::getheight(){
+	return height(root);
+}
+
+template <typename E>
+int rbtree<E>::getblackheight(){
+	return blackheight(root);
+}
+
+template <typename E>
+int rbtree<E>::getcountleaf(){
+	return countleaf(root);
+}
+
+template <typename E>
+int rbtree<E>::getcountnodes(){
+	return countnodes(root);
+}
+
+template <typename E>
+void rbtree<E>::getkeyinrange(int a, int b){
+	getkeyinrange(root, a, b);
+}
+
+template <typename E>
+void rbtree<E>::insert(const int& k){
+	node* z = new node(k);
 	node* y = nil;
 	node* x = root;
 	
@@ -214,9 +340,11 @@ void rbtree::insert(const int& n){
 	z->right = nil;
 	z->color = RED;
 	fixinsert(z);
+	n++;
 }
 
-void rbtree::fixinsert(node* z){
+template <typename E>
+void rbtree<E>::fixinsert(node* z){
 	while(z->parent->color == RED){
 		if (z->parent == z->parent->parent->left){			
 			node* y = z->parent->parent->right;
@@ -259,9 +387,10 @@ void rbtree::fixinsert(node* z){
 	root->color = BLACK;
 }
 
-node* rbtree::search(node* x, const int& n){
-	while (x != nil && n != x->data){
-		if (n < x->data){
+template <typename E>
+typename rbtree<E>::node* rbtree<E>::search(node* x, const int& k){
+	while (x != nil && k != x->data){
+		if (k < x->data){
 			x = x->left;
 		}
 		else {
@@ -271,7 +400,8 @@ node* rbtree::search(node* x, const int& n){
 	return x;
 }
 
-void rbtree::transplant(node* u, node* v){
+template <typename E>
+void rbtree<E>::transplant(node* u, node* v){
 	if (u->parent == nil){
 		root = v;
 	}
@@ -284,8 +414,9 @@ void rbtree::transplant(node* u, node* v){
 	v->parent = u->parent;
 }
 
-void rbtree::remove(const int& n){
-	node* z = search(root, n);
+template <typename E>
+void rbtree<E>::remove(const int& k){
+	node* z = search(root, k);
 	if (z == nil){
 		return;
 	}
@@ -320,9 +451,11 @@ void rbtree::remove(const int& n){
 	if (y_ori_color == BLACK){
 		fixremove(x);
 	}
+	n--;
 }
 
-void rbtree::fixremove(node* x){
+template <typename E>
+void rbtree<E>::fixremove(node* x){
 	while (x != root && x->color == BLACK){
 		if (x == x->parent->left){
 			node* w = x->parent->right;
@@ -382,11 +515,25 @@ void rbtree::fixremove(node* x){
 
 }
 
-int main(){
-	rbtree r;
 
-	cout<<r.height(r.root)<<" "<<r.blackheight(r.root)<<" "<<r.countleaf(r.root)<<endl;
-	r.print(r.root);
+template <typename E>
+void rbtree<E>::find(const int& k){
+	node* p = search(root, k);
+	if (p != nil){
+		cout<<"Found key "<<k<<endl;
+	}
+	else{
+		cout<<"Couldn't find key "<<k<<endl;
+	}
+}
+
+int main(){
+
+	typedef Entry<int,string> Entry;
+	rbtree<Entry> r;
+/*
+	cout<<r.getheight()<<" "<<r.getblackheight()<<" "<<r.getcountleaf()<<endl;
+	r.print(r.root);*/
 	cout<<"New before"<<endl;
 
 	r.insert(10);
@@ -394,9 +541,12 @@ int main(){
 	r.insert(30);
 	r.insert(15);
 
-	cout<<r.height(r.root)<<" "<<r.blackheight(r.root)<<" "<<r.countleaf(r.root)<<endl;
+	
 	r.print(r.root);
-	r.getkeyinrange(r.root, 16, 21);
+	r.print();
+
+
+	/*r.getkeyinrange(16, 21);
 	cout<<"New after"<<endl;
 
 	r.remove(10);
@@ -404,8 +554,9 @@ int main(){
 	r.remove(30);
 	r.remove(15);
 
-	cout<<r.height(r.root)<<" "<<r.blackheight(r.root)<<" "<<r.countleaf(r.root)<<endl;
+	cout<<r.getheight()<<" "<<r.getblackheight()<<" "<<r.getcountleaf()<<endl;
 	r.print(r.root);
+	*/
 	
 	return 0;
 }
