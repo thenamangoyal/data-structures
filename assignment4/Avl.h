@@ -63,7 +63,6 @@ private:
 	node* insucc(node* curr, const K& k);
 	node* inpred(node* curr, const K& k);
 
-	void print_old(node* p,int indent=0);
 	void genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix);
 
 	int getbalance(node* u);
@@ -118,30 +117,9 @@ public:
 	void erase(const K& k);
 	void erase(const Iterator& p);
 	void print();
-	void print_rot();
 	bool targetsum(const K& sum);
 
 };
-
-template <typename E>
-void AVL<E>::print_old(node* p,int indent){
-	
-	if(p != NULL) {
-        if(p->right) {
-            print_old(p->right, indent+4);
-        }
-        if (indent) {
-            std::cout << std::setw(indent) << ' ';
-        }
-        if (p->right) std::cout<<" /\n" << std::setw(indent) << ' ';
-        std::cout<<"("<< (p->elem).key()<<"," << p->elem.value()<<","<<p->height<<")"<<std::endl;
-        if(p->left) {
-            std::cout << std::setw(indent) << ' ' <<" \\\n";
-            print_old(p->left, indent+4);
-        }
-    }
-          
-}
 
 template <typename E>
 void AVL<E>::genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix){
@@ -672,11 +650,6 @@ void AVL<E>::print(){
 		delete [] printMatrix[i];
 	}
 	delete [] printMatrix;
-}
-
-template <typename E>
-void AVL<E>::print_rot(){
-	print_old(root);
 }
 
 template <typename E>
