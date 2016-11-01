@@ -47,7 +47,7 @@ int main(){
             cout<<"Enter key : ";
             cin>>k;
             i = tree.ceilingEntry(k);
-            
+            cout<<endl;
             if (!(i == tree.end())){
                 cout<<"Found entry with key "<<(*i).key()<<" and value "<<(*i).value()<<endl;
             }
@@ -60,7 +60,7 @@ int main(){
             cout<<"Enter key : ";
             cin>>k;
             i = tree.floorEntry(k);
-            
+            cout<<endl;
             if (!(i == tree.end())){
                 cout<<"Found entry with key "<<(*i).key()<<" and value "<<(*i).value()<<endl;
             }
@@ -73,7 +73,7 @@ int main(){
             cout<<"Enter key : ";
             cin>>k;
             i = tree.lowerEntry(k);
-            
+            cout<<endl;
             if (!(i == tree.end())){
                 cout<<"Found entry with key "<<(*i).key()<<" and value "<<(*i).value()<<endl;
             }
@@ -86,7 +86,7 @@ int main(){
             cout<<"Enter key : ";
             cin>>k;
             i = tree.higherEntry(k);
-            
+            cout<<endl;
             if (!(i == tree.end())){
                 cout<<"Found entry with key "<<(*i).key()<<" and value "<<(*i).value()<<endl;
             }
@@ -114,7 +114,7 @@ int main(){
             cout<<"Enter key : ";
             cin>>k;
             i = tree.find(k);
-            
+            cout<<endl;
             if (!(i == tree.end())){
                 cout<<"Found entry with key "<<(*i).key()<<" and value "<<(*i).value()<<endl;
             }
@@ -128,6 +128,7 @@ int main(){
             cin>>k;
             cout<<"Enter value : ";
             cin>>v;
+            cout<<endl;
             i = tree.put(k,v);
             
             break;
@@ -135,11 +136,13 @@ int main(){
             case 11:
             cout<<"Enter key : ";
             cin>>k;
+            cout<<endl;
             tree.erase(k);
             
             break;
 
             case 12:
+            cout<<endl;
             tree.erase(i);
             
             break;
