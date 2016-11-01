@@ -5,6 +5,13 @@
 #include <iomanip>
 #include <string>
 
+
+template <typename elem>
+class slist;
+
+template <typename elem>
+class linkstack;
+
 template <typename K, typename V>
 class Entry{
 public:
@@ -36,6 +43,15 @@ private:
 		int height;
 	public:
 		node(const E& v_elem = E(), node* v_left = NULL, node* v_right = NULL, int v_height = 0): elem(v_elem), left(v_left), right(v_right), height(v_height) {}
+		node& operator=(const node& n){
+			if (this != &n){
+				elem = n.elem;
+				left = n.left;
+				right = n.right;
+				height = n.height;
+			}
+			return *this;
+		}
 	};
 private:
 	node* root;
@@ -103,6 +119,7 @@ public:
 	void erase(const Iterator& p);
 	void print();
 	void print_rot();
+	bool targetsum(const K& sum);
 
 };
 
@@ -582,6 +599,8 @@ typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
 		n++;
 	}
 	insert(root,k,v);
+	print();
+	std::cout<<std::endl;
 	
 	return find(k);
 }
@@ -596,6 +615,8 @@ void AVL<E>::erase(const K& k){
 	}
 	remove(root,k);
 	n--;
+	print();
+	std::cout<<std::endl;
 }
 
 template <typename E>
@@ -611,6 +632,8 @@ void AVL<E>::erase(const Iterator& p){
 	std::cout<<" with key "<<k<<std::endl;
 	remove(root, k);
 	n--;
+	print();
+	std::cout<<std::endl;
 }
 
 template <typename E>
@@ -651,6 +674,86 @@ template <typename E>
 void AVL<E>::print_rot(){
 	print_old(root);
 }
+
+template <typename E>
+bool AVL<E>::targetsum(const K& sum){
+	linkstack<node*> stack1;
+	linkstack<node*> stack2;
+	
+	bool finish1 = false;
+	bool finish2 = false;
+
+	node* curr1 = root;
+	node* curr2 = root;
+
+	K key1 = 0;
+	K key2 = 0;
+
+	V value1;
+	V value2;
+
+
+
+	while(1){
+		while(finish1 == false){
+			if (curr1 != NULL){
+				stack1.push(curr1);
+				curr1 = curr1->left;
+			}
+			else{
+				if (stack1.empty()){
+					finish1 = true;
+				}
+				else{
+					curr1 = stack1.top(); stack1.pop();
+					key1 = curr1->elem.key();
+					value1 = curr1->elem.value();
+					curr1 = curr1->right;
+					finish1 = true;
+				}
+			}
+		}
+
+		while(finish2 == false){
+			if (curr2 != NULL){
+				stack2.push(curr2);
+				curr2 = curr2->right;
+			}
+			else {
+				if (stack2.empty()){
+					finish2 = true;
+				}
+				else{
+					curr2 = stack2.top(); stack2.pop();
+					key2 = curr2->elem.key();
+					value2 = curr2->elem.value();
+					curr2 = curr2->left;
+					finish2 = true;
+				}
+			}
+		}
+
+		if ( (key1 != key2) && (key1 + key2 == sum) ){
+			std::cout<<"Found a pair matching target sum, entry1: ("<<key1<<","<<value1<<") entry2: ("<<key2<<","<<value2<<")"<<std::endl;
+			return true;
+		}
+		else if ((key1 + key2 < sum)){
+			finish1 = false;
+		}
+		else if ((key1 + key2 > sum)){
+			finish2 = false;
+		}
+
+		if (key1 >= key2){
+			std::cout<<"Couldn't find any pair matching target sum."<<std::endl;
+			return false;
+		}
+	}
+
+
+	
+}
+
 
 ///////////////////////////////////////////////
 ////////////////// Iterator ///////////////////
@@ -716,6 +819,110 @@ typename AVL<E>::Iterator& AVL<E>::Iterator::operator--(){
 	return *this;
 }
 
+
+template <typename elem>
+class slist {
+	private:
+	class slnode {
+	public:
+		elem val;
+		slnode* next;
+	};
+public:
+	slist();
+	~slist();
+	bool empty() const;
+	void addfront(const elem& e);
+	void removefront();
+	const elem& front() const;
+private:
+	slnode* head;
+};
+
+template <typename elem>
+slist<elem>::slist() : head(NULL) {}
+
+template <typename elem>
+slist<elem>::~slist() {
+	while (!empty()){
+		removefront();
+	}
+}
+
+template <typename elem>
+bool slist<elem>::empty() const{
+	return (head== NULL);
+}
+
+template <typename elem>
+void slist<elem>::addfront(const elem& e){
+	slnode* toadd = new slnode;
+	toadd->val = e;
+	toadd->next = head;
+	head = toadd;
+}
+
+template <typename elem>
+void slist<elem>::removefront() {
+	slnode* torem = head;
+	head = head->next;
+	delete torem; 
+}
+
+template <typename elem>
+const elem& slist<elem>::front() const{
+	return (head->val);
+}
+
+
+template <typename elem>
+class linkstack{
+public:
+	linkstack();
+	~linkstack();
+	int size() const;
+	bool empty() const;
+	void push(const elem& e);
+	void pop();
+	const elem& top() const;
+
+private:
+	slist<elem> l;
+	int n;
+};
+
+template <typename elem>
+linkstack<elem>::linkstack(): l(),n(0) {}
+
+template <typename elem>
+linkstack<elem>::~linkstack() {}
+
+template <typename elem>
+int linkstack<elem>::size() const{
+	return n;
+}
+
+template <typename elem>
+bool linkstack<elem>::empty() const{
+	return (n==0);
+}
+
+template <typename elem>
+void linkstack<elem>::push(const elem& e){
+	l.addfront(e);
+	n++;
+}
+
+template <typename elem>
+void linkstack<elem>::pop(){
+	l.removefront();
+	n--;
+}
+
+template <typename elem>
+const elem& linkstack<elem>::top() const{
+	return (l.front());
+}
 
 
 
