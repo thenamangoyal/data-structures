@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 template <typename K, typename V>
 class Entry{
@@ -69,7 +70,15 @@ public:
 		AVL& parent;
 	public:
 		Iterator(node* u, AVL& tree) : v(u), parent(tree) {}
+		Iterator(const Iterator& p): v(p.v), parent(p.parent) {}
 		const E& operator*() {return v->elem;}
+		Iterator& operator=(const Iterator& p){
+			if (this != &p){
+				v = p.v;
+				parent = p.parent;
+			}
+			return *this;
+		}
 		bool operator==(const Iterator& i) const{ return v == i.v;}
 		Iterator& operator++();
 		Iterator& operator--();
@@ -574,8 +583,6 @@ typename AVL<E>::Iterator AVL<E>::put(const K& k, const V& v){
 	}
 	insert(root,k,v);
 	
-	print();
-	std::cout<<std::endl;
 	return find(k);
 }
 
@@ -589,8 +596,6 @@ void AVL<E>::erase(const K& k){
 	}
 	remove(root,k);
 	n--;
-	
-	print(); std::cout<<std::endl;
 }
 
 template <typename E>
@@ -605,8 +610,7 @@ void AVL<E>::erase(const Iterator& p){
 	K k = u->elem.key();
 	std::cout<<" with key "<<k<<std::endl;
 	remove(root, k);
-	n--;	
-	print(); std::cout<<std::endl;
+	n--;
 }
 
 template <typename E>
