@@ -28,16 +28,16 @@ int main(){
     cout<<"----------------------------------------------------"<<endl<<endl;
 
 	menu();
-    int input;
+    int choice;
     int k;
     string v;
-    cin>>input;
+    cin>>choice;
     rbtree<Entry>::Iterator i (tree.end());
     int a, b;
 
-    while(input){
+    while(choice){
         cout<<endl;
-        switch(input){
+        switch(choice){
 
             case 1:
            	cout<<"Enter key : ";
@@ -122,7 +122,7 @@ int main(){
         tree.print();
         cout<<"----------------------------------------------------"<<endl<<endl;
         menu();
-        cin>>input;
+        cin>>choice;
     }
 	
 	input.close();
