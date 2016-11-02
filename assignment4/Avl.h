@@ -370,7 +370,7 @@ void AVL<E>::rightrotate(node*& u) {
 template <typename E>
 int AVL<E>::height(node* u) {
 	if (u == NULL){
-		return -1;
+		return 0;
 	}
 	return u->height;
 }
@@ -378,7 +378,7 @@ int AVL<E>::height(node* u) {
 template <typename E>
 int AVL<E>::calcheight(node* u){
 	if (u == NULL){
-		return -1;
+		return 0;
 	}
 	int lh = calcheight(u->left);
 	int rh = calcheight(u->right);
@@ -620,7 +620,7 @@ void AVL<E>::erase(const Iterator& p){
 
 template <typename E>
 void AVL<E>::print(){
-	int high = calcheight(root)+1;
+	int high = calcheight(root);
 	int wide = countnodes(root);
 	node*** printMatrix = new node**[high];	
 	for(int i=0; i< high; i++){
