@@ -146,6 +146,11 @@ int main(){
             tree.erase(i);
             
             break;
+
+            default:
+            cout<<endl;
+            tree.print_rot();
+            break;
         }
         cout<<endl<<"-----------------Resulting Tree---------------------"<<endl;
         tree.print();

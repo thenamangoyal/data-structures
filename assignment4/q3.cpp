@@ -98,6 +98,10 @@ int main(){
             cout<<"Size of tree is "<<tree.size()<<endl;
             break;
 
+            default:
+            cout<<endl;
+            tree.print_rot();
+            break;
         }
         cout<<endl<<"-----------------Resulting Tree---------------------"<<endl;
         tree.print();

@@ -79,6 +79,7 @@ private:
 	int max(int a, int b);
 
 	void genPrintMatrix(node* curr, int depth, int& counter, node*** printMatrix);
+	void print_old(node* p,int indent=0);
 
 	int height(node* curr);
 	int blackheight(node* curr);
@@ -112,6 +113,7 @@ public:
 
 
 	void print();
+	void print_rot();
 
 };
 
@@ -259,6 +261,37 @@ void rbtree<E>::print(){
 		delete [] printMatrix[i];
 	}
 	delete [] printMatrix;
+}
+
+template <typename E>
+void rbtree<E>::print_rot(){
+	print_old(root);
+}
+
+template <typename E>
+void rbtree<E>::print_old(node* p,int indent){
+	
+	if(p != nil) {
+        if(p->right != nil) {
+            print_old(p->right, indent+4);
+        }
+        if (indent) {
+            std::cout << std::setw(indent) << ' ';
+        }
+        if (p->right != nil) {std::cout<<" /\n" << std::setw(indent) << ' ';}
+        std::cout<< p->elem.key();
+        if (p->color){
+        	std::cout<<"[B]"<<std::endl;
+        }
+        else{
+        	std::cout<<"[R]"<<std::endl;
+        }
+        if(p->left != nil) {
+            std::cout << std::setw(indent) << ' ' <<" \\\n";
+            print_old(p->left, indent+4);
+        }
+    }
+          
 }
 
 
