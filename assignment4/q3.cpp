@@ -5,50 +5,59 @@
 
 using namespace std;
 
+void menu();
 
 int main(){
+	cout<<"Question 3"<<endl;
+	typedef Entry<int,string> Entry;
+	rbtree<Entry> tree;
 
-	typedef Entry<int,int> Entry;
-	rbtree<Entry> r;
-/*
-	cout<<r.getheight()<<" "<<r.getblackheight()<<" "<<r.getcountleaf()<<endl;
-	r.print(r.root);*/
-	cout<<"New before"<<endl;
+	menu();
+    int input;
+    int k;
+    string v;
+    cin>>input;
+    rbtree<Entry>::Iterator i (tree.end());
 
-	r.insert(10,134234);
-	r.insert(20,2435);
-	r.insert(30,435);
-	r.insert(10,134234);
-	r.insert(20,2435);
-	r.insert(30,435);
-	r.insert(10,134234);
-	r.insert(20,2435);
-	r.insert(30,435);
-	r.insert(15,949);
+    while(input){
+        cout<<endl;
+        switch(input){
 
-	r.print_rot();
+            case 1:
+           	cout<<"Enter key : ";
+            cin>>k;
+            cout<<"Enter value : ";
+            cin>>v;
+            cout<<endl;
+            i = tree.insert(k,v);
+            break;
 
-	r.remove(r.find(10));
-	r.remove(r.find(10));
-	r.remove(r.find(10));
-	r.remove(r.find(10));
-	r.remove(10);
-	r.remove(10);
-	r.remove(10);
-	r.print();
-	cout<<r.size()<<endl;
-
-	/*r.getkeyinrange(16, 21);
-	cout<<"New after"<<endl;
-
-	r.remove(10);
-	r.remove(20);
-	r.remove(30);
-	r.remove(15);
-
-	cout<<r.getheight()<<" "<<r.getblackheight()<<" "<<r.getcountleaf()<<endl;
-	r.print(r.root);
-	*/
+            case 3:
+            cout<<
+        }
+        cout<<endl<<"-----------------Resulting Tree---------------------"<<endl;
+        tree.print();
+        cout<<"----------------------------------------------------"<<endl<<endl;
+        menu();
+        cin>>input;
+    }
 	
 	return 0;
+}
+
+void menu(){
+    cout<<endl;
+    cout<<"Enter your choice"<<endl;
+    cout<<"1. insert(k,v)"<<endl;
+    cout<<"2. remove(k)"<<endl;
+    cout<<"3. remove(p) p is last iterator"<<endl;
+    cout<<"4. search(k)"<<endl;
+    cout<<"5. leafcount()"<<endl;
+    cout<<"6. height()"<<endl;
+    cout<<"7. blackheight()"<<endl;
+    cout<<"8. keyinrange(a,b)"<<endl;
+    cout<<"9. empty()"<<endl;
+    cout<<"10. size()"<<endl;
+    cout<<"0. Exit"<<endl;
+
 }

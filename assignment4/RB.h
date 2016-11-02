@@ -126,18 +126,18 @@ public:
 
 template <typename E>
 typename rbtree<E>::Iterator& rbtree<E>::Iterator::operator++(){
-	node* succ = nil;
-	if (v == nil){
+	node* succ = ptree.nil;
+	if (v == ptree.nil){
 		return *this;
 	}
-	if (v->right){
+	if (v->right != ptree.nil){
 		succ = v->right;
-		while(succ->left){
+		while(succ->left != ptree.nil){
 			succ = succ->left;
 		}
 	}
 	else {
-		succ = nil;
+		succ = ptree.nil;
 		node* ancestor = ptree.root;
 
 		while (ancestor != v){
@@ -156,18 +156,18 @@ typename rbtree<E>::Iterator& rbtree<E>::Iterator::operator++(){
 
 template <typename E>
 typename rbtree<E>::Iterator& rbtree<E>::Iterator::operator--(){
-	node* pred = nil;
-	if (v == nil){
+	node* pred = ptree.nil;
+	if (v == ptree.nil){
 		return *this;
 	}
-	if (v->left){
+	if (v->left != ptree.nil){
 		pred = v->left;
-		while(pred->right){
+		while(pred->right != ptree.nil){
 			pred = pred->right;
 		}
 	}
 	else {
-		pred = nil;
+		pred = ptree.nil;
 		node* ancestor = ptree.root;
 
 		while (ancestor != v){
@@ -204,7 +204,7 @@ typename rbtree<E>::Iterator rbtree<E>::end(){
 
 template <typename E>
 int rbtree<E>::countnodes(node* curr){
-	if (curr){
+	if (curr != nil){
 		return (countnodes(curr->left) + countnodes(curr->right) + 1);
 	}
 	return 0;
@@ -310,6 +310,11 @@ int rbtree<E>::max(int a, int b){
 
 template <typename E>
 void rbtree<E>::leftrotate(node* x){
+	K k = x->elem.key();
+	std::cout<<":: Left rotating at key "<<k<<std::endl;
+	std::cout<<"------ Before rotation"<<std::endl;
+	print(); std::cout<<std::endl;
+
 	node* y = x->right;
 	x->right = y->left;
 	if (y->left != nil){
@@ -327,10 +332,17 @@ void rbtree<E>::leftrotate(node* x){
 	}
 	y->left = x;
 	x->parent = y;
+	std::cout<<"------ After rotation"<<std::endl;
+	print(); std::cout<<std::endl;
 }
 
 template <typename E>
 void rbtree<E>::rightrotate(node* x){
+	K k = x->elem.key();
+	std::cout<<":: Right rotating at key "<<k<<std::endl;
+	std::cout<<"------ Before rotation"<<std::endl;
+	print(); std::cout<<std::endl;
+
 	node* y = x->left;
 	x->left = y->right;
 	if (y->right != nil){
@@ -348,6 +360,8 @@ void rbtree<E>::rightrotate(node* x){
 	}
 	y->right = x;
 	x->parent = y;
+	std::cout<<"------ After rotation"<<std::endl;
+	print(); std::cout<<std::endl;
 }
 
 template <typename E>
@@ -391,7 +405,7 @@ void rbtree<E>::keyinrange(node* curr, const K& a, const K& b){
 			keyinrange(curr->left, a, b);			
 		}
 		if (curr->elem.key() >= a && curr->elem.key() <= b){
-			std::cout<<curr->elem.key()<<" ";
+			std::cout<<"("<<curr->elem.key()<<","<<curr->elem.value()<<") ";
 		}
 		if (b > curr->elem.key()){
 			keyinrange(curr->right, a, b);
@@ -426,6 +440,7 @@ void rbtree<E>::getkeyinrange(const K& a, const K& b){
 
 template <typename E>
 typename rbtree<E>::Iterator rbtree<E>::insert(const K& k, const V& v){
+	std::cout<<"Inserting entry with key "<<k<<" and value "<<v<<std::endl;
 	node* z = new node(Entry<K,V>(k,v));
 	node* y = nil;
 	node* x = root;
@@ -440,6 +455,9 @@ typename rbtree<E>::Iterator rbtree<E>::insert(const K& k, const V& v){
 		}
 		else {
 			x->elem.setvalue(v);
+			std::cout<<"Tree after insertion of key "<<k<<std::endl;
+			print();
+			std::cout<<std::endl;
 			return find(k);
 		}
 	}
@@ -458,6 +476,9 @@ typename rbtree<E>::Iterator rbtree<E>::insert(const K& k, const V& v){
 	z->color = RED;
 	fixinsert(z);	
 	n++;
+	std::cout<<"Tree after insertion of key "<<k<<std::endl;
+	print();
+	std::cout<<std::endl;
 	return find(k);
 }
 
@@ -466,11 +487,16 @@ void rbtree<E>::fixinsert(node* z){
 	while(z->parent->color == RED){
 		if (z->parent == z->parent->parent->left){			
 			node* y = z->parent->parent->right;
-			if (y->color == RED){				
+			if (y->color == RED){		
+				std::cout<<":: Recoloring"<<std::endl;
+				std::cout<<"------ Before recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 				z->parent->color = BLACK;
 				y->color = BLACK;
 				z->parent->parent->color = RED;
 				z = z->parent->parent;
+				std::cout<<"------ After recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 			}			
 			else{
 				if (z == z->parent->right){				
@@ -486,10 +512,15 @@ void rbtree<E>::fixinsert(node* z){
 		else{
 			node* y = z->parent->parent->left;
 			if (y->color == RED){
+				std::cout<<":: Recoloring"<<std::endl;
+				std::cout<<"------ Before recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 				z->parent->color = BLACK;
 				y->color = BLACK;
 				z->parent->parent->color = RED;
 				z = z->parent->parent;
+				std::cout<<"------ After recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 			}
 			else{
 				if (z == z->parent->left){
@@ -534,8 +565,10 @@ void rbtree<E>::transplant(node* u, node* v){
 
 template <typename E>
 void rbtree<E>::remove(const K& k){
+	std::cout<<"Deleting entry with key "<<k<<std::endl;
 	node* z = search(root, k);
 	if (z == nil){
+		std::cout<<":: No entry found with key "<<k<<std::endl;
 		return;
 	}
 	node* y = z;
@@ -570,6 +603,9 @@ void rbtree<E>::remove(const K& k){
 		fixremove(x);
 	}
 	n--;
+	std::cout<<"Tree after deletion of key "<<k<<std::endl;
+	print();
+	std::cout<<std::endl;
 }
 
 template <typename E>
@@ -584,8 +620,13 @@ void rbtree<E>::fixremove(node* x){
 				w = x->parent->right;
 			}
 			if (w->left->color == BLACK && w->right->color == BLACK){
+				std::cout<<":: Recoloring"<<std::endl;
+				std::cout<<"------ Before recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 				w->color = RED;
 				x = x->parent;
+				std::cout<<"------ After recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 			}
 			else{
 				if (w->right->color == BLACK){
@@ -610,8 +651,13 @@ void rbtree<E>::fixremove(node* x){
 				w = x->parent->left;
 			}
 			if (w->right->color == BLACK && w->left->color == BLACK){
+				std::cout<<":: Recoloring"<<std::endl;
+				std::cout<<"------ Before recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 				w->color = RED;
 				x = x->parent;
+				std::cout<<"------ After recoloring"<<std::endl;
+				print(); std::cout<<std::endl;
 			}
 			else{
 				if (w->left->color == BLACK){
@@ -636,12 +682,14 @@ void rbtree<E>::fixremove(node* x){
 
 template <typename E>
 void rbtree<E>::remove(const Iterator& p){
+	std::cout<<"Iterator Deletion :: ";
 	if (p == end()){
-		// Not found		
+		// Not found
+		std::cout<<"End iterator "<<std::endl;
 		return;
 	}
 	node* u = p.v;
-	K k = u->elem.key();	
+	K k = u->elem.key();
 	remove(k);
 }
 

@@ -173,7 +173,7 @@ void menu(){
     cout<<"9. find(k)"<<endl;
     cout<<"10. put(k,v)​"<<endl;
     cout<<"11. erase(k)"<<endl;
-    cout<<"12. erase(p) p is last used iterator"<<endl;
+    cout<<"12. erase(p) p is last iterator"<<endl;
     cout<<"0. Exit"<<endl;
 
 }
