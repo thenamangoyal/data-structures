@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
 #include "Avl.h"
@@ -10,6 +11,21 @@ int main(){
     cout<<"Question 1"<<endl;
 	typedef Entry<int,string> Entry;
 	AVL<Entry> tree;
+
+    ifstream input;
+    input.open("input1.txt");
+
+    int key;
+    string value;
+    while(input>>key>>value){
+        tree.put(key, value);
+    }
+
+
+    cout<<endl<<"-----------------Resulting Tree---------------------"<<endl;
+    tree.print();
+    cout<<"----------------------------------------------------"<<endl<<endl;
+
     menu();
     int input;
     int k;
@@ -160,7 +176,7 @@ int main(){
     }
 	
 	
-
+    input.close();
 	return 0;
 }
 

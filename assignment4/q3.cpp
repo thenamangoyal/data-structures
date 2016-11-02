@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
 #include "RB.h"
@@ -11,6 +12,20 @@ int main(){
 	cout<<"Question 3"<<endl;
 	typedef Entry<int,string> Entry;
 	rbtree<Entry> tree;
+
+	ifstream input;
+    input.open("input3.txt");
+
+    int key;
+    string value;
+    while(input>>key>>value){
+        tree.insert(key, value);
+    }
+
+
+    cout<<endl<<"-----------------Resulting Tree---------------------"<<endl;
+    tree.print();
+    cout<<"----------------------------------------------------"<<endl<<endl;
 
 	menu();
     int input;
@@ -110,6 +125,7 @@ int main(){
         cin>>input;
     }
 	
+	input.close();
 	return 0;
 }
 
