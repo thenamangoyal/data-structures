@@ -636,7 +636,7 @@ void AVL<E>::print(){
 		for (int j=0; j < wide; j++){
 			node* p = printMatrix[i][j];
 			if (p == NULL){
-				std::cout << std::setw(4) << ' ';
+				std::cout << std::setw(6) << ' ';
 			}
 			else {
 				std::cout<<"("<< (p->elem).key()<<"," << p->elem.value()<<")";
