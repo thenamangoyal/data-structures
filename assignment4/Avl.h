@@ -42,7 +42,7 @@ private:
 		node* right;
 		int height;
 	public:
-		node(const E& v_elem = E(), node* v_left = NULL, node* v_right = NULL, int v_height = 0): elem(v_elem), left(v_left), right(v_right), height(v_height) {}
+		node(const E& v_elem = E(), node* v_left = NULL, node* v_right = NULL, int v_height = 1): elem(v_elem), left(v_left), right(v_right), height(v_height) {}
 		node& operator=(const node& n){
 			if (this != &n){
 				elem = n.elem;
@@ -215,7 +215,7 @@ void AVL<E>::remove(node*& curr, const K& k){
 				insucc = insucc->left;
 			}
 			curr->elem = insucc->elem;
-			remove(curr->right,curr->elem.key());
+			remove(curr->right,insucc->elem.key());
 		}
 	}
 	curr->height = 1+ max(height(curr->left),height(curr->right));
