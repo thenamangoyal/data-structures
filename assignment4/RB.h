@@ -96,7 +96,7 @@ public:
 		n = 0;
 	}
 	int size() const {return n;}
-	void empty() const {return (n==0);}
+	bool empty() const {return (n==0);}
 
 	Iterator begin();
 	Iterator end();
@@ -435,7 +435,7 @@ int rbtree<E>::getcountnodes(){
 
 template <typename E>
 void rbtree<E>::getkeyinrange(const K& a, const K& b){
-	getkeyinrange(root, a, b);
+	keyinrange(root, a, b);
 }
 
 template <typename E>
