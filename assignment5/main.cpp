@@ -4,8 +4,12 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <cctype>
+#include <algorithm>
 
 using namespace std;
+
+string removeStartEndWhiteSpace(const string& s);
 
 template <typename T>
 class Graph {
@@ -13,9 +17,9 @@ private:
 	class node{
 	public:
 		int dest;
-		int border;
+		double border;
 	public:
-		node(int v_dest, int v_border = 0): dest(v_dest), border(v_border) {}
+		node(int v_dest, double v_border = 0): dest(v_dest), border(v_border) {}
 		node(const node& p): dest(p.dest), border(p.border) {}
 	};
 private:
@@ -27,7 +31,8 @@ public:
 	Graph();
 	~Graph();
 	int getIndex(const T& v);
-	void addEdge(const T& t1, const T& t2, int border = 0);
+	int addVertex(const T& t);
+	void addEdge(const T& t1, const T& t2, double border = 0);
 	void print();
 
 };
@@ -53,22 +58,23 @@ int Graph<T>::getIndex(const T& v){
 }
 
 template <typename T>
-void Graph<T>::addEdge(const T& t1, const T& t2, int border) {
-	int index1 = getIndex(t1);	
+int Graph<T>::addVertex(const T& t){
+	int index = getIndex(t);
 
-	if (index1 == -1){
-		Vertex.push_back(t1);
+	if (index == -1){
+		Vertex.push_back(t);
 		adj.push_back(list<node>());
-		index1 = Vertex.size() -1;		
+		index = Vertex.size() -1;
 	}
 
-	int index2 = getIndex(t2);
+	return index;
+}
 
-	if (index2 == -1){
-		Vertex.push_back(t2);
-		adj.push_back(list<node>());
-		index2 = Vertex.size() -1;
-	}
+template <typename T>
+void Graph<T>::addEdge(const T& t1, const T& t2, double border) {
+	int index1 = addVertex(t1);
+
+	int index2 = addVertex(t2);
 
 	typename list<node>::iterator itr;
 
@@ -111,22 +117,90 @@ void Graph<T>::print() {
 int main(){
 	Graph<string> G;
 
-	
-
 	G.print();
 
-/*
+
 	ifstream input;
 	input.open("countries.dat");
 
-	string line;	
+	string line;
+	string country_name;
+	string neighbour_profile;
+	string neighbour_name;
+	double border;
 
-	while(getline(input,line)){
-		
+	while(getline(input,line)){		
 		stringstream input_stream(line);
-	}*/
 
-	
+		bool isRead = (getline(input_stream, country_name, '>'));
+		if (isRead){
+
+			input_stream.get();
+			country_name = removeStartEndWhiteSpace(country_name);
+			bool countryExist = (country_name.size() > 0) ? true : false;
+
+			if (countryExist){
+
+				bool hasANeighbour = false;
+
+				while(getline(input_stream, neighbour_profile, ';')){
+
+					neighbour_profile = removeStartEndWhiteSpace(neighbour_profile);
+					bool neighbourExist = (neighbour_profile.size() > 0) ? true : false;
+
+					if (neighbourExist){
+						
+						hasANeighbour = true;
+
+						int indexDist;
+						for (indexDist=0; indexDist< neighbour_profile.size() && neighbour_profile[indexDist] != ':'; indexDist++){}
+
+						neighbour_name = neighbour_profile.substr(0,indexDist);
+						neighbour_name = removeStartEndWhiteSpace(neighbour_name);
+
+						bool hasBorder = false;
+						border = 0;
+
+						if (neighbour_name.size() < neighbour_profile.size()){
+							string Distance = neighbour_profile.substr(indexDist+1, string::npos);
+							Distance = removeStartEndWhiteSpace(Distance);
+
+							if (Distance.size() > 2){
+								Distance = Distance.substr(0,Distance.size()-2);
+								Distance = removeStartEndWhiteSpace(Distance);
+								Distance.erase(remove(Distance.begin(), Distance.end(), ','), Distance.end());
+
+								if (Distance.size()){
+									hasBorder = true;
+									border = atof(Distance.c_str());								
+								}
+							}
+						}
+
+						cout<<"["<<country_name<<":"<<neighbour_name<<"|"<<hasBorder<<"|"<<border<<"]";
+						
+					}
+				}
+
+				if (!hasANeighbour){
+					cout<<"{"<<country_name<<"}";
+				}
+
+				cout<<endl;
+			}
+
+		}
+
+	}
 
 	return 0;
+}
+
+string removeStartEndWhiteSpace(const string& s){
+
+	int i,j;
+	for (i = 0; i< s.size() && isspace(s[i]); i++) {}
+	for (j = s.size() -1; j > i && isspace(s[j]); j--) {}
+
+	return s.substr(i, j-i+1);
 }
