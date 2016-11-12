@@ -192,7 +192,7 @@ void Graph<T>::print_shortest_path(int source, int destination, int original_des
 		}
 	}
 	else if (predecessor[destination] == -1){
-		std::cout<<"NO path exists from source "<<"["<<Vertex[source]<<": ID "<<source<<"]"<<" to destination "<<"["<<Vertex[destination]<<": ID "<<source<<"]"<<std::endl;
+		std::cout<<"NO path exists from source "<<"["<<Vertex[source]<<": ID "<<source<<"]"<<" to destination "<<"["<<Vertex[destination]<<": ID "<<destination<<"]"<<std::endl;
 	}
 	else{
 		print_shortest_path(source, predecessor[destination], destination, predecessor);
