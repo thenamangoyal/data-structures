@@ -108,7 +108,7 @@ void Graph<T>::print() {
 	for (int v =0; v < Vertex.size(); v++){
 		cout<<"["<<Vertex[v]<<"]";
 		for (itr = adj[v].begin(); itr != adj[v].end(); ++itr){
-			cout<<" -> "<<Vertex[itr->dest];
+			cout<<" -> "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
 		}
 		cout<<endl;
 	}
@@ -116,9 +116,6 @@ void Graph<T>::print() {
 
 int main(){
 	Graph<string> G;
-
-	G.print();
-
 
 	ifstream input;
 	input.open("countries.dat");
@@ -177,21 +174,22 @@ int main(){
 							}
 						}
 
-						cout<<"["<<country_name<<":"<<neighbour_name<<"|"<<hasBorder<<"|"<<border<<"]";
+						G.addEdge(country_name, neighbour_name, border);
 						
 					}
 				}
 
 				if (!hasANeighbour){
-					cout<<"{"<<country_name<<"}";
+					G.addVertex(country_name);
 				}
 
-				cout<<endl;
 			}
 
 		}
 
 	}
+
+	G.print();
 
 	return 0;
 }
