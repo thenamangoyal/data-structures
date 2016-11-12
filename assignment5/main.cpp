@@ -45,11 +45,11 @@ int main(){
 
 				string name;
 
-				cout<<"Choose Input format as 0: ID or 1: Name"<<endl;
+				cout<<"Choose Input format as 1: ID or 0: Name"<<endl;
 				cout<<">";
 				cin>>input_format;
 
-				if (input_format == 1) {
+				if (input_format == 0) {
 					cout<<"Enter Name1"<<endl;
 					cout<<">";
 					cin>>name;
