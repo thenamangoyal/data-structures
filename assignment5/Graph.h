@@ -20,6 +20,8 @@ private:
 	std::vector<T> Vertex;
 	std::vector< std::list<node> > adj;
 
+private:
+	void list_n_dfs_visit(int u, bool* visited, int n);
 
 public:
 	Graph();
@@ -28,6 +30,8 @@ public:
 	int addVertex(const T& t);
 	void addEdge(const T& t1, const T& t2, double border = 0);
 	void print();
+
+	void list_n_dfs(int n);
 
 };
 
@@ -100,12 +104,51 @@ template <typename T>
 void Graph<T>::print() {
 	typename std::list<node>::iterator itr;
 	for (int v =0; v < Vertex.size(); v++){
-		std::cout<<"["<<Vertex[v]<<"]";
+		std::cout<<v<<". "<<"["<<Vertex[v]<<"]";
 		for (itr = adj[v].begin(); itr != adj[v].end(); ++itr){
 			std::cout<<" -> "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
 		}
 		std::cout<<std::endl;
 	}
 }
+
+template <typename T>
+void Graph<T>::list_n_dfs(int n){
+	bool* visited = new bool[Vertex.size()];
+	for (int i=0; i< Vertex.size(); i++){
+		visited[i] = false;
+	}
+
+	for (int j=0 ; j< Vertex.size(); j++){
+		if (!visited[j]){
+			list_n_dfs_visit(j, visited, n);
+		}
+	}
+
+
+	delete [] visited;
+}
+
+template <typename T>
+void Graph<T>::list_n_dfs_visit(int u, bool* visited, int n){
+	visited[u] = true;
+
+	typename std::list<node>::iterator itr;
+	if (adj[u].size() == n){
+		std::cout<<u<<". "<<"["<<Vertex[u]<<"]";
+		for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
+			std::cout<<" -> "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
+		}
+		std::cout<<std::endl;
+	}
+
+	for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
+		if (!visited[itr->dest]){
+			list_n_dfs_visit(itr->dest, visited, n);
+		}
+	}
+
+}
+
 
 #endif

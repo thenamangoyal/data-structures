@@ -11,19 +11,67 @@
 
 using namespace std;
 
+void menu();
 string removeStartEndWhiteSpace(const string& s);
 
 template <typename T>
 void parseInput(Graph<T>& G);
 
 int main(){
-	Graph<string> G;
 
+	Graph<string> G;
 	parseInput(G);
 
-	G.print();
+	int choice;
+	int x;
+	menu();
+	cout<<">";
+	cin>>choice;
+	
+
+	while (choice != 5){
+		
+		switch(choice){
+			case 1:
+			G.print();
+			break;
+
+			case 2:
+			break;
+
+			case 3:
+				cout<<"Enter X"<<endl;
+				cout<<">";
+				cin>>x;
+				G.list_n_dfs(x);
+			break;
+
+			case 4:
+			break;
+
+			default:
+			cout<<"Invalid Input please try again"<<endl;
+			break;
+		}
+		menu();
+		cout<<">";
+		cin>>choice;
+	}
+
+
+	
 
 	return 0;
+}
+
+void menu(){
+	cout<<endl;
+	cout<<"================ Assignment 5 =================="<<endl;
+	cout<<"1. List all countries and bordering countries"<<endl;
+	cout<<"2. Find shortest path"<<endl;
+	cout<<"3. List all countries with X neighbors"<<endl;
+	cout<<"4. Find countries with borders larger than X km"<<endl;
+	cout<<"5. Exit"<<endl;
 }
 
 string removeStartEndWhiteSpace(const string& s){
