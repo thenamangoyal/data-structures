@@ -170,7 +170,7 @@ void Graph<T>::shortest_path_bfs(int source, int destination){
 	std::cout<<std::endl;
 
 	if (source == destination || predecessor[destination] != -1){
-		std::cout<<"Path of length "<<depth[destination]<<" exists from source "<<"["<<Vertex[source]<<": ID "<<source<<"]"<<" to destination "<<"["<<Vertex[destination]<<": ID "<<source<<"]"<<std::endl;
+		std::cout<<"Path of length "<<depth[destination]<<" exists from source "<<"["<<Vertex[source]<<": ID "<<source<<"]"<<" to destination "<<"["<<Vertex[destination]<<": ID "<<destination<<"]"<<std::endl;
 		std::cout<<std::endl;
 	}
 
