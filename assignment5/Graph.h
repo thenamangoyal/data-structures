@@ -117,7 +117,7 @@ void Graph<T>::print() {
 	for (int v =0; v < Vertex.size(); v++){
 		std::cout<<v<<". "<<"["<<Vertex[v]<<"]";
 		for (itr = adj[v].begin(); itr != adj[v].end(); ++itr){
-			std::cout<<" -> "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
+			std::cout<<" > "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
 		}
 		std::cout<<std::endl;
 	}
@@ -192,7 +192,7 @@ void Graph<T>::print_shortest_path(int source, int destination, int original_des
 		}
 	}
 	else if (predecessor[destination] == -1){
-		std::cout<<"NO path exists from source "<<source<<" to destination "<<destination<<std::endl;
+		std::cout<<"NO path exists from source "<<"["<<Vertex[source]<<": ID "<<source<<"]"<<" to destination "<<"["<<Vertex[destination]<<": ID "<<source<<"]"<<std::endl;
 	}
 	else{
 		print_shortest_path(source, predecessor[destination], destination, predecessor);
