@@ -47,6 +47,10 @@ int main(){
 			break;
 
 			case 4:
+				cout<<"Enter X"<<endl;
+				cout<<">";
+				cin>>x;
+				G.border_n_dfs(x);
 			break;
 
 			default:
@@ -102,18 +106,16 @@ void parseInput(Graph<T>& G){
 
 			input_stream.get();
 			country_name = removeStartEndWhiteSpace(country_name);
-			bool countryExist = (country_name.size() > 0) ? true : false;
-
-			if (countryExist){
+			
+			if (country_name.size()){
 
 				bool hasANeighbour = false;
 
 				while(getline(input_stream, neighbour_profile, ';')){
 
 					neighbour_profile = removeStartEndWhiteSpace(neighbour_profile);
-					bool neighbourExist = (neighbour_profile.size() > 0) ? true : false;
-
-					if (neighbourExist){
+					
+					if (neighbour_profile.size()){
 						
 						hasANeighbour = true;
 

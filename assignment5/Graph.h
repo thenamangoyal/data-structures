@@ -22,6 +22,7 @@ private:
 
 private:
 	void list_n_dfs_visit(int u, bool* visited, int n);
+	void border_n_dfs_visit(int u, bool* visited, int n);
 
 public:
 	Graph();
@@ -32,6 +33,7 @@ public:
 	void print();
 
 	void list_n_dfs(int n);
+	void border_n_dfs(int n);
 
 };
 
@@ -145,6 +147,51 @@ void Graph<T>::list_n_dfs_visit(int u, bool* visited, int n){
 	for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
 		if (!visited[itr->dest]){
 			list_n_dfs_visit(itr->dest, visited, n);
+		}
+	}
+
+}
+
+
+template <typename T>
+void Graph<T>::border_n_dfs(int n){
+	bool* visited = new bool[Vertex.size()];
+	for (int i=0; i< Vertex.size(); i++){
+		visited[i] = false;
+	}
+
+	for (int j=0 ; j< Vertex.size(); j++){
+		if (!visited[j]){
+			border_n_dfs_visit(j, visited, n);
+		}
+	}
+
+
+	delete [] visited;
+}
+
+template <typename T>
+void Graph<T>::border_n_dfs_visit(int u, bool* visited, int n){
+	visited[u] = true;
+
+	typename std::list<node>::iterator itr;
+
+	double borders = 0;
+	for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
+		borders += itr->border;
+	}
+
+	if (borders > n) {
+		std::cout<<u<<". "<<"["<<Vertex[u]<<"]";
+		for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
+			std::cout<<" -> "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
+		}
+		std::cout<<std::endl;
+	}
+
+	for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
+		if (!visited[itr->dest]){
+			border_n_dfs_visit(itr->dest, visited, n);
 		}
 	}
 
