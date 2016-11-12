@@ -37,6 +37,74 @@ int main(){
 			break;
 
 			case 2:
+			{
+				int id1;
+				int id2;
+
+				int input_format;
+
+				string name;
+
+				cout<<"Choose Input format as 0: ID or 1: Name"<<endl;
+				cout<<">";
+				cin>>input_format;
+
+				if (input_format == 1) {
+					cout<<"Enter Name1"<<endl;
+					cout<<">";
+					cin>>name;
+
+					id1 = G.getIndex(name);
+
+					while (id1 == -1){
+						cout<<name<<" not found. Please try again"<<endl;
+						cout<<"Enter Name1"<<endl;
+						cout<<">";
+						cin>>name;
+						id1 = G.getIndex(name);
+					}
+
+					cout<<"Enter Name2"<<endl;
+					cout<<">";
+					cin>>name;
+
+					id2 = G.getIndex(name);
+
+					while (id2 == -1){
+						cout<<name<<" not found. Please try again"<<endl;
+						cout<<"Enter Name2"<<endl;
+						cout<<">";
+						cin>>name;
+						id2 = G.getIndex(name);
+					}
+				}
+				else {
+					cout<<"Enter ID1"<<endl;
+					cout<<">";
+					cin>>id1;
+
+					while (id1 < 0 || id1 >= G.numberVertex()){
+						cout<<name<<"ID1 out of range. Please try again"<<endl;
+						cout<<"Enter ID1"<<endl;
+						cout<<">";
+						cin>>id1;
+					}
+
+					cout<<"Enter ID2"<<endl;
+					cout<<">";
+					cin>>id2;
+
+					while (id2 < 0 || id2 >= G.numberVertex()){
+						cout<<name<<"ID2 out of range. Please try again"<<endl;
+						cout<<"Enter ID2"<<endl;
+						cout<<">";
+						cin>>id2;
+					}
+				}			
+
+				G.shortest_path_bfs(id1, id2);
+			}
+
 			break;
 
 			case 3:
@@ -54,7 +122,7 @@ int main(){
 			break;
 
 			default:
-			cout<<"Invalid Input please try again"<<endl;
+			cout<<"Invalid Input choice. Please try again"<<endl;
 			break;
 		}
 		menu();
