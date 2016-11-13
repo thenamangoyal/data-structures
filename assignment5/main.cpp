@@ -169,55 +169,55 @@ void parseInput(Graph<T>& G){
 	while(getline(input,line)){		
 		stringstream input_stream(line);
 
-		bool isRead = (getline(input_stream, country_name, '>'));
-		if (isRead){
+		if (getline(input_stream, country_name, '>')){
 
 			input_stream.get();
 			country_name = removeStartEndWhiteSpace(country_name);
 			
 			if (country_name.size()){
 
-				bool hasANeighbour = false;
-
+				bool hasAnyNeighbour = false;
+				
 				while(getline(input_stream, neighbour_profile, ';')){
 
 					neighbour_profile = removeStartEndWhiteSpace(neighbour_profile);
 					
 					if (neighbour_profile.size()){
 						
-						hasANeighbour = true;
-
 						int indexDist;
 						for (indexDist=0; indexDist< neighbour_profile.size() && neighbour_profile[indexDist] != ':'; indexDist++){}
 
 						neighbour_name = neighbour_profile.substr(0,indexDist);
 						neighbour_name = removeStartEndWhiteSpace(neighbour_name);
 
-						bool hasBorder = false;
-						border = 0;
+						if (neighbour_name.size()){
 
-						if (neighbour_name.size() < neighbour_profile.size()){
-							string Distance = neighbour_profile.substr(indexDist+1, string::npos);
-							Distance = removeStartEndWhiteSpace(Distance);
+							hasAnyNeighbour = true;
+							bool hasBorder = false;
+							border = 0;
 
-							if (Distance.size() > 2){
-								Distance = Distance.substr(0,Distance.size()-2);
+							if (neighbour_name.size() < neighbour_profile.size()){
+								string Distance = neighbour_profile.substr(indexDist+1, string::npos);
 								Distance = removeStartEndWhiteSpace(Distance);
-								Distance.erase(remove(Distance.begin(), Distance.end(), ','), Distance.end());
 
-								if (Distance.size()){
-									hasBorder = true;
-									border = atof(Distance.c_str());								
+								if (Distance.size() > 2){
+									Distance = Distance.substr(0,Distance.size()-2);
+									Distance = removeStartEndWhiteSpace(Distance);
+									Distance.erase(remove(Distance.begin(), Distance.end(), ','), Distance.end());
+
+									if (Distance.size()){
+										hasBorder = true;
+										border = atof(Distance.c_str());								
+									}
 								}
 							}
-						}
 
-						G.addEdge(country_name, neighbour_name, border);
-						
+							G.addEdge(country_name, neighbour_name, border);
+						}
 					}
 				}
 
-				if (!hasANeighbour){
+				if (!hasAnyNeighbour){
 					G.addVertex(country_name);
 				}
 
