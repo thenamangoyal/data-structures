@@ -222,13 +222,13 @@ void Graph<T>::list_n_dfs(int n){
 	std::cout<<std::endl;
 
 	if (counter > 1){
-		std::cout<<"Found "<<counter<<" countries with "<<n<<" neighbors"<<std::endl;
+		std::cout<<"Found "<<counter<<" countries with "<<n<<" neighbours"<<std::endl;
 	}
 	else if (counter == 1){
-		std::cout<<"Found "<<counter<<" country with "<<n<<" neighbors"<<std::endl;
+		std::cout<<"Found "<<counter<<" country with "<<n<<" neighbours"<<std::endl;
 	}
 	else{
-		std::cout<<"Found NO country with "<<n<<" neighbors"<<std::endl;
+		std::cout<<"Found NO country with "<<n<<" neighbours"<<std::endl;
 	}
 
 	delete [] visited;

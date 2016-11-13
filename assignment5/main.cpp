@@ -141,7 +141,7 @@ void menu(){
 	cout<<"================ Assignment 5 =================="<<endl;
 	cout<<"1. List all countries and bordering countries"<<endl;
 	cout<<"2. Find shortest path"<<endl;
-	cout<<"3. List all countries with X neighbors"<<endl;
+	cout<<"3. List all countries with X neighbours"<<endl;
 	cout<<"4. Find countries with borders larger than X km"<<endl;
 	cout<<"5. Exit"<<endl;
 }
