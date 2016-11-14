@@ -98,7 +98,7 @@ void Graph<T>::addEdge(const T& t1, const T& t2, double border) {
 		adj[index1].push_back(node(index2, border));
 	}
 
-	for (itr = adj[index2].begin(); itr != adj[index2].end(); ++itr){
+	/*for (itr = adj[index2].begin(); itr != adj[index2].end(); ++itr){
 		if (itr->dest == index1){
 			itr->border = border;
 			break;
@@ -107,7 +107,7 @@ void Graph<T>::addEdge(const T& t1, const T& t2, double border) {
 
 	if (itr == adj[index2].end()){
 		adj[index2].push_back(node(index1, border));
-	}	
+	}	*/
 
 }
 
