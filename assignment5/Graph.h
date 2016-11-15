@@ -243,7 +243,7 @@ void Graph<T>::list_n_dfs_visit(int u, bool* visited, int n, int& counter){
 		counter++;
 		std::cout<<"["<<Vertex[u]<<": ID "<<u<<"]";
 		for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
-			std::cout<<" -> "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
+			std::cout<<" > "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
 		}
 		std::cout<<std::endl;
 	}
@@ -303,7 +303,7 @@ void Graph<T>::border_n_dfs_visit(int u, bool* visited, int n, int& counter){
 		counter++;
 		std::cout<<"["<<Vertex[u]<<": ID "<<u<<"]";
 		for (itr = adj[u].begin(); itr != adj[u].end(); ++itr){
-			std::cout<<" -> "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
+			std::cout<<" > "<<Vertex[itr->dest]<<": "<<itr->border<<" km";
 		}
 		std::cout<<std::endl;
 	}
