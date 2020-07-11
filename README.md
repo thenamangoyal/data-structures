@@ -1,6 +1,6 @@
 # data-structures
 
-In each directory refer to **Readme.txt** to know how to exceute the code and **Question dir** to learn more about the code.
+In each directory refer to **Readme.txt** for exceution  and **Question dir** to learn more about the problem statement.
 
 
 | #  |  Topic |
